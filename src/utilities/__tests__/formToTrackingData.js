@@ -1,10 +1,7 @@
 import { formToTrackingData } from '../formToTrackingData';
 import { defaultState } from './defaultStateCopy';
 
-import {
-	API_DISEASE_MOCKS,
-	API_INTERVENTION_MOCKS,
-} from './queryStringToSearchCriteria.common';
+import { API_DISEASE_MOCKS, API_INTERVENTION_MOCKS } from './queryStringToSearchCriteria.common';
 
 const testCases = [
 	// Empty is the MOST IMPORTANT test case.
@@ -56,10 +53,7 @@ const testCases = [
 	[
 		'Subtypes - two items',
 		{
-			subtypes: [
-				API_DISEASE_MOCKS['Subtype A'],
-				API_DISEASE_MOCKS['Subtype B'],
-			],
+			subtypes: [API_DISEASE_MOCKS['Subtype A'], API_DISEASE_MOCKS['Subtype B']],
 		},
 		{
 			subtypes: [['C2222'], ['C2223', 'C2224']],
@@ -111,10 +105,7 @@ const testCases = [
 	[
 		'Findings - two items',
 		{
-			findings: [
-				API_DISEASE_MOCKS['Finding A'],
-				API_DISEASE_MOCKS['Finding B'],
-			],
+			findings: [API_DISEASE_MOCKS['Finding A'], API_DISEASE_MOCKS['Finding B']],
 		},
 		{
 			findings: [['C4444'], ['C4445', 'C4446']],
@@ -144,10 +135,7 @@ const testCases = [
 	[
 		'Drugs - two items',
 		{
-			drugs: [
-				API_INTERVENTION_MOCKS['Drug A'],
-				API_INTERVENTION_MOCKS['Drug B'],
-			],
+			drugs: [API_INTERVENTION_MOCKS['Drug A'], API_INTERVENTION_MOCKS['Drug B']],
 		},
 		{
 			drugs: [['C5555'], ['C5556', 'C5557']],
@@ -174,10 +162,7 @@ const testCases = [
 	[
 		'Other Interventions - two items',
 		{
-			treatments: [
-				API_INTERVENTION_MOCKS['Treatment A'],
-				API_INTERVENTION_MOCKS['Treatment B'],
-			],
+			treatments: [API_INTERVENTION_MOCKS['Treatment A'], API_INTERVENTION_MOCKS['Treatment B']],
 		},
 		{
 			treatments: [['C6666'], ['C6667', 'C6668']],
@@ -402,18 +387,15 @@ const testCases = [
 ];
 
 describe('formToTrackingData', () => {
-	it.each(testCases)(
-		'%# - correctly maps %s',
-		(testName, formStateChanges, expected) => {
-			const testForm = {
-				...defaultState,
-				...formStateChanges,
-			};
+	it.each(testCases)('%# - correctly maps %s', (testName, formStateChanges, expected) => {
+		const testForm = {
+			...defaultState,
+			...formStateChanges,
+		};
 
-			const actual = formToTrackingData(testForm);
-			expect(actual).toEqual(expected);
-		}
-	);
+		const actual = formToTrackingData(testForm);
+		expect(actual).toEqual(expected);
+	});
 });
 
 /**

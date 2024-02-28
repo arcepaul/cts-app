@@ -1,12 +1,8 @@
-import axios from 'axios';
 import nock from 'nock';
 
 import { getClinicalTrialDescriptionAction } from '../../actions/getClinicalTrialDescriptionAction';
 import clinicalTrialsSearchClientFactory from '../clinicalTrialsSearchClientFactory';
 import { getClinicalTrialDescription } from '../getClinicalTrialDescription';
-
-// Required for unit tests to not have CORS issues
-axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const client = clinicalTrialsSearchClientFactory('http://example.org');
 
@@ -41,8 +37,7 @@ describe('getClinicalTrialDescription', () => {
 			outcome_measures: [
 				{
 					name: 'Number of patients who consented to biobanking',
-					description:
-						'The number of patients who agree to be in the Biobanking part of the study and have leftover tumor tissue and some normal blood, bone marrow, or other tissue saved for future research.',
+					description: 'The number of patients who agree to be in the Biobanking part of the study and have leftover tumor tissue and some normal blood, bone marrow, or other tissue saved for future research.',
 					timeframe: 'Baseline',
 					type_code: 'PRIMARY',
 				},
@@ -56,22 +51,18 @@ describe('getClinicalTrialDescription', () => {
 			completion_date_type_code: null,
 			record_verification_date: '2020-11-09',
 			brief_title: 'Project: Every Child for Younger Patients with Cancer',
-			official_title:
-				'The Project: EveryChild Protocol: A Registry, Eligibility Screening, Biology and Outcome Study',
+			official_title: 'The Project: EveryChild Protocol: A Registry, Eligibility Screening, Biology and Outcome Study',
 			acronym: null,
 			keywords: null,
-			brief_summary:
-				'This study gathers health information for the Project: Every Child for younger patients with cancer. Gathering health information over time from younger patients with cancer may help doctors find better methods of treatment and on-going care.',
-			detail_description:
-				"PRIMARY OBJECTIVES:\r\nI. To maintain a Childhood Cancer Registry for infants, children, adolescents, and young adults with cancer.\r\nII. To utilize clinical and biological data to help determine eligibility or stratification, based on childhood cancer disease classification schemas, for potential enrollment of research subjects onto Children's Oncology Group (COG) therapeutic clinical trials.\r\nIII. To develop a well annotated childhood cancer biorespository for current and future research through the collection of biospecimens (at diagnosis, time of progression, time of recurrence and/or post-mortem), including tumor, host and when feasible parental germline deoxyribonucleic acid (DNA); and key clinical data, including presentation, diagnostic, staging, summary treatment, and outcome information, from every child diagnosed with cancer at COG institutions. \r\nIV. To allow use of registry data for permission to be contacted in the future to consider participating in non-therapeutic and prevention research studies involving the child or their parents.\r\n\r\nOUTLINE:\r\nPatients undergo medical data review to create a Childhood Cancer Registry. Patients also undergo collection of biospecimen samples (e.g., tissue, blood, bone marrow, plasma, serum, saliva, cerebrospinal fluid, or urine).",
+			brief_summary: 'This study gathers health information for the Project: Every Child for younger patients with cancer. Gathering health information over time from younger patients with cancer may help doctors find better methods of treatment and on-going care.',
+			detail_description: "PRIMARY OBJECTIVES:\r\nI. To maintain a Childhood Cancer Registry for infants, children, adolescents, and young adults with cancer.\r\nII. To utilize clinical and biological data to help determine eligibility or stratification, based on childhood cancer disease classification schemas, for potential enrollment of research subjects onto Children's Oncology Group (COG) therapeutic clinical trials.\r\nIII. To develop a well annotated childhood cancer biorespository for current and future research through the collection of biospecimens (at diagnosis, time of progression, time of recurrence and/or post-mortem), including tumor, host and when feasible parental germline deoxyribonucleic acid (DNA); and key clinical data, including presentation, diagnostic, staging, summary treatment, and outcome information, from every child diagnosed with cancer at COG institutions. \r\nIV. To allow use of registry data for permission to be contacted in the future to consider participating in non-therapeutic and prevention research studies involving the child or their parents.\r\n\r\nOUTLINE:\r\nPatients undergo medical data review to create a Childhood Cancer Registry. Patients also undergo collection of biospecimen samples (e.g., tissue, blood, bone marrow, plasma, serum, saliva, cerebrospinal fluid, or urine).",
 			classification_code: null,
 			interventional_model: null,
 			study_source: 'National',
 			accepts_healthy_volunteers_indicator: 'NO',
 			study_protocol_type: 'Non-interventional',
 			study_subtype_code: 'OBSERVATIONAL',
-			study_population_description:
-				'Patients with cancer enrolled on COG therapeutic study',
+			study_population_description: 'Patients with cancer enrolled on COG therapeutic study',
 			study_model_code: 'COHORT',
 			study_model_other_text: 'Need to be reviewed by scientific abstractor',
 			sampling_method_code: 'NON_PROBABILITY_SAMPLE',
@@ -1121,8 +1112,7 @@ describe('getClinicalTrialDescription', () => {
 					org_email: null,
 					org_family: null,
 					org_fax: null,
-					org_name:
-						"Rocky Mountain Hospital for Children-Presbyterian Saint Luke's Medical Center",
+					org_name: "Rocky Mountain Hospital for Children-Presbyterian Saint Luke's Medical Center",
 					org_to_family_relationship: null,
 					org_phone: '303-839-6000',
 					org_postal_code: '80218',
@@ -1262,8 +1252,7 @@ describe('getClinicalTrialDescription', () => {
 					org_email: 'OHR@mhs.net',
 					org_family: null,
 					org_fax: null,
-					org_name:
-						"Memorial Regional Hospital / Joe DiMaggio Children's Hospital",
+					org_name: "Memorial Regional Hospital / Joe DiMaggio Children's Hospital",
 					org_to_family_relationship: null,
 					org_phone: '954-985-3443',
 					org_postal_code: '33021',
@@ -2459,8 +2448,7 @@ describe('getClinicalTrialDescription', () => {
 					org_email: null,
 					org_family: null,
 					org_fax: null,
-					org_name:
-						"Children's Hospitals and Clinics of Minnesota - Minneapolis",
+					org_name: "Children's Hospitals and Clinics of Minnesota - Minneapolis",
 					org_to_family_relationship: null,
 					org_phone: '612-813-5193',
 					org_postal_code: '55404',
@@ -2824,8 +2812,7 @@ describe('getClinicalTrialDescription', () => {
 					org_email: 'research@sncrf.org',
 					org_family: null,
 					org_fax: null,
-					org_name:
-						'Alliance for Childhood Diseases / Cure 4 the Kids Foundation',
+					org_name: 'Alliance for Childhood Diseases / Cure 4 the Kids Foundation',
 					org_to_family_relationship: null,
 					org_phone: '702-384-0013',
 					org_postal_code: '89135',
@@ -3049,8 +3036,7 @@ describe('getClinicalTrialDescription', () => {
 					org_email: null,
 					org_family: null,
 					org_fax: null,
-					org_name:
-						"The Steven and Alexandra Cohen Children's Medical Center of New York",
+					org_name: "The Steven and Alexandra Cohen Children's Medical Center of New York",
 					org_to_family_relationship: null,
 					org_phone: '718-470-3470',
 					org_postal_code: '11040',
@@ -3162,8 +3148,7 @@ describe('getClinicalTrialDescription', () => {
 					org_email: null,
 					org_family: null,
 					org_fax: null,
-					org_name:
-						"ProMedica Toledo Hospital / Russell J Ebeid Children's Hospital",
+					org_name: "ProMedica Toledo Hospital / Russell J Ebeid Children's Hospital",
 					org_to_family_relationship: null,
 					org_phone: '419-824-1842',
 					org_postal_code: '43606',
@@ -4135,8 +4120,7 @@ describe('getClinicalTrialDescription', () => {
 					org_email: 'HopeBeginsHere@providence.org',
 					org_family: null,
 					org_fax: null,
-					org_name:
-						"Providence Sacred Heart Medical Center and Children's Hospital",
+					org_name: "Providence Sacred Heart Medical Center and Children's Hospital",
 					org_to_family_relationship: null,
 					org_phone: null,
 					org_postal_code: '99204',
@@ -4468,8 +4452,7 @@ describe('getClinicalTrialDescription', () => {
 					org_email: 'irb@lundquist.org',
 					org_family: null,
 					org_fax: null,
-					org_name:
-						'Lundquist Institute for Biomedical Innovation at Harbor-UCLA Medical Center',
+					org_name: 'Lundquist Institute for Biomedical Innovation at Harbor-UCLA Medical Center',
 					org_to_family_relationship: null,
 					org_phone: '310-222-3621',
 					org_postal_code: '90502',
@@ -4853,8 +4836,7 @@ describe('getClinicalTrialDescription', () => {
 					org_email: null,
 					org_family: 'UC Davis Comprehensive Cancer Center',
 					org_fax: null,
-					org_name:
-						'University of California Davis Comprehensive Cancer Center',
+					org_name: 'University of California Davis Comprehensive Cancer Center',
 					org_to_family_relationship: null,
 					org_phone: '916-734-3089',
 					org_postal_code: '95817',
@@ -4994,8 +4976,7 @@ describe('getClinicalTrialDescription', () => {
 					org_email: null,
 					org_family: 'Sylvester Comprehensive Cancer Center',
 					org_fax: null,
-					org_name:
-						'University of Miami Miller School of Medicine-Sylvester Cancer Center',
+					org_name: 'University of Miami Miller School of Medicine-Sylvester Cancer Center',
 					org_to_family_relationship: null,
 					org_phone: '305-243-2647',
 					org_postal_code: '33136',
@@ -5301,8 +5282,7 @@ describe('getClinicalTrialDescription', () => {
 					org_city: 'Baltimore',
 					org_country: 'United States',
 					org_email: null,
-					org_family:
-						'University of Maryland Marlene and Stewart Greenebaum Comprehensive Cancer Center',
+					org_family: 'University of Maryland Marlene and Stewart Greenebaum Comprehensive Cancer Center',
 					org_fax: null,
 					org_name: 'University of Maryland / Greenebaum Cancer Center',
 					org_to_family_relationship: null,
@@ -5550,8 +5530,7 @@ describe('getClinicalTrialDescription', () => {
 					recruitment_status_date: '2021-01-21',
 					local_site_identifier: '',
 					org_address_line_1: '450 West Drive',
-					org_address_line_2:
-						'Lineberger Comprehensive Cancer Center Third Floor Administrative Tower CB 7295',
+					org_address_line_2: 'Lineberger Comprehensive Cancer Center Third Floor Administrative Tower CB 7295',
 					org_city: 'Chapel Hill',
 					org_country: 'United States',
 					org_email: 'cancerclinicaltrials@med.unc.edu',
@@ -5837,8 +5816,7 @@ describe('getClinicalTrialDescription', () => {
 					org_email: null,
 					org_family: 'Rutgers Cancer Institute of New Jersey',
 					org_fax: null,
-					org_name:
-						'Rutgers Cancer Institute of New Jersey-Robert Wood Johnson University Hospital',
+					org_name: 'Rutgers Cancer Institute of New Jersey-Robert Wood Johnson University Hospital',
 					org_to_family_relationship: null,
 					org_phone: '732-235-8675',
 					org_postal_code: '08903',
@@ -5864,8 +5842,7 @@ describe('getClinicalTrialDescription', () => {
 					org_city: 'Albuquerque',
 					org_country: 'United States',
 					org_email: 'LByatt@nmcca.org',
-					org_family:
-						'University of New Mexico Cancer Research & Treatment Center',
+					org_family: 'University of New Mexico Cancer Research & Treatment Center',
 					org_fax: null,
 					org_name: 'University of New Mexico Cancer Center',
 					org_to_family_relationship: null,
@@ -5979,8 +5956,7 @@ describe('getClinicalTrialDescription', () => {
 					org_email: 'nr2616@cumc.columbia.edu',
 					org_family: 'Herbert Irving Comprehensive Cancer Center',
 					org_fax: null,
-					org_name:
-						'NYP / Columbia University Medical Center / Herbert Irving Comprehensive Cancer Center',
+					org_name: 'NYP / Columbia University Medical Center / Herbert Irving Comprehensive Cancer Center',
 					org_to_family_relationship: null,
 					org_phone: '212-305-8615',
 					org_postal_code: '10032',
@@ -6090,8 +6066,7 @@ describe('getClinicalTrialDescription', () => {
 					org_city: 'Columbus',
 					org_country: 'United States',
 					org_email: 'amy.yekisa@nationwidechildrens.org',
-					org_family:
-						'Comprehensive Cancer Center - James Cancer Hospital & Solove Research Institute',
+					org_family: 'Comprehensive Cancer Center - James Cancer Hospital & Solove Research Institute',
 					org_fax: null,
 					org_name: "Nationwide Children's Hospital",
 					org_to_family_relationship: null,
@@ -6429,8 +6404,7 @@ describe('getClinicalTrialDescription', () => {
 					org_email: 'burton@bcm.edu',
 					org_family: 'Dan L Duncan Comprehensive Cancer Center',
 					org_fax: null,
-					org_name:
-						'Baylor College of Medicine / Dan L Duncan Comprehensive Cancer Center',
+					org_name: 'Baylor College of Medicine / Dan L Duncan Comprehensive Cancer Center',
 					org_to_family_relationship: null,
 					org_phone: null,
 					org_postal_code: '77030',
@@ -6568,8 +6542,7 @@ describe('getClinicalTrialDescription', () => {
 					org_city: 'Seattle',
 					org_country: 'United States',
 					org_email: null,
-					org_family:
-						'Fred Hutchinson / University of Washington Cancer Consortium',
+					org_family: 'Fred Hutchinson / University of Washington Cancer Consortium',
 					org_fax: null,
 					org_name: "Seattle Children's Hospital",
 					org_to_family_relationship: null,
@@ -6781,15 +6754,7 @@ describe('getClinicalTrialDescription', () => {
 						},
 					],
 					type: ['stage', 'grade', 'subtype'],
-					synonyms: [
-						'CARCINOMA, IN SITU, MALIGNANT',
-						'CIS',
-						'Epithelial Tumor, In situ, Malignant',
-						'Intraepithelial Carcinoma',
-						'Non-invasive Carcinoma',
-						'carcinoma in situ',
-						'stage 0 disease',
-					],
+					synonyms: ['CARCINOMA, IN SITU, MALIGNANT', 'CIS', 'Epithelial Tumor, In situ, Malignant', 'Intraepithelial Carcinoma', 'Non-invasive Carcinoma', 'carcinoma in situ', 'stage 0 disease'],
 					parents: ['C2916', 'C3341'],
 				},
 				{
@@ -6820,23 +6785,7 @@ describe('getClinicalTrialDescription', () => {
 						},
 					],
 					type: ['maintype', 'subtype'],
-					synonyms: [
-						'CMPD',
-						'Chronic Myeloproliferative Disorder',
-						'Chronic Myeloproliferative Disorders',
-						'Chronic Myeloproliferative Neoplasm',
-						'Chronic myeloproliferative disease, NOS',
-						'Chronic myeloproliferative disorder',
-						'MPD',
-						'MPN',
-						'Myeloproliferative Disease',
-						'Myeloproliferative Disorder',
-						'Myeloproliferative Neoplasm',
-						'Myeloproliferative Tumor',
-						'Myeloproliferative disease, NOS',
-						'Myeloproliferative neoplasm, NOS',
-						'myeloproliferative disorder',
-					],
+					synonyms: ['CMPD', 'Chronic Myeloproliferative Disorder', 'Chronic Myeloproliferative Disorders', 'Chronic Myeloproliferative Neoplasm', 'Chronic myeloproliferative disease, NOS', 'Chronic myeloproliferative disorder', 'MPD', 'MPN', 'Myeloproliferative Disease', 'Myeloproliferative Disorder', 'Myeloproliferative Neoplasm', 'Myeloproliferative Tumor', 'Myeloproliferative disease, NOS', 'Myeloproliferative neoplasm, NOS', 'myeloproliferative disorder'],
 					parents: ['C35501', 'C9290'],
 				},
 				{
@@ -6862,13 +6811,7 @@ describe('getClinicalTrialDescription', () => {
 						},
 					],
 					type: ['subtype'],
-					synonyms: [
-						'CMN',
-						'Mesoblastic Nephroma',
-						'Mesoblastic nephroma',
-						'STROMAL NEPHROMA, MALIGNANT',
-						'congenital mesoblastic nephroma',
-					],
+					synonyms: ['CMN', 'Mesoblastic Nephroma', 'Mesoblastic nephroma', 'STROMAL NEPHROMA, MALIGNANT', 'congenital mesoblastic nephroma'],
 					parents: ['C123907', 'C3264'],
 				},
 				{
@@ -6920,15 +6863,7 @@ describe('getClinicalTrialDescription', () => {
 						},
 					],
 					type: ['subtype'],
-					synonyms: [
-						'Aggressive Fibromatosis',
-						'Aggressive fibromatosis',
-						'Deep Fibromatosis',
-						'Desmoid Fibromatosis',
-						'Desmoid Tumor',
-						'Desmoid-Type Fibromatosis',
-						'desmoid tumor',
-					],
+					synonyms: ['Aggressive Fibromatosis', 'Aggressive fibromatosis', 'Deep Fibromatosis', 'Desmoid Fibromatosis', 'Desmoid Tumor', 'Desmoid-Type Fibromatosis', 'desmoid tumor'],
 					parents: ['C3042', 'C7333'],
 				},
 				{
@@ -6954,21 +6889,7 @@ describe('getClinicalTrialDescription', () => {
 						},
 					],
 					type: ['maintype', 'subtype'],
-					synonyms: [
-						'CNS Neoplasm',
-						'CNS Tumor',
-						'CNS tumor',
-						'Central Nervous System Neoplasm',
-						'Central Nervous System Tumor',
-						'Neoplasm of CNS',
-						'Neoplasm of Central Nervous System',
-						'Neoplasm of the Central Nervous System',
-						'Tumor of CNS',
-						'Tumor of Central Nervous System',
-						'Tumor of the CNS',
-						'Tumor of the Central Nervous System',
-						'central nervous system tumor',
-					],
+					synonyms: ['CNS Neoplasm', 'CNS Tumor', 'CNS tumor', 'Central Nervous System Neoplasm', 'Central Nervous System Tumor', 'Neoplasm of CNS', 'Neoplasm of Central Nervous System', 'Neoplasm of the Central Nervous System', 'Tumor of CNS', 'Tumor of Central Nervous System', 'Tumor of the CNS', 'Tumor of the Central Nervous System', 'central nervous system tumor'],
 					parents: ['C2934', 'C3268'],
 				},
 				{
@@ -6994,11 +6915,7 @@ describe('getClinicalTrialDescription', () => {
 						},
 					],
 					type: ['subtype'],
-					synonyms: [
-						'Lymphoproliferative disease, NOS',
-						'Lymphoproliferative disorder, NOS',
-						'lymphoproliferative disorder',
-					],
+					synonyms: ['Lymphoproliferative disease, NOS', 'Lymphoproliferative disorder, NOS', 'lymphoproliferative disorder'],
 					parents: ['C26323'],
 				},
 				{
@@ -7019,19 +6936,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Other Carcinoma',
 					preferred_name: 'Carcinoma',
 					type: ['maintype'],
-					synonyms: [
-						'CARCINOMA, MALIGNANT',
-						'Carcinoma',
-						'Carcinoma, NOS',
-						'Epithelial Carcinoma',
-						'Epithelial tumor, malignant',
-						'Epithelioma Malignant',
-						'Malignant Epithelial Neoplasm',
-						'Malignant Epithelial Tumor',
-						'Malignant Epithelioma',
-						'carcinoma',
-						'epithelial carcinoma',
-					],
+					synonyms: ['CARCINOMA, MALIGNANT', 'Carcinoma', 'Carcinoma, NOS', 'Epithelial Carcinoma', 'Epithelial tumor, malignant', 'Epithelioma Malignant', 'Malignant Epithelial Neoplasm', 'Malignant Epithelial Tumor', 'Malignant Epithelioma', 'carcinoma', 'epithelial carcinoma'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C3262',
@@ -7041,18 +6946,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Other Neoplasm',
 					preferred_name: 'Neoplasm',
 					type: ['maintype'],
-					synonyms: [
-						'Neoplasia',
-						'Neoplasm',
-						'Neoplasm, NOS',
-						'Neoplasms, NOS',
-						'Neoplastic Disease',
-						'Neoplastic Growth',
-						'Tumor, NOS',
-						'neoplasia',
-						'neoplasm',
-						'tumor',
-					],
+					synonyms: ['Neoplasia', 'Neoplasm', 'Neoplasm, NOS', 'Neoplasms, NOS', 'Neoplastic Disease', 'Neoplastic Growth', 'Tumor, NOS', 'neoplasia', 'neoplasm', 'tumor'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C9305',
@@ -7062,20 +6956,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Malignant Neoplasm',
 					preferred_name: 'Malignant Neoplasm',
 					type: ['subtype'],
-					synonyms: [
-						'CA',
-						'Cancer',
-						'Malignancy',
-						'Malignant Growth',
-						'Malignant Neoplastic Disease',
-						'Malignant Tumor',
-						'NEOPLASM, MALIGNANT',
-						'Neoplasm, malignant',
-						'Tumor, malignant, NOS',
-						'Unclassified tumor, malignant',
-						'cancer',
-						'malignancy',
-					],
+					synonyms: ['CA', 'Cancer', 'Malignancy', 'Malignant Growth', 'Malignant Neoplastic Disease', 'Malignant Tumor', 'NEOPLASM, MALIGNANT', 'Neoplasm, malignant', 'Tumor, malignant, NOS', 'Unclassified tumor, malignant', 'cancer', 'malignancy'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C3709',
@@ -7085,11 +6966,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Epithelial Neoplasm',
 					preferred_name: 'Epithelial Neoplasm',
 					type: ['subtype'],
-					synonyms: [
-						'Epithelial Neoplasms, NOS',
-						'Epithelioma',
-						'Epithelioma, malignant',
-					],
+					synonyms: ['Epithelial Neoplasms, NOS', 'Epithelioma', 'Epithelioma, malignant'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C27574',
@@ -7099,10 +6976,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Connective and Soft Tissue Disorder',
 					preferred_name: 'Connective and Soft Tissue Disorder',
 					type: ['subtype'],
-					synonyms: [
-						'Connective and Soft Tissue Disease',
-						'Connective and Soft Tissue Diseases',
-					],
+					synonyms: ['Connective and Soft Tissue Disease', 'Connective and Soft Tissue Diseases'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C9431',
@@ -7122,16 +6996,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Langerhans Cell Histiocytosis',
 					preferred_name: 'Langerhans Cell Histiocytosis',
 					type: ['subtype'],
-					synonyms: [
-						'Histiocytosis X',
-						'LCH',
-						'Langerhans Cell Granulomatosis',
-						'Langerhans Cell Histiocytosis, NOS',
-						'Langerhans Cell Histiocytosis, Not Otherwise Specified',
-						'Langerhans cell granulomatosis',
-						'Langerhans cell histiocytosis',
-						'Langerhans cell histiocytosis, NOS',
-					],
+					synonyms: ['Histiocytosis X', 'LCH', 'Langerhans Cell Granulomatosis', 'Langerhans Cell Histiocytosis, NOS', 'Langerhans Cell Histiocytosis, Not Otherwise Specified', 'Langerhans cell granulomatosis', 'Langerhans cell histiocytosis', 'Langerhans cell histiocytosis, NOS'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C2934',
@@ -7141,10 +7006,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Central Nervous System Disorder',
 					preferred_name: 'Central Nervous System Disorder',
 					type: ['subtype'],
-					synonyms: [
-						'Central Nervous System Disease',
-						'Disorder of Central Nervous System',
-					],
+					synonyms: ['Central Nervous System Disease', 'Disorder of Central Nervous System'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C7057',
@@ -7164,13 +7026,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Kidney Disorder',
 					preferred_name: 'Kidney Disorder',
 					type: ['subtype'],
-					synonyms: [
-						'Kidney Disease',
-						'Kidney disease',
-						'Renal Disease',
-						'Renal Disorder',
-						'Renal Disorder, NOS',
-					],
+					synonyms: ['Kidney Disease', 'Kidney disease', 'Renal Disease', 'Renal Disorder', 'Renal Disorder, NOS'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C4286',
@@ -7180,12 +7036,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Immature Teratoma',
 					preferred_name: 'Immature Teratoma',
 					type: ['grade', 'subtype'],
-					synonyms: [
-						'Embryonal teratoma',
-						'Grade 2 Teratoma',
-						'Immature teratoma, NOS',
-						'immature teratoma',
-					],
+					synonyms: ['Embryonal teratoma', 'Grade 2 Teratoma', 'Immature teratoma, NOS', 'immature teratoma'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C4741',
@@ -7205,15 +7056,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Soft Tissue Tumor',
 					preferred_name: 'Soft Tissue Neoplasm',
 					type: ['subtype'],
-					synonyms: [
-						'Neoplasm of Soft Tissue',
-						'Neoplasm of the Soft Tissue',
-						'Soft Tissue Neoplasm',
-						'Soft Tissue Tumors',
-						'Soft tissue neoplasm, NOS',
-						'Tumor of Soft Tissue',
-						'Tumor of the Soft Tissue',
-					],
+					synonyms: ['Neoplasm of Soft Tissue', 'Neoplasm of the Soft Tissue', 'Soft Tissue Neoplasm', 'Soft Tissue Tumors', 'Soft tissue neoplasm, NOS', 'Tumor of Soft Tissue', 'Tumor of the Soft Tissue'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C2991',
@@ -7223,23 +7066,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Other Disease',
 					preferred_name: 'Disease or Disorder',
 					type: ['maintype'],
-					synonyms: [
-						'Diagnosis',
-						'Disease',
-						'Disease or Disorder',
-						'Disease or Disorder, Non-Neoplastic',
-						'Diseases',
-						'Diseases and Disorders',
-						'Disorder',
-						'Disorders',
-						'condition',
-						'disease',
-						'disease term',
-						'disease type',
-						'disease_term',
-						'disease_type',
-						'disorder',
-					],
+					synonyms: ['Diagnosis', 'Disease', 'Disease or Disorder', 'Disease or Disorder, Non-Neoplastic', 'Diseases', 'Diseases and Disorders', 'Disorder', 'Disorders', 'condition', 'disease', 'disease term', 'disease type', 'disease_term', 'disease_type', 'disorder'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C123841',
@@ -7249,10 +7076,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Nongerminomatous Germ Cell Tumor',
 					preferred_name: 'Childhood Nongerminomatous Germ Cell Tumor',
 					type: ['subtype'],
-					synonyms: [
-						'Childhood Non-Germinomatous Germ Cell Tumor',
-						'Childhood Nongerminomatous Germ Cell Tumor',
-					],
+					synonyms: ['Childhood Non-Germinomatous Germ Cell Tumor', 'Childhood Nongerminomatous Germ Cell Tumor'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C7333',
@@ -7262,15 +7086,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Intermediate Fibroblastic Neoplasm',
 					preferred_name: 'Intermediate Fibroblastic Neoplasm',
 					type: ['subtype'],
-					synonyms: [
-						'Intermediate Fibroblastic Tumor',
-						'Intermediate Fibrocytic Neoplasm',
-						'Intermediate Fibrocytic Tumor',
-						'Intermediate Fibrogenic Neoplasm',
-						'Intermediate Fibrogenic Tumor',
-						'Intermediate Fibrous Neoplasm',
-						'Intermediate Fibrous Tumor',
-					],
+					synonyms: ['Intermediate Fibroblastic Tumor', 'Intermediate Fibrocytic Neoplasm', 'Intermediate Fibrocytic Tumor', 'Intermediate Fibrogenic Neoplasm', 'Intermediate Fibrogenic Tumor', 'Intermediate Fibrous Neoplasm', 'Intermediate Fibrous Tumor'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C26835',
@@ -7280,12 +7096,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Nervous System Disorder',
 					preferred_name: 'Nervous System Disorder',
 					type: ['subtype'],
-					synonyms: [
-						'Disorder of Nervous System',
-						'Neurologic Disorder',
-						'Neurological Disorder',
-						'Unspecified Nervous System Problem',
-					],
+					synonyms: ['Disorder of Nervous System', 'Neurologic Disorder', 'Neurological Disorder', 'Unspecified Nervous System Problem'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C35814',
@@ -7315,16 +7126,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Kidney Tumor',
 					preferred_name: 'Kidney Neoplasm',
 					type: ['subtype'],
-					synonyms: [
-						'Kidney Neoplasm',
-						'Neoplasm of Kidney',
-						'Neoplasm of the Kidney',
-						'Renal Neoplasm',
-						'Renal Tumor',
-						'Renal Tumors',
-						'Tumor of Kidney',
-						'Tumor of the Kidney',
-					],
+					synonyms: ['Kidney Neoplasm', 'Neoplasm of Kidney', 'Neoplasm of the Kidney', 'Renal Neoplasm', 'Renal Tumor', 'Renal Tumors', 'Tumor of Kidney', 'Tumor of the Kidney'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C7062',
@@ -7344,11 +7146,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Benign Childhood Germ Cell Tumor',
 					preferred_name: 'Benign Childhood Germ Cell Tumor',
 					type: ['subtype'],
-					synonyms: [
-						'Benign Childhood Germ Cell Neoplasm',
-						'Benign Pediatric Germ Cell Neoplasm',
-						'Benign Pediatric Germ Cell Tumor',
-					],
+					synonyms: ['Benign Childhood Germ Cell Neoplasm', 'Benign Pediatric Germ Cell Neoplasm', 'Benign Pediatric Germ Cell Tumor'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C3677',
@@ -7358,15 +7156,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Benign Neoplasm',
 					preferred_name: 'Benign Neoplasm',
 					type: ['subtype'],
-					synonyms: [
-						'Benign Neoplasms',
-						'Benign Tumor',
-						'Benign Unclassifiable Tumor',
-						'NEOPLASM, BENIGN',
-						'Neoplasm, benign',
-						'Tumor, benign',
-						'benign tumor',
-					],
+					synonyms: ['Benign Neoplasms', 'Benign Tumor', 'Benign Unclassifiable Tumor', 'NEOPLASM, BENIGN', 'Neoplasm, benign', 'Tumor, benign', 'benign tumor'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C8278',
@@ -7376,14 +7166,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Cancer-Related Condition',
 					preferred_name: 'Cancer-Related Condition',
 					type: ['subtype'],
-					synonyms: [
-						'Cancer Related Condition',
-						'Cancer-Related Problem or Condition',
-						'Oncologic Complications',
-						'cancer related problem/condition',
-						'problem/condition, cancer related',
-						'problem/condition, cancer-related',
-					],
+					synonyms: ['Cancer Related Condition', 'Cancer-Related Problem or Condition', 'Oncologic Complications', 'cancer related problem/condition', 'problem/condition, cancer related', 'problem/condition, cancer-related'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C7514',
@@ -7393,11 +7176,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Kidney and Ureter Neoplasm',
 					preferred_name: 'Kidney and Ureter Neoplasm',
 					type: ['subtype'],
-					synonyms: [
-						'Kidney and Ureter Tumor',
-						'Renal and Ureteral Neoplasm',
-						'Renal and Ureteral Tumor',
-					],
+					synonyms: ['Kidney and Ureter Tumor', 'Renal and Ureteral Neoplasm', 'Renal and Ureteral Tumor'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C156482',
@@ -7417,11 +7196,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Mesenchymal Cell Neoplasm',
 					preferred_name: 'Mesenchymal Cell Neoplasm',
 					type: ['subtype'],
-					synonyms: [
-						'Mesenchymal Cell Tumor',
-						'Mesenchymal Neoplasm',
-						'Mesenchymal Tumor',
-					],
+					synonyms: ['Mesenchymal Cell Tumor', 'Mesenchymal Neoplasm', 'Mesenchymal Tumor'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C6563',
@@ -7431,16 +7206,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Kidney Neoplasm',
 					preferred_name: 'Childhood Kidney Neoplasm',
 					type: ['subtype'],
-					synonyms: [
-						'Childhood Kidney Neoplasm',
-						'Childhood Kidney Tumor',
-						'Childhood Renal Neoplasm',
-						'Childhood Renal Tumor',
-						'Pediatric Kidney Neoplasm',
-						'Pediatric Kidney Tumor',
-						'Pediatric Renal Neoplasm',
-						'Pediatric Renal Tumor',
-					],
+					synonyms: ['Childhood Kidney Neoplasm', 'Childhood Kidney Tumor', 'Childhood Renal Neoplasm', 'Childhood Renal Tumor', 'Pediatric Kidney Neoplasm', 'Pediatric Kidney Tumor', 'Pediatric Renal Neoplasm', 'Pediatric Renal Tumor'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C3810',
@@ -7450,21 +7216,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Connective and Soft Tissue Neoplasm',
 					preferred_name: 'Connective and Soft Tissue Neoplasm',
 					type: ['subtype'],
-					synonyms: [
-						'Connective and Soft Tissue Tumor',
-						'Musculoskeletal and Soft Tissue Neoplasm',
-						'Musculoskeletal and Soft Tissue Tumor',
-						'Neoplasm of Skeletal and Soft Tissue',
-						'Neoplasm of Soft Tissue and Bone',
-						'Neoplasm of Soft Tissue and Skeleton',
-						'Skeletal and Soft Tissue Neoplasm',
-						'Skeletal and Soft Tissue Tumor',
-						'Soft Tissue and Bone Neoplasm',
-						'Soft Tissue and Bone Tumor',
-						'Tumor of Skeletal and Soft Tissue',
-						'Tumor of Soft Tissue and Bone',
-						'Tumor of Soft Tissue and Skeleton',
-					],
+					synonyms: ['Connective and Soft Tissue Tumor', 'Musculoskeletal and Soft Tissue Neoplasm', 'Musculoskeletal and Soft Tissue Tumor', 'Neoplasm of Skeletal and Soft Tissue', 'Neoplasm of Soft Tissue and Bone', 'Neoplasm of Soft Tissue and Skeleton', 'Skeletal and Soft Tissue Neoplasm', 'Skeletal and Soft Tissue Tumor', 'Soft Tissue and Bone Neoplasm', 'Soft Tissue and Bone Tumor', 'Tumor of Skeletal and Soft Tissue', 'Tumor of Soft Tissue and Bone', 'Tumor of Soft Tissue and Skeleton'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C7075',
@@ -7474,15 +7226,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Fibroblastic Neoplasm',
 					preferred_name: 'Fibroblastic Neoplasm',
 					type: ['subtype'],
-					synonyms: [
-						'Fibroblastic Tumor',
-						'Fibrocytic Neoplasm',
-						'Fibrocytic Tumor',
-						'Fibrogenic Neoplasm',
-						'FibrogenicTumor',
-						'Fibrous Neoplasm',
-						'Fibrous Tumor',
-					],
+					synonyms: ['Fibroblastic Tumor', 'Fibrocytic Neoplasm', 'Fibrocytic Tumor', 'Fibrogenic Neoplasm', 'FibrogenicTumor', 'Fibrous Neoplasm', 'Fibrous Tumor'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C3263',
@@ -7502,16 +7246,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Germ Cell Tumor',
 					preferred_name: 'Germ Cell Tumor',
 					type: ['maintype'],
-					synonyms: [
-						'Germ Cell Neoplasm',
-						'Germ Cell Neoplasms',
-						'Germ cell tumor, NOS',
-						'Neoplasm of Germ Cell',
-						'Neoplasm of the Germ Cell',
-						'Tumor of Germ Cell',
-						'Tumor of the Germ Cell',
-						'germ cell tumor',
-					],
+					synonyms: ['Germ Cell Neoplasm', 'Germ Cell Neoplasms', 'Germ cell tumor, NOS', 'Neoplasm of Germ Cell', 'Neoplasm of the Germ Cell', 'Tumor of Germ Cell', 'Tumor of the Germ Cell', 'germ cell tumor'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C7057',
@@ -7531,19 +7266,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Urinary System Neoplasm',
 					preferred_name: 'Urinary System Neoplasm',
 					type: ['subtype'],
-					synonyms: [
-						'Neoplasm of Urinary System',
-						'Neoplasm of Urinary Tract',
-						'Neoplasm of the Urinary System',
-						'Neoplasm of the Urinary Tract',
-						'Tumor of Urinary System',
-						'Tumor of Urinary Tract',
-						'Tumor of the Urinary System',
-						'Tumor of the Urinary Tract',
-						'Urinary System Tumor',
-						'Urinary Tract Neoplasm',
-						'Urinary Tract Tumor',
-					],
+					synonyms: ['Neoplasm of Urinary System', 'Neoplasm of Urinary Tract', 'Neoplasm of the Urinary System', 'Neoplasm of the Urinary Tract', 'Tumor of Urinary System', 'Tumor of Urinary Tract', 'Tumor of the Urinary System', 'Tumor of the Urinary Tract', 'Urinary System Tumor', 'Urinary Tract Neoplasm', 'Urinary Tract Tumor'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C34433',
@@ -7563,10 +7286,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Histiocytic and Dendritic Cell Neoplasm',
 					preferred_name: 'Histiocytic and Dendritic Cell Neoplasm',
 					type: ['subtype'],
-					synonyms: [
-						'Histiocytic and Dendritic Cell Neoplasms',
-						'Histiocytic and Dendritic Cell Tumors',
-					],
+					synonyms: ['Histiocytic and Dendritic Cell Neoplasms', 'Histiocytic and Dendritic Cell Tumors'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C2991',
@@ -7576,23 +7296,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Other Disease',
 					preferred_name: 'Disease or Disorder',
 					type: ['maintype'],
-					synonyms: [
-						'Diagnosis',
-						'Disease',
-						'Disease or Disorder',
-						'Disease or Disorder, Non-Neoplastic',
-						'Diseases',
-						'Diseases and Disorders',
-						'Disorder',
-						'Disorders',
-						'condition',
-						'disease',
-						'disease term',
-						'disease type',
-						'disease_term',
-						'disease_type',
-						'disorder',
-					],
+					synonyms: ['Diagnosis', 'Disease', 'Disease or Disorder', 'Disease or Disorder, Non-Neoplastic', 'Diseases', 'Diseases and Disorders', 'Disorder', 'Disorders', 'condition', 'disease', 'disease term', 'disease type', 'disease_term', 'disease_type', 'disorder'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C121619',
@@ -7602,13 +7306,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Nongerminomatous Germ Cell Tumor',
 					preferred_name: 'Nongerminomatous Germ Cell Tumor',
 					type: ['subtype'],
-					synonyms: [
-						'Germ cell tumor, nonseminomatous',
-						'Non-dysgerminomatous Germ Cell Tumor',
-						'Non-germinomatous Germ Cell Tumor',
-						'Non-seminomatous Germ Cell Tumor',
-						'Nongerminomatous Germ Cell Tumor Including Central Nervous System',
-					],
+					synonyms: ['Germ cell tumor, nonseminomatous', 'Non-dysgerminomatous Germ Cell Tumor', 'Non-germinomatous Germ Cell Tumor', 'Non-seminomatous Germ Cell Tumor', 'Nongerminomatous Germ Cell Tumor Including Central Nervous System'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C4005',
@@ -7618,15 +7316,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Malignant Neoplasm',
 					preferred_name: 'Childhood Malignant Neoplasm',
 					type: ['subtype'],
-					synonyms: [
-						'Childhood Cancer',
-						'Childhood Malignant Neoplasm',
-						'Malignant Childhood Neoplasm',
-						'Malignant Childhood Tumor',
-						'Malignant Pediatric Neoplasm',
-						'Malignant Pediatric Tumor',
-						'Pediatric Cancer',
-					],
+					synonyms: ['Childhood Cancer', 'Childhood Malignant Neoplasm', 'Malignant Childhood Neoplasm', 'Malignant Childhood Tumor', 'Malignant Pediatric Neoplasm', 'Malignant Pediatric Tumor', 'Pediatric Cancer'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C3268',
@@ -7636,15 +7326,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Nervous System Tumor',
 					preferred_name: 'Nervous System Neoplasm',
 					type: ['maintype'],
-					synonyms: [
-						'Neoplasm of Nervous System',
-						'Neoplasm of the Nervous System',
-						'Nervous System Neoplasm',
-						'Nervous System Neoplasms',
-						'Nervous System Tumour',
-						'Tumor of Nervous System',
-						'Tumor of the Nervous System',
-					],
+					synonyms: ['Neoplasm of Nervous System', 'Neoplasm of the Nervous System', 'Nervous System Neoplasm', 'Nervous System Neoplasms', 'Nervous System Tumour', 'Tumor of Nervous System', 'Tumor of the Nervous System'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C35501',
@@ -7724,11 +7406,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Soft Tissue Disorder',
 					preferred_name: 'Soft Tissue Disorder',
 					type: ['subtype'],
-					synonyms: [
-						'Soft Tissue Disease',
-						'Soft Tissue Diseases',
-						'Soft Tissue Disorders',
-					],
+					synonyms: ['Soft Tissue Disease', 'Soft Tissue Diseases', 'Soft Tissue Disorders'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C3262',
@@ -7738,18 +7416,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Other Neoplasm',
 					preferred_name: 'Neoplasm',
 					type: ['maintype'],
-					synonyms: [
-						'Neoplasia',
-						'Neoplasm',
-						'Neoplasm, NOS',
-						'Neoplasms, NOS',
-						'Neoplastic Disease',
-						'Neoplastic Growth',
-						'Tumor, NOS',
-						'neoplasia',
-						'neoplasm',
-						'tumor',
-					],
+					synonyms: ['Neoplasia', 'Neoplasm', 'Neoplasm, NOS', 'Neoplasms, NOS', 'Neoplastic Disease', 'Neoplastic Growth', 'Tumor, NOS', 'neoplasia', 'neoplasm', 'tumor'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C9305',
@@ -7759,20 +7426,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Malignant Neoplasm',
 					preferred_name: 'Malignant Neoplasm',
 					type: ['subtype'],
-					synonyms: [
-						'CA',
-						'Cancer',
-						'Malignancy',
-						'Malignant Growth',
-						'Malignant Neoplastic Disease',
-						'Malignant Tumor',
-						'NEOPLASM, MALIGNANT',
-						'Neoplasm, malignant',
-						'Tumor, malignant, NOS',
-						'Unclassified tumor, malignant',
-						'cancer',
-						'malignancy',
-					],
+					synonyms: ['CA', 'Cancer', 'Malignancy', 'Malignant Growth', 'Malignant Neoplastic Disease', 'Malignant Tumor', 'NEOPLASM, MALIGNANT', 'Neoplasm, malignant', 'Tumor, malignant, NOS', 'Unclassified tumor, malignant', 'cancer', 'malignancy'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C123907',
@@ -7782,11 +7436,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Childhood Malignant Kidney Neoplasm',
 					preferred_name: 'Childhood Malignant Kidney Neoplasm',
 					type: ['subtype'],
-					synonyms: [
-						'Childhood Malignant Kidney Tumor',
-						'Childhood Malignant Renal Neoplasm',
-						'Childhood Malignant Renal Tumor',
-					],
+					synonyms: ['Childhood Malignant Kidney Tumor', 'Childhood Malignant Renal Neoplasm', 'Childhood Malignant Renal Tumor'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C35370',
@@ -7816,12 +7466,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Solid Tumor',
 					preferred_name: 'Solid Neoplasm',
 					type: ['maintype'],
-					synonyms: [
-						'Solid Neoplasm',
-						'Solid Tumour',
-						'Solid tumor, NOS',
-						'solid tumor',
-					],
+					synonyms: ['Solid Neoplasm', 'Solid Tumour', 'Solid tumor, NOS', 'solid tumor'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C27134',
@@ -7831,21 +7476,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Hematopoietic and Lymphoid Cell Neoplasm',
 					preferred_name: 'Hematopoietic and Lymphoid Cell Neoplasm',
 					type: ['maintype'],
-					synonyms: [
-						'HEMOLYMPHORETICULAR TUMOR, MALIGNANT',
-						'Hematologic Cancer',
-						'Hematologic Malignancy',
-						'Hematologic Neoplasm',
-						'Hematological Neoplasm',
-						'Hematopoietic Cancer',
-						'Hematopoietic Neoplasm',
-						'Hematopoietic Neoplasms Including Lymphomas',
-						'Hematopoietic and Lymphoid Neoplasm',
-						'Hematopoietic malignancy, NOS',
-						'Malignant Hematologic Neoplasm',
-						'Malignant Hematopoietic Neoplasm',
-						'hematologic cancer',
-					],
+					synonyms: ['HEMOLYMPHORETICULAR TUMOR, MALIGNANT', 'Hematologic Cancer', 'Hematologic Malignancy', 'Hematologic Neoplasm', 'Hematological Neoplasm', 'Hematopoietic Cancer', 'Hematopoietic Neoplasm', 'Hematopoietic Neoplasms Including Lymphomas', 'Hematopoietic and Lymphoid Neoplasm', 'Hematopoietic malignancy, NOS', 'Malignant Hematologic Neoplasm', 'Malignant Hematopoietic Neoplasm', 'hematologic cancer'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C89328',
@@ -7865,11 +7496,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Malignant Genitourinary System Neoplasm',
 					preferred_name: 'Malignant Genitourinary System Neoplasm',
 					type: ['subtype'],
-					synonyms: [
-						'Genitourinary Cancer',
-						'Genitourinary System Cancer',
-						'Malignant Genitourinary Neoplasm',
-					],
+					synonyms: ['Genitourinary Cancer', 'Genitourinary System Cancer', 'Malignant Genitourinary Neoplasm'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C27551',
@@ -7889,15 +7516,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Malignant Kidney Neoplasm',
 					preferred_name: 'Malignant Kidney Neoplasm',
 					type: ['subtype'],
-					synonyms: [
-						'Malignant Kidney Tumor',
-						'Malignant Neoplasm of Kidney',
-						'Malignant Neoplasm of the Kidney',
-						'Malignant Renal Neoplasm',
-						'Malignant Renal Tumor',
-						'Malignant Tumor of Kidney',
-						'Malignant Tumor of the Kidney',
-					],
+					synonyms: ['Malignant Kidney Tumor', 'Malignant Neoplasm of Kidney', 'Malignant Neoplasm of the Kidney', 'Malignant Renal Neoplasm', 'Malignant Renal Tumor', 'Malignant Tumor of Kidney', 'Malignant Tumor of the Kidney'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C7928',
@@ -7907,12 +7526,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Germ Cell Tumor',
 					preferred_name: 'Childhood Germ Cell Tumor',
 					type: ['subtype'],
-					synonyms: [
-						'Childhood Germ Cell Neoplasm',
-						'Childhood Germ Cell Tumor',
-						'Pediatric Germ Cell Neoplasm',
-						'Pediatric Germ Cell Tumor',
-					],
+					synonyms: ['Childhood Germ Cell Neoplasm', 'Childhood Germ Cell Tumor', 'Pediatric Germ Cell Neoplasm', 'Pediatric Germ Cell Tumor'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C3403',
@@ -7922,11 +7536,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Teratoma',
 					preferred_name: 'Teratoma',
 					type: ['maintype', 'subtype'],
-					synonyms: [
-						'Teratoma, NOS',
-						'Teratoma, Not Otherwise Specified',
-						'teratoma',
-					],
+					synonyms: ['Teratoma, NOS', 'Teratoma, Not Otherwise Specified', 'teratoma'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C6283',
@@ -7936,12 +7546,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Neoplasm',
 					preferred_name: 'Childhood Neoplasm',
 					type: ['subtype'],
-					synonyms: [
-						'Childhood Neoplasm',
-						'Childhood Tumor',
-						'Pediatric Neoplasm',
-						'Pediatric Tumor',
-					],
+					synonyms: ['Childhood Neoplasm', 'Childhood Tumor', 'Pediatric Neoplasm', 'Pediatric Tumor'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C7062',
@@ -7971,12 +7576,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Malignant Urinary System Neoplasm',
 					preferred_name: 'Malignant Urinary System Neoplasm',
 					type: ['subtype'],
-					synonyms: [
-						'Malignant Urinary Tract Neoplasm',
-						'Urinary Tract Cancer',
-						'Urothelial tract/bladder cancer, NOS',
-						'Urothelial/bladder cancer, NOS',
-					],
+					synonyms: ['Malignant Urinary Tract Neoplasm', 'Urinary Tract Cancer', 'Urothelial tract/bladder cancer, NOS', 'Urothelial/bladder cancer, NOS'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C6449',
@@ -7986,13 +7586,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Benign Germ Cell Tumor',
 					preferred_name: 'Benign Germ Cell Tumor',
 					type: ['subtype'],
-					synonyms: [
-						'Benign Germ Cell Neoplasm',
-						'Benign Neoplasm of Germ Cell',
-						'Benign Neoplasm of the Germ Cell',
-						'Benign Tumor of Germ Cell',
-						'Benign Tumor of the Germ Cell',
-					],
+					synonyms: ['Benign Germ Cell Neoplasm', 'Benign Neoplasm of Germ Cell', 'Benign Neoplasm of the Germ Cell', 'Benign Tumor of Germ Cell', 'Benign Tumor of the Germ Cell'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C3430',
@@ -8002,14 +7596,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Urinary System Disorder',
 					preferred_name: 'Urinary System Disorder',
 					type: ['subtype'],
-					synonyms: [
-						'Disorder of Urinary System',
-						'Urinary Tract Disease',
-						'Urinary Tract Disorder',
-						'Urologic Disorder',
-						'Urological Disorders',
-						'urinary tract disorder',
-					],
+					synonyms: ['Disorder of Urinary System', 'Urinary Tract Disease', 'Urinary Tract Disorder', 'Urologic Disorder', 'Urological Disorders', 'urinary tract disorder'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C7201',
@@ -8029,12 +7616,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Hematologic and Lymphocytic Disorder',
 					preferred_name: 'Hematologic and Lymphocytic Disorder',
 					type: ['subtype'],
-					synonyms: [
-						'Blood Disease',
-						'Blood Disorder',
-						'Hematologic Disorder',
-						'Hematological Disorder',
-					],
+					synonyms: ['Blood Disease', 'Blood Disorder', 'Hematologic Disorder', 'Hematological Disorder'],
 				},
 				{
 					nci_thesaurus_concept_id: 'C3341',
@@ -8044,11 +7626,7 @@ describe('getClinicalTrialDescription', () => {
 					display_name: 'Precancerous Condition',
 					preferred_name: 'Precancerous Condition',
 					type: ['subtype'],
-					synonyms: [
-						'Precancerous State',
-						'Premalignant Condition',
-						'Premalignant State',
-					],
+					synonyms: ['Precancerous State', 'Premalignant Condition', 'Premalignant State'],
 				},
 			],
 			biomarkers: null,
@@ -8069,32 +7647,27 @@ describe('getClinicalTrialDescription', () => {
 					{
 						display_order: 1,
 						inclusion_indicator: true,
-						description:
-							'Enrollment must occur within 6 months of initial disease presentation OR within 6 months of refractory disease, disease progression, disease recurrence, second or secondary malignancy, or post-mortem',
+						description: 'Enrollment must occur within 6 months of initial disease presentation OR within 6 months of refractory disease, disease progression, disease recurrence, second or secondary malignancy, or post-mortem',
 					},
 					{
 						display_order: 2,
 						inclusion_indicator: true,
-						description:
-							'Patients previously enrolled on ACCRN07 are eligible to enroll on Tracking Outcome, Registry and Future Contact components of APEC14B1 any time after they reach age of majority',
+						description: 'Patients previously enrolled on ACCRN07 are eligible to enroll on Tracking Outcome, Registry and Future Contact components of APEC14B1 any time after they reach age of majority',
 					},
 					{
 						display_order: 3,
 						inclusion_indicator: true,
-						description:
-							'Patients with a known or suspected neoplasm that occurs in the pediatric, adolescent or young adult populations are eligible for enrollment as follows:\r\n* All cancer cases with an International Classification of Diseases for Oncology (ICD-O) histologic behavior code of two “2” (carcinoma in situ) or three “3” (malignant)\r\n* All neoplastic lesions of the central nervous system regardless of behavior, i.e., benign, borderline or malignant\r\n* The following other benign/borderline conditions:\r\n** Mesoblastic nephroma\r\n** Teratomas (mature and immature types)\r\n** Myeloproliferative diseases including transient myeloproliferative disease \r\n** Langerhans cell histiocytosis\r\n** Lymphoproliferative diseases\r\n** Desmoid tumors\r\n** Gonadal stromal cell tumors',
+						description: 'Patients with a known or suspected neoplasm that occurs in the pediatric, adolescent or young adult populations are eligible for enrollment as follows:\r\n* All cancer cases with an International Classification of Diseases for Oncology (ICD-O) histologic behavior code of two “2” (carcinoma in situ) or three “3” (malignant)\r\n* All neoplastic lesions of the central nervous system regardless of behavior, i.e., benign, borderline or malignant\r\n* The following other benign/borderline conditions:\r\n** Mesoblastic nephroma\r\n** Teratomas (mature and immature types)\r\n** Myeloproliferative diseases including transient myeloproliferative disease \r\n** Langerhans cell histiocytosis\r\n** Lymphoproliferative diseases\r\n** Desmoid tumors\r\n** Gonadal stromal cell tumors',
 					},
 					{
 						display_order: 4,
 						inclusion_indicator: true,
-						description:
-							'Subjects must be =< 25 years of age at time of original diagnosis, except for patients who are being screened specifically for eligibility onto a COG (or COG participating National Clinical Trials Network [NCTN]) therapeutic study, for which there is a higher upper age limit',
+						description: 'Subjects must be =< 25 years of age at time of original diagnosis, except for patients who are being screened specifically for eligibility onto a COG (or COG participating National Clinical Trials Network [NCTN]) therapeutic study, for which there is a higher upper age limit',
 					},
 					{
 						display_order: 5,
 						inclusion_indicator: true,
-						description:
-							'All patients or their parents or legally authorized representatives must sign a written informed consent and agree to participate in at least one component of the study; parents will be asked to sign a separate consent for their own biospecimen submission\r\n* If patients or their parents or legally authorized representatives have not signed the Part A subject consent form at the time of a diagnostic bone marrow procedure, it is recommended that they initially provide consent for drawing extra bone marrow using the Consent for Collection of Additional Bone Marrow; consent using the Part A subject consent form must be provided prior to any other procedures for eligibility screening or banking under APEC14B1',
+						description: 'All patients or their parents or legally authorized representatives must sign a written informed consent and agree to participate in at least one component of the study; parents will be asked to sign a separate consent for their own biospecimen submission\r\n* If patients or their parents or legally authorized representatives have not signed the Part A subject consent form at the time of a diagnostic bone marrow procedure, it is recommended that they initially provide consent for drawing extra bone marrow using the Consent for Collection of Additional Bone Marrow; consent using the Part A subject consent form must be provided prior to any other procedures for eligibility screening or banking under APEC14B1',
 					},
 				],
 			},
@@ -8103,8 +7676,7 @@ describe('getClinicalTrialDescription', () => {
 				{
 					arm_name: 'Observational (Project: Every Child)',
 					arm_type: null,
-					arm_description:
-						'Patients undergo medical data review to create a Childhood Cancer Registry. Patients also undergo collection of biospecimen samples (e.g., tissue, blood, bone marrow, plasma, serum, saliva, cerebrospinal fluid, or urine).',
+					arm_description: 'Patients undergo medical data review to create a Childhood Cancer Registry. Patients also undergo collection of biospecimen samples (e.g., tissue, blood, bone marrow, plasma, serum, saliva, cerebrospinal fluid, or urine).',
 					interventions: [
 						{
 							intervention_name: 'Medical Chart Review',
@@ -8138,8 +7710,7 @@ describe('getClinicalTrialDescription', () => {
 						},
 						{
 							intervention_code: 'C63474',
-							intervention_name:
-								'Behavioral, Psychological or Informational Intervention',
+							intervention_name: 'Behavioral, Psychological or Informational Intervention',
 							inclusion_indicator: 'TREE',
 							intervention_type: 'Other',
 							intervention_description: '',
@@ -8185,12 +7756,7 @@ describe('getClinicalTrialDescription', () => {
 							intervention_description: '',
 							intervention_category: 'NONE',
 							parents: ['C74942'],
-							synonyms: [
-								'Cytologic Procedure',
-								'Cytologic Technique',
-								'Cytological Techniques',
-								'Cytology',
-							],
+							synonyms: ['Cytologic Procedure', 'Cytologic Technique', 'Cytological Techniques', 'Cytology'],
 						},
 						{
 							intervention_code: 'C74942',
@@ -8210,22 +7776,14 @@ describe('getClinicalTrialDescription', () => {
 							intervention_description: '',
 							intervention_category: 'NONE',
 							parents: ['C25218'],
-							synonyms: [
-								'Lab Test',
-								'Lab Tests',
-								'Laboratory Test',
-								'Test',
-								'Tests',
-							],
+							synonyms: ['Lab Test', 'Lab Tests', 'Laboratory Test', 'Test', 'Tests'],
 						},
 					],
 				},
 			],
 		};
 
-		const scope = nock('http://example.org')
-			.get(`/trials/${query.payload}`)
-			.reply(200, result);
+		const scope = nock('http://example.org').get(`/trials/${query.payload}`).reply(200, result);
 		const response = await getClinicalTrialDescription(client, query.payload);
 		expect(response).toEqual(result);
 		scope.isDone();
@@ -8236,14 +7794,8 @@ describe('getClinicalTrialDescription', () => {
 
 		const query = getClinicalTrialDescriptionAction(trialId);
 
-		const scope = nock('http://example.org')
-			.get(`/trials/${query.payload}`)
-			.reply(404);
-		await expect(
-			getClinicalTrialDescription(client, query.payload)
-		).rejects.toThrow(
-			'Unexpected status 404 for fetching clinical trial description'
-		);
+		const scope = nock('http://example.org').get(`/trials/${query.payload}`).reply(404);
+		await expect(getClinicalTrialDescription(client, query.payload)).rejects.toThrow('Unexpected status 404 for fetching clinical trial description');
 		scope.isDone();
 	});
 
@@ -8252,14 +7804,8 @@ describe('getClinicalTrialDescription', () => {
 
 		const query = getClinicalTrialDescriptionAction(trialId);
 
-		const scope = nock('http://example.org')
-			.get(`/trials/${query.payload}`)
-			.reply(500);
-		await expect(
-			getClinicalTrialDescription(client, query.payload)
-		).rejects.toThrow(
-			'Unexpected status 500 for fetching clinical trial description'
-		);
+		const scope = nock('http://example.org').get(`/trials/${query.payload}`).reply(500);
+		await expect(getClinicalTrialDescription(client, query.payload)).rejects.toThrow('Unexpected status 500 for fetching clinical trial description');
 		scope.isDone();
 	});
 
@@ -8268,12 +7814,8 @@ describe('getClinicalTrialDescription', () => {
 
 		const query = getClinicalTrialDescriptionAction(trialId);
 
-		const scope = nock('http://example.org')
-			.get(`/trials/${query.payload}`)
-			.replyWithError('connection refused');
-		await expect(
-			getClinicalTrialDescription(client, query.payload)
-		).rejects.toThrow('connection refused');
+		const scope = nock('http://example.org').get(`/trials/${query.payload}`).replyWithError('connection refused');
+		await expect(getClinicalTrialDescription(client, query.payload)).rejects.toThrow('connection refused');
 		scope.isDone();
 	});
 });

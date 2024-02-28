@@ -86,11 +86,7 @@ When('user checks {string} checkbox', (label) => {
 When('user checks {string} checkbox on {int} pages', (label, page) => {
 	for (let i = 1; i <= page; i++) {
 		cy.contains('button.pager__button', `${i}`).click();
-		cy.get('label')
-			.contains(label)
-			.parent()
-			.find('input')
-			.check({ force: true });
+		cy.get('label').contains(label).parent().find('input').check({ force: true });
 	}
 });
 
@@ -156,26 +152,13 @@ And('helper text {string} is displayed', (helperText) => {
 	cy.get('span').contains(helperText).should('be.visible');
 });
 
-Then(
-	'{string} input field has a placeholder {string}',
-	(fieldLabel, placeholderText) => {
-		cy.get(`input#${fieldMap[fieldLabel]}`).should(
-			'have.attr',
-			'placeholder',
-			placeholderText
-		);
-	}
-);
+Then('{string} input field has a placeholder {string}', (fieldLabel, placeholderText) => {
+	cy.get(`input#${fieldMap[fieldLabel]}`).should('have.attr', 'placeholder', placeholderText);
+});
 
-Then(
-	'autocomplete dropdown is displayed with {string} text',
-	(autosuggestItem) => {
-		cy.get('div.cts-autocomplete__menu-item').should(
-			'have.text',
-			autosuggestItem
-		);
-	}
-);
+Then('autocomplete dropdown is displayed with {string} text', (autosuggestItem) => {
+	cy.get('div.cts-autocomplete__menu-item').should('have.text', autosuggestItem);
+});
 
 And('{string} link has a href {string}', (linkText, linkHref) => {
 	cy.get('a').contains(linkText).should('have.attr', 'href', linkHref);
@@ -194,12 +177,9 @@ Then('help icon is displayed with href {string}', (helpHref) => {
 	cy.get('a.text-icon-help').should('have.attr', 'href', helpHref);
 });
 
-Then(
-	'the Age for result {int} displays the following {string}',
-	(resultItemNum, ageText) => {
-		cy.get('.results-list__item span')
-			.eq(resultItemNum - 1)
-			.get('.results-list-item__category')
-			.contains(ageText);
-	}
-);
+Then('the Age for result {int} displays the following {string}', (resultItemNum, ageText) => {
+	cy.get('.results-list__item span')
+		.eq(resultItemNum - 1)
+		.get('.results-list-item__category')
+		.contains(ageText);
+});

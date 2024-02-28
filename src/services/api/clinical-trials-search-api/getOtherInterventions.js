@@ -8,33 +8,25 @@ import querystring from 'query-string';
  */
 export const getOtherInterventions = async (client, query) => {
 	try {
-		const res = await client.get(
-			`/interventions?${querystring.stringify(query)}`
-		);
+		const res = await client.get(`/interventions?${querystring.stringify(query)}`);
 		if (res.status === 200) {
 			const filteredResults = Array.isArray(res.data?.data)
 				? res.data.data.map((intervention) => {
 						return {
 							...intervention,
-							synonyms: intervention.synonyms.filter(
-								(s) => s !== intervention.name
-							),
+							synonyms: intervention.synonyms.filter((s) => s !== intervention.name),
 						};
 				  })
 				: res.data?.data;
 			return { data: filteredResults };
 		} else {
 			// This condition will be hit for anything < 300.
-			throw new Error(
-				`Unexpected status ${res.status} for fetching other treatments`
-			);
+			throw new Error(`Unexpected status ${res.status} for fetching other treatments`);
 		}
 	} catch (error) {
 		// This conditional will be hit for any status >= 300.
 		if (error.response) {
-			throw new Error(
-				`Unexpected status ${error.response.status} for fetching other treatments`
-			);
+			throw new Error(`Unexpected status ${error.response.status} for fetching other treatments`);
 		}
 		throw error;
 	}

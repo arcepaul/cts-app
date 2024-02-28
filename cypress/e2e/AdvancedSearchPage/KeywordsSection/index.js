@@ -6,14 +6,9 @@ const keywordsFields = {
 	KeywordsPhrases: 'keywordPhrases',
 };
 
-Then(
-	'help icon is displayed in {string} section with href {string}',
-	(fieldLabel, helpHref) => {
-		cy.get(`#fieldset--${keywordsFields[fieldLabel]}`)
-			.find('a.text-icon-help')
-			.should('have.attr', 'href', helpHref);
-	}
-);
+Then('help icon is displayed in {string} section with href {string}', (fieldLabel, helpHref) => {
+	cy.get(`#fieldset--${keywordsFields[fieldLabel]}`).find('a.text-icon-help').should('have.attr', 'href', helpHref);
+});
 
 And('trial info displays {string}', (infoText) => {
 	cy.get('.all-trials').should('have.text', infoText);

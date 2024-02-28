@@ -70,13 +70,7 @@ class AccordionItem extends React.Component {
 	renderTitleElement() {
 		let element;
 		if (this.props.titleCollapsed.length > 0) {
-			element = (
-				<span>
-					{this.props.expanded && this.props.titleExpanded
-						? this.props.titleExpanded
-						: this.props.titleCollapsed}
-				</span>
-			);
+			element = <span>{this.props.expanded && this.props.titleExpanded ? this.props.titleExpanded : this.props.titleCollapsed}</span>;
 		} else {
 			if (React.Children.count(this.props.children) !== 2) {
 				throw new Error('Either a title or 2 child elements must be supplied.');
@@ -86,11 +80,7 @@ class AccordionItem extends React.Component {
 		}
 		return (
 			<h2 className="cts-accordion__heading">
-				<button
-					className="cts-accordion__button"
-					aria-expanded={this.props.expanded}
-					aria-controls={`${this.state.uuid}-content`}
-					onClick={this.makeActive}>
+				<button className="cts-accordion__button" aria-expanded={this.props.expanded} aria-controls={`${this.state.uuid}-content`} onClick={this.makeActive}>
 					{element}
 				</button>
 			</h2>
@@ -105,10 +95,7 @@ class AccordionItem extends React.Component {
 		let children = React.Children.toArray(this.props.children);
 		let element = children.length === 2 ? children[1] : children[0];
 		return (
-			<div
-				id={`${this.state.uuid}-content`}
-				className="cts-accordion__content"
-				aria-hidden={!this.props.expanded}>
+			<div id={`${this.state.uuid}-content`} className="cts-accordion__content" aria-hidden={!this.props.expanded}>
 				{element}
 			</div>
 		);
@@ -117,9 +104,7 @@ class AccordionItem extends React.Component {
 	render() {
 		// Ensure there are only 2 children.
 		if (React.Children.count(this.props.children) > 2) {
-			throw new Error(
-				'AccordionItem elements must have no more than 2 children.'
-			);
+			throw new Error('AccordionItem elements must have no more than 2 children.');
 		}
 
 		return (

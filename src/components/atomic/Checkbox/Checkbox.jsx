@@ -4,17 +4,7 @@ import { useDispatch } from 'react-redux';
 import { trackFormInputChange } from '../../../store/modules/analytics/tracking/tracking.actions';
 import './Checkbox.scss';
 
-const Checkbox = ({
-	id,
-	label,
-	value,
-	name,
-	classes,
-	disabled,
-	hideLabel,
-	disableTracking,
-	...otherProps
-}) => {
+const Checkbox = ({ id, label, value, name, classes, disabled, hideLabel, disableTracking, ...otherProps }) => {
 	const dispatch = useDispatch();
 
 	const handleInput = (event) => {
@@ -37,16 +27,7 @@ const Checkbox = ({
 
 	return (
 		<div className={`cts-checkbox ${classes}`}>
-			<input
-				id={id}
-				className="cts-checkbox__input"
-				type="checkbox"
-				name={name}
-				onInput={handleInput}
-				value={value ? value : id}
-				disabled={disabled || false}
-				{...otherProps}
-			/>
+			<input id={id} className="cts-checkbox__input" type="checkbox" name={name} onInput={handleInput} value={value ? value : id} disabled={disabled || false} {...otherProps} />
 			<label className="cts-checkbox__label" htmlFor={id}>
 				{hideLabel ? <span className="show-for-sr">{label}</span> : label}
 			</label>

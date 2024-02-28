@@ -7,12 +7,7 @@ export const zipcodeFetcher = async (baseUrl, zipcode) => {
 	try {
 		const response = await axios.get(url);
 		// if we don't get back a message, good to go
-		if (
-			response &&
-			response.data &&
-			response.status === 200 &&
-			!response.data.message
-		) {
+		if (response && response.data && response.status === 200 && !response.data.message) {
 			return response.data;
 		}
 		//disabling lint here as we do not care if there was an error or it was empty

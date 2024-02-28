@@ -1,4 +1,3 @@
-import axios from 'axios';
 import querystring from 'query-string';
 import nock from 'nock';
 
@@ -24,23 +23,11 @@ const mock = {
 			ancestor_ids: [],
 			type: ['maintype'],
 			parent_ids: [],
-			synonyms: [
-				'Breast Carcinoma',
-				'Breast cancer, NOS',
-				'Cancer of Breast',
-				'Cancer of the Breast',
-				'Carcinoma of Breast',
-				'Carcinoma of the Breast',
-				'Mammary Carcinoma',
-				'breast cancer',
-			],
+			synonyms: ['Breast Carcinoma', 'Breast cancer, NOS', 'Cancer of Breast', 'Cancer of the Breast', 'Carcinoma of Breast', 'Carcinoma of the Breast', 'Mammary Carcinoma', 'breast cancer'],
 			count: 977,
 		},
 	],
 };
-
-// Required for unit tests to not have CORS issues
-axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const client = clinicalTrialsSearchClientFactory('http://example.org');
 
@@ -72,10 +59,7 @@ describe('getDiseasesForTypeAhead', () => {
 		const scope = nock('http://example.org')
 			.get(`/diseases?${querystring.stringify(requestQuery)}`)
 			.reply(200, mock);
-		const response = await getDiseasesForTypeAhead(
-			client,
-			query.payload.requestParams
-		);
+		const response = await getDiseasesForTypeAhead(client, query.payload.requestParams);
 		expect(response).toEqual(mock);
 		scope.isDone();
 	});
@@ -94,9 +78,7 @@ describe('getDiseasesForTypeAhead', () => {
 		const scope = nock('http://example.org')
 			.get(`/diseases?${querystring.stringify(requestQuery)}`)
 			.reply(400);
-		await expect(
-			getDiseasesForTypeAhead(client, query.payload.requestParams)
-		).rejects.toThrow('Unexpected status 400 for fetching diseases');
+		await expect(getDiseasesForTypeAhead(client, query.payload.requestParams)).rejects.toThrow('Unexpected status 400 for fetching diseases');
 		scope.isDone();
 	});
 
@@ -114,9 +96,7 @@ describe('getDiseasesForTypeAhead', () => {
 		const scope = nock('http://example.org')
 			.get(`/diseases?${querystring.stringify(requestQuery)}`)
 			.reply(500);
-		await expect(
-			getDiseasesForTypeAhead(client, query.payload.requestParams)
-		).rejects.toThrow('Unexpected status 500 for fetching diseases');
+		await expect(getDiseasesForTypeAhead(client, query.payload.requestParams)).rejects.toThrow('Unexpected status 500 for fetching diseases');
 		scope.isDone();
 	});
 
@@ -134,9 +114,7 @@ describe('getDiseasesForTypeAhead', () => {
 		const scope = nock('http://example.org')
 			.get(`/diseases?${querystring.stringify(requestQuery)}`)
 			.reply(204);
-		await expect(
-			getDiseasesForTypeAhead(client, query.payload.requestParams)
-		).rejects.toThrow('Unexpected status 204 for fetching diseases');
+		await expect(getDiseasesForTypeAhead(client, query.payload.requestParams)).rejects.toThrow('Unexpected status 204 for fetching diseases');
 		scope.isDone();
 	});
 
@@ -154,9 +132,7 @@ describe('getDiseasesForTypeAhead', () => {
 		const scope = nock('http://example.org')
 			.get(`/diseases?${querystring.stringify(requestQuery)}`)
 			.replyWithError('connection refused');
-		await expect(
-			getDiseasesForTypeAhead(client, query.payload.requestParams)
-		).rejects.toThrow('connection refused');
+		await expect(getDiseasesForTypeAhead(client, query.payload.requestParams)).rejects.toThrow('connection refused');
 		scope.isDone();
 	});
 });

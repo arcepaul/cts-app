@@ -49,47 +49,19 @@ const TrialType = ({ handleUpdate }) => {
 	};
 
 	return (
-		<Fieldset
-			id="trialtype"
-			legend="Trial Type"
-			classes="trial-type"
-			helpUrl={helpUrl + '#trialtype'}>
-			<p>
-				Select the type of trial for your search. You may check more than one
-				box or select &quot;All&quot;. You may choose to limit results to trials
-				accepting healthy volunteers.
-			</p>
+		<Fieldset id="trialtype" legend="Trial Type" classes="trial-type" helpUrl={helpUrl + '#trialtype'}>
+			<p>Select the type of trial for your search. You may check more than one box or select &quot;All&quot;. You may choose to limit results to trials accepting healthy volunteers.</p>
 
 			<div className="data-toggle-block">
-				<Toggle
-					id="hv"
-					checked={hvToggle}
-					label="Limit results to Veterans Affairs facilities"
-					onClick={handleToggle}
-					onChange={() => {}}
-				/>
+				<Toggle id="hv" checked={hvToggle} label="Limit results to Veterans Affairs facilities" onClick={handleToggle} onChange={() => {}} />
 				Limit results to trials accepting healthy volunteers
 			</div>
 			<div className="select-all">
-				<Checkbox
-					value=""
-					id="tt_all"
-					label="All"
-					classes="tt-all"
-					checked={trialTypes.every((type) => !type.checked)}
-					onChange={handleSelectAll}
-				/>
+				<Checkbox value="" id="tt_all" label="All" classes="tt-all" checked={trialTypes.every((type) => !type.checked)} onChange={handleSelectAll} />
 			</div>
 			<div className="group-trial-types">
 				{trialTypes.map((trialType, idx) => (
-					<Checkbox
-						key={idx}
-						id={`tt_${trialType.value}`}
-						value={trialType.value}
-						label={trialType.label}
-						onChange={handleCheckType}
-						checked={trialType.checked}
-					/>
+					<Checkbox key={idx} id={`tt_${trialType.value}`} value={trialType.value} label={trialType.label} onChange={handleCheckType} checked={trialType.checked} />
 				))}
 			</div>
 		</Fieldset>

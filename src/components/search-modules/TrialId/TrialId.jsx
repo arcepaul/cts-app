@@ -11,15 +11,7 @@ const TrialId = ({ handleUpdate }) => {
 
 	return (
 		<Fieldset id="trialid" legend="Trial ID" helpUrl={helpUrl + '#trialid'}>
-			<TextInput
-				action={(e) => handleUpdate(e.target.id, e.target.value)}
-				value={trialId}
-				id="trialId"
-				type="text"
-				label="Trial ID"
-				labelHidden
-				inputHelpText="Separate multiple IDs with commas."
-			/>
+			<TextInput action={(e) => handleUpdate(e.target.id, e.target.value)} value={trialId} id="trialId" type="text" label="Trial ID" labelHidden inputHelpText="Separate multiple IDs with commas." />
 		</Fieldset>
 	);
 };

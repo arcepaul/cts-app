@@ -1,4 +1,3 @@
-import axios from 'axios';
 import querystring from 'querystring';
 import nock from 'nock';
 
@@ -6,9 +5,6 @@ import clinicalTrialsSearchClientFactory from '../clinicalTrialsSearchClientFact
 import { ACTIVE_TRIAL_STATUSES } from '../../../../constants';
 import { getLeadOrg } from '../getLeadOrg';
 import { getLeadOrgAction } from '../../../../store/actionsV2';
-
-// Required for unit tests to not have CORS issues
-axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const client = clinicalTrialsSearchClientFactory('http://example.org');
 
@@ -118,9 +114,7 @@ describe('getLeadOrg', () => {
 		const scope = nock('http://example.org')
 			.get(`/trials?${querystring.stringify(requestQuery)}`)
 			.reply(404);
-		await expect(
-			getLeadOrg(client, query.payload.requestParams)
-		).rejects.toThrow('Unexpected status 404 for fetching lead organization');
+		await expect(getLeadOrg(client, query.payload.requestParams)).rejects.toThrow('Unexpected status 404 for fetching lead organization');
 		scope.isDone();
 	});
 
@@ -143,9 +137,7 @@ describe('getLeadOrg', () => {
 		const scope = nock('http://example.org')
 			.get(`/trials?${querystring.stringify(requestQuery)}`)
 			.reply(500);
-		await expect(
-			getLeadOrg(client, query.payload.requestParams)
-		).rejects.toThrow('Unexpected status 500 for fetching lead organization');
+		await expect(getLeadOrg(client, query.payload.requestParams)).rejects.toThrow('Unexpected status 500 for fetching lead organization');
 		scope.isDone();
 	});
 
@@ -168,9 +160,7 @@ describe('getLeadOrg', () => {
 		const scope = nock('http://example.org')
 			.get(`/trials?${querystring.stringify(requestQuery)}`)
 			.replyWithError('connection refused');
-		await expect(
-			getLeadOrg(client, query.payload.requestParams)
-		).rejects.toThrow('connection refused');
+		await expect(getLeadOrg(client, query.payload.requestParams)).rejects.toThrow('connection refused');
 		scope.isDone();
 	});
 });

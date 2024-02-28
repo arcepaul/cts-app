@@ -85,24 +85,13 @@ export const getInterventionFetcher = (ids, rtnInterventions) => {
 };
 
 const fetcherTests = [
-	[
-		'Single Disease',
-		getDiseaseFetcher(['C1111'], ['Main Type A']),
-		[API_DISEASE_MOCKS['Main Type A']],
-	],
-	[
-		'Multi Diseases',
-		getDiseaseFetcher(['C1111', 'C1112'], ['Main Type A', 'Main Type B']),
-		[API_DISEASE_MOCKS['Main Type A'], API_DISEASE_MOCKS['Main Type B']],
-	],
+	['Single Disease', getDiseaseFetcher(['C1111'], ['Main Type A']), [API_DISEASE_MOCKS['Main Type A']]],
+	['Multi Diseases', getDiseaseFetcher(['C1111', 'C1112'], ['Main Type A', 'Main Type B']), [API_DISEASE_MOCKS['Main Type A'], API_DISEASE_MOCKS['Main Type B']]],
 ];
 
 describe('fetch disease', () => {
-	it.each(fetcherTests)(
-		'getDiseaseFetcher - %s',
-		async (name, diseaseFetcher, expected) => {
-			const actual = await diseaseFetcher(['C1111', 'C1112']);
-			expect(actual).toEqual(expected);
-		}
-	);
+	it.each(fetcherTests)('getDiseaseFetcher - %s', async (name, diseaseFetcher, expected) => {
+		const actual = await diseaseFetcher(['C1111', 'C1112']);
+		expect(actual).toEqual(expected);
+	});
 });

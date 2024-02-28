@@ -2,39 +2,21 @@
 import { Then, When, And } from 'cypress-cucumber-preprocessor/steps';
 import { fieldMap } from '../../../utils/ctsFields.js';
 
-And(
-	'help icon is displayed in {string} section with href {string}',
-	(fieldLabel, helpHref) => {
-		cy.get('#fieldset--trialInvestigators')
-			.find('a.text-icon-help')
-			.should('be.visible', fieldLabel)
-			.and('have.attr', 'href', helpHref);
-	}
-);
+And('help icon is displayed in {string} section with href {string}', (fieldLabel, helpHref) => {
+	cy.get('#fieldset--trialInvestigators').find('a.text-icon-help').should('be.visible', fieldLabel).and('have.attr', 'href', helpHref);
+});
 
-Then(
-	'autocomplete dropdown is displayed with {string} text',
-	(autosuggestItem) => {
-		cy.get('div.cts-autocomplete__menu-item:visible').should(
-			'have.text',
-			autosuggestItem
-		);
-	}
-);
+Then('autocomplete dropdown is displayed with {string} text', (autosuggestItem) => {
+	cy.get('div.cts-autocomplete__menu-item:visible').should('have.text', autosuggestItem);
+});
 
 Then('autocomplete dropdown is displayed', () => {
 	cy.get('div.cts-autocomplete__menu-item:visible').should('be.visible');
 });
 
 And('user selects {string} from dropdown', (autosuggestTerm) => {
-	cy.get('div.cts-autocomplete__menu.--trialInvestigators').should(
-		'be.visible'
-	);
-	cy.get(
-		'div.cts-autocomplete__menu.--trialInvestigators div.highlighted:visible'
-	)
-		.should('have.text', autosuggestTerm)
-		.click();
+	cy.get('div.cts-autocomplete__menu.--trialInvestigators').should('be.visible');
+	cy.get('div.cts-autocomplete__menu.--trialInvestigators div.highlighted:visible').should('have.text', autosuggestTerm).click();
 });
 
 And('trial info displayes {string}', (infoText) => {

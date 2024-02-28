@@ -12,20 +12,14 @@ export const getFormData = (state) => state.form;
  * @param {Function} getFormData
  * @returns {boolean} hasInvalidAge
  */
-export const getHasInvalidAge = createSelector(
-	getFormData,
-	(formData) => formData.hasInvalidAge
-);
+export const getHasInvalidAge = createSelector(getFormData, (formData) => formData.hasInvalidAge);
 
 /**
  * getHasInvalidZip - Returns boolean flag if an invalid zip has been entered in the form
  * @param {Function} getFormData
  * @returns {boolean} hasInvalidZip
  */
-export const getHasInvalidZip = createSelector(
-	getFormData,
-	(formData) => formData.hasInvalidZip
-);
+export const getHasInvalidZip = createSelector(getFormData, (formData) => formData.hasInvalidZip);
 
 /**
  * getHasFormError - Returns boolean flag if an error has occurred om the form
@@ -33,21 +27,6 @@ export const getHasInvalidZip = createSelector(
  * @param {Function} getHasInvalidZip
  * @returns {boolean} hasFormError
  */
-export const getHasFormError = createSelector(
-	getHasInvalidAge,
-	getHasInvalidZip,
-	(hasInvalidAge, hasInvalidZip) => hasInvalidAge || hasInvalidZip
-);
+export const getHasFormError = createSelector(getHasInvalidAge, getHasInvalidZip, (hasInvalidAge, hasInvalidZip) => hasInvalidAge || hasInvalidZip);
 
-export const getFieldError = createSelector(
-	getHasInvalidAge,
-	getHasInvalidZip,
-	(hasInvalidAge, hasInvalidZip) =>
-		hasInvalidZip && hasInvalidAge
-			? 'a,z'
-			: hasInvalidZip
-			? 'z'
-			: hasInvalidAge
-			? 'a'
-			: ''
-);
+export const getFieldError = createSelector(getHasInvalidAge, getHasInvalidZip, (hasInvalidAge, hasInvalidZip) => (hasInvalidZip && hasInvalidAge ? 'a,z' : hasInvalidZip ? 'z' : hasInvalidAge ? 'a' : ''));

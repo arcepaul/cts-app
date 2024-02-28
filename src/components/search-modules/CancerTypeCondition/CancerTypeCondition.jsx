@@ -3,12 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { Fieldset, Autocomplete, InputLabel } from '../../atomic';
-import {
-	getFindingsAction,
-	getMainTypeAction,
-	getSubtypesAction,
-	getStagesAction,
-} from '../../../store/actionsV2';
+import { getFindingsAction, getMainTypeAction, getSubtypesAction, getStagesAction } from '../../../store/actionsV2';
 import { useCachedValues } from '../../../hooks';
 import { sortItemsByName } from '../../../utilities';
 import { useAppSettings } from '../../../store/store.js';
@@ -22,15 +17,7 @@ const CancerTypeCondition = ({ handleUpdate }) => {
 	const [{ helpUrl }] = useAppSettings();
 
 	//store values
-	const {
-		cancerType = { codes: [] },
-		cancerTypeModified,
-		subtypes = [],
-		subtypeModified,
-		stages = [],
-		stagesModified,
-		findings = [],
-	} = useSelector((store) => store.form);
+	const { cancerType = { codes: [] }, cancerTypeModified, subtypes = [], subtypeModified, stages = [], stagesModified, findings = [] } = useSelector((store) => store.form);
 	//typeahead states
 	const [subtype, setSubtype] = useState({ value: '' });
 	const [stage, setStage] = useState({ value: '' });
@@ -52,11 +39,7 @@ const CancerTypeCondition = ({ handleUpdate }) => {
 	const focusCTButton = () => ctButton.current.blur();
 
 	useEffect(() => {
-		if (
-			cache['subtypeOptions'] ||
-			cache['stageOptions'] ||
-			cache['findingsOptions']
-		) {
+		if (cache['subtypeOptions'] || cache['stageOptions'] || cache['findingsOptions']) {
 			populateSubmenus();
 		}
 	}, [cache]);
@@ -70,11 +53,7 @@ const CancerTypeCondition = ({ handleUpdate }) => {
 	const menuDropdown = document.getElementById('NCI-CTS-root');
 
 	const outsideClickListener = (event) => {
-		if (
-			document.getElementById('ctMenu') &&
-			!document.getElementById('ctMenu').contains(event.target) &&
-			ctMenuOpen
-		) {
+		if (document.getElementById('ctMenu') && !document.getElementById('ctMenu').contains(event.target) && ctMenuOpen) {
 			setCtMenuOpen(false);
 			removeClickListener();
 		}
@@ -113,11 +92,7 @@ const CancerTypeCondition = ({ handleUpdate }) => {
 
 	// in case it hasn't come back by this time
 	useEffect(() => {
-		if (
-			cache['maintypeOptions'] &&
-			cache['maintypeOptions'].data.length > 0 &&
-			refineSearch
-		) {
+		if (cache['maintypeOptions'] && cache['maintypeOptions'].data.length > 0 && refineSearch) {
 			initRefineSearch();
 		}
 	}, [cache['maintypeOptions']]);
@@ -138,9 +113,7 @@ const CancerTypeCondition = ({ handleUpdate }) => {
 				retrieveDescendents(cancerType.codes[0], cancerType.codes);
 			} else {
 				// use the parentDisease ID to select the primary cancer type
-				let parentCancer = cache['maintypeOptions'].data.find(
-					({ codes }) => codes[0] === cancerType.parentDiseaseID[0]
-				);
+				let parentCancer = cache['maintypeOptions'].data.find(({ codes }) => codes[0] === cancerType.parentDiseaseID[0]);
 
 				if (parentCancer) {
 					retrieveDescendents(parentCancer.codes[0], parentCancer.codes);
@@ -172,13 +145,10 @@ const CancerTypeCondition = ({ handleUpdate }) => {
 		if (!items.length || !selections.length) {
 			return items;
 		}
-		return items.filter(
-			(item) => !selections.find((selection) => selection.name === item.name)
-		);
+		return items.filter((item) => !selections.find((selection) => selection.name === item.name));
 	};
 
-	const ctSelectButtonDisplay =
-		cancerType.codes.length === 0 ? 'All' : cancerType.name;
+	const ctSelectButtonDisplay = cancerType.codes.length === 0 ? 'All' : cancerType.name;
 
 	const handleCTSelectToggle = () => {
 		handleUpdate('cancerTypeModified', false);
@@ -200,35 +170,15 @@ const CancerTypeCondition = ({ handleUpdate }) => {
 	};
 
 	return (
-		<Fieldset
-			id="type"
-			legend="Cancer Type/Condition"
-			helpUrl={helpUrl + '#cancertype'}
-			classes="cancer-type-condition">
-			<p>
-				Select a cancer type/condition, then include subtypes, stages or other
-				attributes, if applicable.
-			</p>
+		<Fieldset id="type" legend="Cancer Type/Condition" helpUrl={helpUrl + '#cancertype'} classes="cancer-type-condition">
+			<p>Select a cancer type/condition, then include subtypes, stages or other attributes, if applicable.</p>
 
 			<div className="ct-select">
 				<InputLabel label="Primary Cancer Type/Condition" htmlFor="ct" />
-				<button
-					ref={ctButton}
-					id="ct-btn"
-					className={`ct-select__button faux-select ${
-						cancerTypeModified ? '--modified' : ''
-					}`}
-					type="button"
-					onClick={handleCTSelectToggle}
-					aria-label="Click to select specific cancer type"
-					aria-haspopup={true}
-					aria-controls=""
-					aria-expanded={ctMenuOpen}>
+				<button ref={ctButton} id="ct-btn" className={`ct-select__button faux-select ${cancerTypeModified ? '--modified' : ''}`} type="button" onClick={handleCTSelectToggle} aria-label="Click to select specific cancer type" aria-haspopup={true} aria-controls="" aria-expanded={ctMenuOpen}>
 					{ctSelectButtonDisplay}
 				</button>
-				<div
-					id="ctMenu"
-					className={`ct-select__menu ${ctMenuOpen ? 'open' : ''}`}>
+				<div id="ctMenu" className={`ct-select__menu ${ctMenuOpen ? 'open' : ''}`}>
 					<Autocomplete
 						id="ct-searchTerm"
 						label="Primary Cancer Type/Condition"
@@ -248,23 +198,9 @@ const CancerTypeCondition = ({ handleUpdate }) => {
 						onSelect={(value, item) => {
 							handleCTSelect(value, item);
 						}}
-						renderMenu={(children) => (
-							<div className="cts-autocomplete__menu --ct">
-								{children.length ? (
-									children
-								) : (
-									<div className="cts-autocomplete__menu-item">
-										No results found
-									</div>
-								)}
-							</div>
-						)}
+						renderMenu={(children) => <div className="cts-autocomplete__menu --ct">{children.length ? children : <div className="cts-autocomplete__menu-item">No results found</div>}</div>}
 						renderItem={(item, isHighlighted) => (
-							<div
-								className={`cts-autocomplete__menu-item ${
-									isHighlighted ? 'highlighted' : ''
-								}`}
-								key={item.codes[0] || 'all'}>
+							<div className={`cts-autocomplete__menu-item ${isHighlighted ? 'highlighted' : ''}`} key={item.codes[0] || 'all'}>
 								{item.name}
 							</div>
 						)}
@@ -291,10 +227,7 @@ const CancerTypeCondition = ({ handleUpdate }) => {
 							handleUpdate('subtypeModified', false);
 						}}
 						onSelect={(value) => {
-							handleUpdate('subtypes', [
-								...subtypes,
-								subtypeOptions.find(({ name }) => name === value),
-							]);
+							handleUpdate('subtypes', [...subtypes, subtypeOptions.find(({ name }) => name === value)]);
 							setSubtype({ value: '' });
 						}}
 						multiselect={true}
@@ -303,23 +236,9 @@ const CancerTypeCondition = ({ handleUpdate }) => {
 							let newChips = subtypes.filter((item) => item.name !== e.label);
 							handleUpdate('subtypes', [...newChips]);
 						}}
-						renderMenu={(children) => (
-							<div className="cts-autocomplete__menu --subtype">
-								{children.length ? (
-									children
-								) : (
-									<div className="cts-autocomplete__menu-item">
-										No available options based on your previous selections
-									</div>
-								)}
-							</div>
-						)}
+						renderMenu={(children) => <div className="cts-autocomplete__menu --subtype">{children.length ? children : <div className="cts-autocomplete__menu-item">No available options based on your previous selections</div>}</div>}
 						renderItem={(item, isHighlighted) => (
-							<div
-								className={`cts-autocomplete__menu-item ${
-									isHighlighted ? 'highlighted' : ''
-								}`}
-								key={item.codes[0]}>
+							<div className={`cts-autocomplete__menu-item ${isHighlighted ? 'highlighted' : ''}`} key={item.codes[0]}>
 								{item.name}
 							</div>
 						)}
@@ -341,10 +260,7 @@ const CancerTypeCondition = ({ handleUpdate }) => {
 							handleUpdate('stagesModified', false);
 						}}
 						onSelect={(value) => {
-							handleUpdate('stages', [
-								...stages,
-								stageOptions.find(({ name }) => name === value),
-							]);
+							handleUpdate('stages', [...stages, stageOptions.find(({ name }) => name === value)]);
 							setStage({ value: '' });
 						}}
 						multiselect={true}
@@ -353,23 +269,9 @@ const CancerTypeCondition = ({ handleUpdate }) => {
 							let newChips = stages.filter((item) => item.name !== e.label);
 							handleUpdate('stages', [...newChips]);
 						}}
-						renderMenu={(children) => (
-							<div className="cts-autocomplete__menu --stage">
-								{children.length ? (
-									children
-								) : (
-									<div className="cts-autocomplete__menu-item">
-										No available options based on your previous selections
-									</div>
-								)}
-							</div>
-						)}
+						renderMenu={(children) => <div className="cts-autocomplete__menu --stage">{children.length ? children : <div className="cts-autocomplete__menu-item">No available options based on your previous selections</div>}</div>}
 						renderItem={(item, isHighlighted) => (
-							<div
-								className={`cts-autocomplete__menu-item ${
-									isHighlighted ? 'highlighted' : ''
-								}`}
-								key={item.codes[0]}>
+							<div className={`cts-autocomplete__menu-item ${isHighlighted ? 'highlighted' : ''}`} key={item.codes[0]}>
 								{item.name}
 							</div>
 						)}
@@ -387,10 +289,7 @@ const CancerTypeCondition = ({ handleUpdate }) => {
 						sortItems={sortItemsByName}
 						onChange={(event, value) => setSideEffects({ value })}
 						onSelect={(value) => {
-							handleUpdate('findings', [
-								...findings,
-								findingsOptions.find(({ name }) => name === value),
-							]);
+							handleUpdate('findings', [...findings, findingsOptions.find(({ name }) => name === value)]);
 							setSideEffects({ value: '' });
 						}}
 						multiselect={true}
@@ -399,23 +298,9 @@ const CancerTypeCondition = ({ handleUpdate }) => {
 							let newChips = findings.filter((item) => item.name !== e.label);
 							handleUpdate('findings', [...newChips]);
 						}}
-						renderMenu={(children) => (
-							<div className="cts-autocomplete__menu --fin">
-								{children.length ? (
-									children
-								) : (
-									<div className="cts-autocomplete__menu-item">
-										No available options based on your previous selections
-									</div>
-								)}
-							</div>
-						)}
+						renderMenu={(children) => <div className="cts-autocomplete__menu --fin">{children.length ? children : <div className="cts-autocomplete__menu-item">No available options based on your previous selections</div>}</div>}
 						renderItem={(item, isHighlighted) => (
-							<div
-								className={`cts-autocomplete__menu-item ${
-									isHighlighted ? 'highlighted' : ''
-								}`}
-								key={item.codes[0]}>
+							<div className={`cts-autocomplete__menu-item ${isHighlighted ? 'highlighted' : ''}`} key={item.codes[0]}>
 								{item.name}
 							</div>
 						)}

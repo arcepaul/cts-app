@@ -3,27 +3,14 @@ import * as queryString from 'query-string';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import {
-	filterSitesByActiveRecruitment,
-	isWithinRadius,
-} from '../../utilities';
+import { filterSitesByActiveRecruitment, isWithinRadius } from '../../utilities';
 import { NIH_ZIPCODE } from '../../constants';
 import { useTracking } from 'react-tracking';
 import { useAppSettings } from '../../store/store.js';
 import { useAppPaths } from '../../hooks/routing';
 
-const ResultsListItem = ({
-	id,
-	item,
-	isChecked,
-	onCheckChange,
-	searchCriteria,
-	itemIndex,
-	resultsPage,
-	formType,
-}) => {
-	const { zipCoords, zipRadius, location, country, states, city, vaOnly, qs } =
-		searchCriteria;
+const ResultsListItem = ({ id, item, isChecked, onCheckChange, searchCriteria, itemIndex, resultsPage, formType }) => {
+	const { zipCoords, zipRadius, location, country, states, city, vaOnly, qs } = searchCriteria;
 
 	const [{ analyticsName }] = useAppSettings();
 	const tracking = useTracking();
@@ -41,20 +28,12 @@ const ResultsListItem = ({
 	const isLocationParamMatch = (itemSite) => {
 		// If search params have a city, but it does
 		// not match.
-		if (
-			city !== '' &&
-			(!itemSite.org_city ||
-				itemSite.org_city.toLowerCase() !== city.toLowerCase())
-		) {
+		if (city !== '' && (!itemSite.org_city || itemSite.org_city.toLowerCase() !== city.toLowerCase())) {
 			return false;
 		}
 
 		// Now check country
-		if (
-			country !== '' &&
-			(!itemSite.org_country ||
-				itemSite.org_country.toLowerCase() !== country.toLowerCase())
-		) {
+		if (country !== '' && (!itemSite.org_country || itemSite.org_country.toLowerCase() !== country.toLowerCase())) {
 			return false;
 		}
 
@@ -84,25 +63,15 @@ const ResultsListItem = ({
 	};
 
 	const countNearbySitesByZip = (arr) => {
-		return arr.reduce(
-			(count, itemSite) =>
-				count + isWithinRadius(zipCoords, itemSite.org_coordinates, zipRadius),
-			0
-		);
+		return arr.reduce((count, itemSite) => count + isWithinRadius(zipCoords, itemSite.org_coordinates, zipRadius), 0);
 	};
 
 	const countNearbySitesByCountryParams = (arr) => {
-		return arr.reduce(
-			(count, itemSite) => count + isLocationParamMatch(itemSite),
-			0
-		);
+		return arr.reduce((count, itemSite) => count + isLocationParamMatch(itemSite), 0);
 	};
 
 	const countNearbySitesByNIHParams = (arr) => {
-		return arr.reduce(
-			(count, itemSite) => count + isNIHParamMatch(itemSite),
-			0
-		);
+		return arr.reduce((count, itemSite) => count + isNIHParamMatch(itemSite), 0);
 	};
 
 	const getGenderDisplay = (genderVal) => {
@@ -155,34 +124,23 @@ const ResultsListItem = ({
 				return [];
 			}
 
-			return location === 'search-location-country' &&
-				country !== 'United States'
-				? item.sites
-				: item.sites.filter((site) => site.org_country === 'United States');
+			return location === 'search-location-country' && country !== 'United States' ? item.sites : item.sites.filter((site) => site.org_country === 'United States');
 		};
 
 		// Filter the sites by active recruitment.
-		const sitesListAll = filterSitesByActiveRecruitment(
-			sitesListAllUnfiltered()
-		);
+		const sitesListAll = filterSitesByActiveRecruitment(sitesListAllUnfiltered());
 
 		// If there are no sites we need to display special information
 		if (sitesListAll.length === 0) {
 			// The old code also referenced a "not yet active" status, which does not exist, so
 			// we are going to ignore that.
-			if (
-				item.current_trial_status === 'Approved' ||
-				item.current_trial_status === 'In Review'
-			) {
+			if (item.current_trial_status === 'Approved' || item.current_trial_status === 'In Review') {
 				return 'Location information is not yet available';
 			} else {
 				return (
 					<>
 						See{' '}
-						<a
-							href={`https://www.clinicaltrials.gov/study/${item.nct_id}`}
-							target="_blank"
-							rel="noopener noreferrer">
+						<a href={`https://www.clinicaltrials.gov/study/${item.nct_id}`} target="_blank" rel="noopener noreferrer">
 							ClinicalTrials.gov
 						</a>
 					</>
@@ -196,51 +154,32 @@ const ResultsListItem = ({
 		if (sitesListAll.length === 1) {
 			const site = sitesListAll[0];
 			let displayText = `${site.org_name}, ${site.org_city}, `;
-			displayText +=
-				site.org_country === 'United States'
-					? site.org_state_or_province
-					: site.org_country;
+			displayText += site.org_country === 'United States' ? site.org_state_or_province : site.org_country;
 			return displayText;
 		}
 
 		// We filter on VA here to cut down on conditionals
 		// in all the count by.
-		const sitesListForNearCount = vaOnly
-			? sitesListAll.filter((site) => site.org_va)
-			: sitesListAll;
+		const sitesListForNearCount = vaOnly ? sitesListAll.filter((site) => site.org_va) : sitesListAll;
 
 		// Assume that search-location-zip means that
 		// you have a properly filled in zip code.
 		if (location === 'search-location-zip') {
 			//has a zip
 			if (zipCoords.lat !== '' && zipCoords.long !== '') {
-				return `${sitesListAll.length} location${
-					sitesListAll.length === 1 ? '' : 's'
-				}, including ${countNearbySitesByZip(sitesListForNearCount)} near you`;
+				return `${sitesListAll.length} location${sitesListAll.length === 1 ? '' : 's'}, including ${countNearbySitesByZip(sitesListForNearCount)} near you`;
 			}
 		} else if (location === 'search-location-country') {
-			return `${sitesListAll.length} location${
-				sitesListAll.length === 1 ? '' : 's'
-			}, including ${countNearbySitesByCountryParams(
-				sitesListForNearCount
-			)} near you`;
+			return `${sitesListAll.length} location${sitesListAll.length === 1 ? '' : 's'}, including ${countNearbySitesByCountryParams(sitesListForNearCount)} near you`;
 		} else if (location === 'search-location-nih') {
-			return `${sitesListAll.length} location${
-				sitesListAll.length === 1 ? '' : 's'
-			}, including ${countNearbySitesByNIHParams(
-				sitesListForNearCount
-			)} near you`;
+			return `${sitesListAll.length} location${sitesListAll.length === 1 ? '' : 's'}, including ${countNearbySitesByNIHParams(sitesListForNearCount)} near you`;
 		} else if (vaOnly) {
 			// This accounts for search-location-all and vaOnly. The old code made sure
 			// hospital + va would not display, but the new logic should not have this
 			// issue.
-			return `${sitesListAll.length} location${
-				sitesListAll.length === 1 ? '' : 's'
-			}, including ${sitesListForNearCount.length} near you`;
+			return `${sitesListAll.length} location${sitesListAll.length === 1 ? '' : 's'}, including ${sitesListForNearCount.length} near you`;
 		}
-		return `${sitesListAll.length} location${
-			sitesListAll.length === 1 ? '' : 's'
-		}`;
+		return `${sitesListAll.length} location${sitesListAll.length === 1 ? '' : 's'}`;
 	};
 
 	const handleLinkClick = () => {
@@ -261,15 +200,7 @@ const ResultsListItem = ({
 		<div className="results-list-item results-list__item">
 			<div className="results-list-item__checkbox">
 				<div className="cts-checkbox ">
-					<input
-						id={id || item.nci_id}
-						className="cts-checkbox__input"
-						type="checkbox"
-						onChange={() => onCheckChange(id)}
-						name={item.nci_id}
-						checked={isChecked}
-						value={item.nci_id}
-					/>
+					<input id={id || item.nci_id} className="cts-checkbox__input" type="checkbox" onChange={() => onCheckChange(id)} name={item.nci_id} checked={isChecked} value={item.nci_id} />
 					<label className="cts-checkbox__label" htmlFor={item.nci_id}>
 						<span className="show-for-sr">Select this article for print</span>
 					</label>
@@ -277,10 +208,7 @@ const ResultsListItem = ({
 			</div>
 			<div className="results-list-item__contents">
 				<div className="results-list-item__title">
-					<Link
-						to={`${TrialDescriptionPagePath()}?${itemQueryString}`}
-						state={{ result: item }}
-						onClick={handleLinkClick}>
+					<Link to={`${TrialDescriptionPagePath()}?${itemQueryString}`} state={{ result: item }} onClick={handleLinkClick}>
 						{item.brief_title}
 					</Link>
 				</div>
@@ -294,8 +222,7 @@ const ResultsListItem = ({
 				</div>
 				<div className="results-list-item__category">
 					<span>Gender:</span>
-					{item.eligibility &&
-						getGenderDisplay(item.eligibility.structured.gender)}
+					{item.eligibility && getGenderDisplay(item.eligibility.structured.gender)}
 				</div>
 				<div className="results-list-item__category">
 					<span>Location:</span>

@@ -2,24 +2,17 @@
 import { And, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 And('trial description accordion is displayed', () => {
-	cy.get('.trial-description-page__content  .cts-accordion').should(
-		'be.visible'
-	);
+	cy.get('.trial-description-page__content  .cts-accordion').should('be.visible');
 });
 
 And('the following accordion sections are displayed', (dataTable) => {
 	for (const { section, ariaExpanded } of dataTable.hashes()) {
-		cy.get('div[class="cts-accordion  "] button.cts-accordion__button')
-			.contains(section)
-			.parent()
-			.should('have.attr', 'aria-expanded', ariaExpanded);
+		cy.get('div[class="cts-accordion  "] button.cts-accordion__button').contains(section).parent().should('have.attr', 'aria-expanded', ariaExpanded);
 	}
 });
 
 When('user clicks on {string} section of accordion', (section) => {
-	cy.get('div[class="cts-accordion  "] button.cts-accordion__button')
-		.contains(section)
-		.click();
+	cy.get('div[class="cts-accordion  "] button.cts-accordion__button').contains(section).click();
 });
 
 Then('alphabetically sorted list appears', () => {
@@ -30,15 +23,9 @@ Then('alphabetically sorted list appears', () => {
 		for (let i = 1; i < options.length - 1; i++) {
 			//localeCompare() returns a negative number when a reference string (option[i])
 			//comes before compareString (option[i+1])
-			if (
-				options[i].textContent.localeCompare(options[i + 1].textContent) > 0
-			) {
+			if (options[i].textContent.localeCompare(options[i + 1].textContent) > 0) {
 				isSorted = false;
-				console.log(
-					`${options[i].textContent} is out of order with ${
-						options[i + 1].textContent
-					}`
-				);
+				console.log(`${options[i].textContent} is out of order with ${options[i + 1].textContent}`);
 			}
 		}
 		expect(isSorted).to.be.true;
@@ -46,10 +33,7 @@ Then('alphabetically sorted list appears', () => {
 });
 
 And('{string} option is selected', (selectedOption) => {
-	cy.get('select.cts-select option:selected').should(
-		'have.text',
-		selectedOption
-	);
+	cy.get('select.cts-select option:selected').should('have.text', selectedOption);
 });
 
 And('trial ids are displayed in the following format', (dataTable) => {
@@ -78,9 +62,7 @@ And('the matched location {string} is {string}', (category, name) => {
 
 And('the matched location displays the following information', (dataTable) => {
 	cy.get('.sites-nearby .location').as('nearLocation');
-	cy.get('@nearLocation')
-		.find('strong')
-		.should('include.text', dataTable.raw()[0].toString());
+	cy.get('@nearLocation').find('strong').should('include.text', dataTable.raw()[0].toString());
 	for (let i = 0; i < dataTable.rows().length; i++) {
 		cy.get('@nearLocation')
 			.find('div')
@@ -93,27 +75,20 @@ When('user selects {string} from the state dropdown list', (state) => {
 	cy.get('select.cts-select').select(state);
 });
 
-And(
-	'the filtered by state location number {int} displays the following information',
-	(index, dataTable) => {
-		cy.get('.location-city')
-			.eq(index - 1)
-			.as('location');
+And('the filtered by state location number {int} displays the following information', (index, dataTable) => {
+	cy.get('.location-city')
+		.eq(index - 1)
+		.as('location');
+	cy.get('@location').find('h5').should('include.text', dataTable.raw()[0].toString());
+	cy.get('@location').find('strong').should('include.text', dataTable.raw()[1].toString());
+	for (let i = 0; i < dataTable.rows().length - 2; i++) {
 		cy.get('@location')
-			.find('h5')
-			.should('include.text', dataTable.raw()[0].toString());
-		cy.get('@location')
-			.find('strong')
-			.should('include.text', dataTable.raw()[1].toString());
-		for (let i = 0; i < dataTable.rows().length - 2; i++) {
-			cy.get('@location')
-				.find(' .location')
-				.find('div')
-				.eq(i)
-				.should('have.text', dataTable.raw()[i + 2].toString());
-		}
+			.find(' .location')
+			.find('div')
+			.eq(i)
+			.should('have.text', dataTable.raw()[i + 2].toString());
 	}
-);
+});
 
 Then('the location section is empty', () => {
 	cy.get('.sites-all').should('be.empty');
@@ -127,15 +102,9 @@ Then('alphabetically sorted list of countries appears', () => {
 		for (let i = 1; i < options.length - 1; i++) {
 			//localeCompare() returns a negative number when a reference string (option[i])
 			//comes before compareString (option[i+1])
-			if (
-				options[i].textContent.localeCompare(options[i + 1].textContent) > 0
-			) {
+			if (options[i].textContent.localeCompare(options[i + 1].textContent) > 0) {
 				isSorted = false;
-				console.log(
-					`${options[i].textContent} is out of order with ${
-						options[i + 1].textContent
-					}`
-				);
+				console.log(`${options[i].textContent} is out of order with ${options[i + 1].textContent}`);
 			}
 		}
 		expect(isSorted).to.be.true;
@@ -149,15 +118,9 @@ Then('alphabetically sorted list of states appears', () => {
 		for (let i = 1; i < options.length - 1; i++) {
 			//localeCompare() returns a negative number when a reference string (option[i])
 			//comes before compareString (option[i+1])
-			if (
-				options[i].textContent.localeCompare(options[i + 1].textContent) > 0
-			) {
+			if (options[i].textContent.localeCompare(options[i + 1].textContent) > 0) {
 				isSorted = false;
-				console.log(
-					`${options[i].textContent} is out of order with ${
-						options[i + 1].textContent
-					}`
-				);
+				console.log(`${options[i].textContent} is out of order with ${options[i + 1].textContent}`);
 			}
 		}
 		expect(isSorted).to.be.true;
@@ -168,27 +131,20 @@ When('user selects {string} from countries list', (country) => {
 	cy.get('select.cts-select').eq(0).select(country);
 });
 
-And(
-	'the filtered by country location number {int} displays the following information',
-	(index, dataTable) => {
-		cy.get('.location-city:visible')
-			.eq(index - 1)
-			.as('location');
+And('the filtered by country location number {int} displays the following information', (index, dataTable) => {
+	cy.get('.location-city:visible')
+		.eq(index - 1)
+		.as('location');
+	cy.get('@location').find('h5').should('include.text', dataTable.raw()[0].toString());
+	cy.get('@location').find('strong').should('include.text', dataTable.raw()[1].toString());
+	for (let i = 0; i < dataTable.rows().length - 2; i++) {
 		cy.get('@location')
-			.find('h5')
-			.should('include.text', dataTable.raw()[0].toString());
-		cy.get('@location')
-			.find('strong')
-			.should('include.text', dataTable.raw()[1].toString());
-		for (let i = 0; i < dataTable.rows().length - 2; i++) {
-			cy.get('@location')
-				.find(' .location')
-				.find('div')
-				.eq(i)
-				.should('have.text', dataTable.raw()[i + 2].toString());
-		}
+			.find(' .location')
+			.find('div')
+			.eq(i)
+			.should('have.text', dataTable.raw()[i + 2].toString());
 	}
-);
+});
 
 And('button {string} is not displayed', (button) => {
 	cy.get('.btnAsLink').contains(button).should('not.exist');

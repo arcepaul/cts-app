@@ -49,23 +49,8 @@ const ZipCode = ({ handleUpdate }) => {
 	};
 
 	return (
-		<Fieldset
-			id="zip"
-			legend="U.S. ZIP Code"
-			helpUrl={
-				helpUrl + '#how-to-find-clinical-trials-using-the-basic-search-form'
-			}>
-			<TextInput
-				action={handleZipUpdate}
-				id="zip"
-				label="zip code"
-				labelHidden
-				errorMessage={hasInvalidZip ? INVALID_ZIP_TEXT : ''}
-				inputHelpText="Show trials near this U.S. ZIP code."
-				maxLength={5}
-				value={zip}
-				onBlur={validateZip}
-			/>
+		<Fieldset id="zip" legend="U.S. ZIP Code" helpUrl={helpUrl + '#how-to-find-clinical-trials-using-the-basic-search-form'}>
+			<TextInput action={handleZipUpdate} id="zip" label="zip code" labelHidden errorMessage={hasInvalidZip ? INVALID_ZIP_TEXT : ''} inputHelpText="Show trials near this U.S. ZIP code." maxLength={5} value={zip} onBlur={validateZip} />
 		</Fieldset>
 	);
 };

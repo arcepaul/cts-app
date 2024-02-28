@@ -33,31 +33,24 @@ When('user clears {string} input field', (fieldLabel) => {
 	cy.get(`input#${inputFieldMap[fieldLabel]}`).clear();
 });
 
-And(
-	'user presses {string} key in {string} field to select {string}',
-	(key, fieldLabel, term) => {
-		let res = '';
-		let count = 0;
-		cy.get(`input#${inputFieldMap[fieldLabel]}`).type(
-			`{${key.replace(' ', '')}}`
-		);
-		while (count < 10) {
-			cy.get('div.cts-autocomplete__menu-item.highlighted').then((el) => {
-				res = el[0].innerText;
-				if (res != term) {
-					cy.get(`input#${inputFieldMap[fieldLabel]}`).type(
-						`{${key.replace(' ', '')}}`
-					);
-					cy.wait(500);
-				} else {
-					count = 11;
-				}
-			});
+And('user presses {string} key in {string} field to select {string}', (key, fieldLabel, term) => {
+	let res = '';
+	let count = 0;
+	cy.get(`input#${inputFieldMap[fieldLabel]}`).type(`{${key.replace(' ', '')}}`);
+	while (count < 10) {
+		cy.get('div.cts-autocomplete__menu-item.highlighted').then((el) => {
+			res = el[0].innerText;
+			if (res != term) {
+				cy.get(`input#${inputFieldMap[fieldLabel]}`).type(`{${key.replace(' ', '')}}`);
+				cy.wait(500);
+			} else {
+				count = 11;
+			}
+		});
 
-			count++;
-		}
+		count++;
 	}
-);
+});
 
 And('user presses {string} key from {string} field', (key, fieldLabel) => {
 	if (key.includes('tab')) {
@@ -85,8 +78,5 @@ And('{string} no trial info is displayed', (noTrialsText) => {
 });
 
 When('user selects {string} by touching the menu', (value) => {
-	cy.get(`.cts-autocomplete__menu-item`)
-		.contains(value)
-		.trigger('touchstart', { force: true })
-		.trigger('click');
+	cy.get(`.cts-autocomplete__menu-item`).contains(value).trigger('touchstart', { force: true }).trigger('click');
 });

@@ -1,8 +1,5 @@
 import { queryStringToSearchCriteria } from '../queryStringToSearchCriteria';
-import {
-	getDiseaseFetcher,
-	TYPE_EXPECTATION,
-} from './queryStringToSearchCriteria.common';
+import { getDiseaseFetcher, TYPE_EXPECTATION } from './queryStringToSearchCriteria.common';
 import { defaultState } from './defaultStateCopy';
 
 describe('Advanced - Disease - queryStringToSearchCriteria maps query to form', () => {
@@ -99,17 +96,11 @@ describe('Advanced - Disease - queryStringToSearchCriteria maps query to form', 
 		[
 			'adv - multiple subtypes',
 			'?st=C2222&st=C2223|C2224&rl=2',
-			getDiseaseFetcher(
-				['C2222', 'C2223', 'C2224'],
-				['Subtype A', 'Subtype B']
-			),
+			getDiseaseFetcher(['C2222', 'C2223', 'C2224'], ['Subtype A', 'Subtype B']),
 			async () => [],
 			async () => null,
 			{
-				subtypes: [
-					TYPE_EXPECTATION['Subtype A'],
-					TYPE_EXPECTATION['Subtype B'],
-				],
+				subtypes: [TYPE_EXPECTATION['Subtype A'], TYPE_EXPECTATION['Subtype B']],
 				formType: 'advanced',
 			},
 		],
@@ -228,17 +219,11 @@ describe('Advanced - Disease - queryStringToSearchCriteria maps query to form', 
 		[
 			'adv - multiple findings',
 			'?fin=C4444&fin=C4445|C4446&rl=2',
-			getDiseaseFetcher(
-				['C4444', 'C4445', 'C4446'],
-				['Finding A', 'Finding B']
-			),
+			getDiseaseFetcher(['C4444', 'C4445', 'C4446'], ['Finding A', 'Finding B']),
 			async () => [],
 			async () => null,
 			{
-				findings: [
-					TYPE_EXPECTATION['Finding A'],
-					TYPE_EXPECTATION['Finding B'],
-				],
+				findings: [TYPE_EXPECTATION['Finding A'], TYPE_EXPECTATION['Finding B']],
 				formType: 'advanced',
 			},
 		],
@@ -250,52 +235,31 @@ describe('Advanced - Disease - queryStringToSearchCriteria maps query to form', 
 		[
 			'adv - multiple diseases',
 			'?t=C1111&st=C2222&stg=C3336|C3337&fin=C4444&fin=C4445|C4446&rl=2',
-			getDiseaseFetcher(
-				['C1111', 'C2222', 'C3336', 'C3337', 'C4444', 'C4445', 'C4446'],
-				['Main Type A', 'Subtype A', 'Stage C', 'Finding A', 'Finding B']
-			),
+			getDiseaseFetcher(['C1111', 'C2222', 'C3336', 'C3337', 'C4444', 'C4445', 'C4446'], ['Main Type A', 'Subtype A', 'Stage C', 'Finding A', 'Finding B']),
 			async () => [],
 			async () => null,
 			{
 				cancerType: TYPE_EXPECTATION['Main Type A'],
 				subtypes: [TYPE_EXPECTATION['Subtype A']],
 				stages: [TYPE_EXPECTATION['Stage C']],
-				findings: [
-					TYPE_EXPECTATION['Finding A'],
-					TYPE_EXPECTATION['Finding B'],
-				],
+				findings: [TYPE_EXPECTATION['Finding A'], TYPE_EXPECTATION['Finding B']],
 				formType: 'advanced',
 			},
 		],
 	];
 
 	// Test iterates over multiple cases defined by mappingTestCases
-	it.each(goodMappingTestCases)(
-		'%# - correctly maps %s',
-		async (
-			testName,
-			urlQuery,
-			diseaseFetcher,
-			interventionsFetcher,
-			zipcodeFetcher,
-			additionalExpectedQuery
-		) => {
-			const expected = {
-				searchCriteria: {
-					...defaultState,
-					...additionalExpectedQuery,
-					qs: urlQuery,
-				},
-				errors: [],
-			};
+	it.each(goodMappingTestCases)('%# - correctly maps %s', async (testName, urlQuery, diseaseFetcher, interventionsFetcher, zipcodeFetcher, additionalExpectedQuery) => {
+		const expected = {
+			searchCriteria: {
+				...defaultState,
+				...additionalExpectedQuery,
+				qs: urlQuery,
+			},
+			errors: [],
+		};
 
-			const actual = await queryStringToSearchCriteria(
-				urlQuery,
-				diseaseFetcher,
-				interventionsFetcher,
-				zipcodeFetcher
-			);
-			expect(actual).toEqual(expected);
-		}
-	);
+		const actual = await queryStringToSearchCriteria(urlQuery, diseaseFetcher, interventionsFetcher, zipcodeFetcher);
+		expect(actual).toEqual(expected);
+	});
 });

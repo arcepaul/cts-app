@@ -136,28 +136,13 @@ describe('Adv - Negative - queryStringToSearchCriteria maps query to form', () =
 	];
 
 	// Test iterates over multiple cases defined by mappingTestCases
-	it.each(errorMappingTestCases)(
-		'%# - errors mapping %s',
-		async (
-			testName,
-			urlQuery,
-			diseaseFetcher,
-			interventionsFetcher,
-			zipcodeFetcher,
-			expectedErrors
-		) => {
-			const expected = {
-				searchCriteria: null,
-				errors: expectedErrors,
-			};
+	it.each(errorMappingTestCases)('%# - errors mapping %s', async (testName, urlQuery, diseaseFetcher, interventionsFetcher, zipcodeFetcher, expectedErrors) => {
+		const expected = {
+			searchCriteria: null,
+			errors: expectedErrors,
+		};
 
-			const actual = await queryStringToSearchCriteria(
-				urlQuery,
-				diseaseFetcher,
-				interventionsFetcher,
-				zipcodeFetcher
-			);
-			expect(actual).toEqual(expected);
-		}
-	);
+		const actual = await queryStringToSearchCriteria(urlQuery, diseaseFetcher, interventionsFetcher, zipcodeFetcher);
+		expect(actual).toEqual(expected);
+	});
 });

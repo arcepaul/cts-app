@@ -19,18 +19,11 @@ const PrintModalContent = ({ selectedList, searchCriteriaObject }) => {
 
 	const trial_ids = selectedList.map(({ id }) => id);
 
-	const link_template = `${searchUrl}/v?${queryString.stringify(
-		queryParams
-	)}&id=<TRIAL_ID>`;
+	const link_template = `${searchUrl}/v?${queryString.stringify(queryParams)}&id=<TRIAL_ID>`;
 
-	const search_criteria = !hasSCOBeenUpdated(searchCriteriaObject)
-		? searchCriteriaObject
-		: null;
+	const search_criteria = !hasSCOBeenUpdated(searchCriteriaObject) ? searchCriteriaObject : null;
 
-	const [{ data, isLoading, isError, doPrint }] = usePrintApi(
-		{ trial_ids, link_template, new_search_link, search_criteria },
-		genCacheUrl
-	);
+	const [{ data, isLoading, isError, doPrint }] = usePrintApi({ trial_ids, link_template, new_search_link, search_criteria }, genCacheUrl);
 
 	// on component mount, check for selected IDs,
 	useEffect(() => {
@@ -51,10 +44,7 @@ const PrintModalContent = ({ selectedList, searchCriteriaObject }) => {
 			<div className="icon-warning" aria-hidden="true">
 				!
 			</div>
-			<p>
-				You have not selected any trials. Please select at least one trial to
-				print.
-			</p>
+			<p>You have not selected any trials. Please select at least one trial to print.</p>
 		</>
 	);
 	const renderPrintError = () => (
@@ -62,10 +52,7 @@ const PrintModalContent = ({ selectedList, searchCriteriaObject }) => {
 			<div className="icon-warning" aria-hidden="true">
 				!
 			</div>
-			<p>
-				An error occurred while generating your document. Please try again
-				later.
-			</p>
+			<p>An error occurred while generating your document. Please try again later.</p>
 		</>
 	);
 
@@ -74,14 +61,8 @@ const PrintModalContent = ({ selectedList, searchCriteriaObject }) => {
 			<div className="icon-warning" aria-hidden="true">
 				!
 			</div>
-			<p>
-				You have selected the maximum number of clinical trials (100) that can
-				be printed at one time.
-			</p>
-			<p>
-				Print your current selection and then return to your search results to
-				select more trials to print.
-			</p>
+			<p>You have selected the maximum number of clinical trials (100) that can be printed at one time.</p>
+			<p>Print your current selection and then return to your search results to select more trials to print.</p>
 		</>
 	);
 
@@ -91,30 +72,11 @@ const PrintModalContent = ({ selectedList, searchCriteriaObject }) => {
 				<div className="dot1"></div>
 				<div className="dot2"></div>
 			</div>
-			<p>
-				You will automatically be directed to your print results in just a
-				moment...
-			</p>
+			<p>You will automatically be directed to your print results in just a moment...</p>
 		</>
 	);
 
-	return (
-		<>
-			{selectedList.length === 0 ? (
-				renderNoItemsSelected()
-			) : selectedList.length >= 100 ? (
-				renderTooManyItemsSelected()
-			) : (
-				<>
-					{!isError ? (
-						<>{renderPrintInterstitial()}</>
-					) : (
-						<>{renderPrintError()}</>
-					)}
-				</>
-			)}
-		</>
-	);
+	return <>{selectedList.length === 0 ? renderNoItemsSelected() : selectedList.length >= 100 ? renderTooManyItemsSelected() : <>{!isError ? <>{renderPrintInterstitial()}</> : <>{renderPrintError()}</>}</>}</>;
 };
 PrintModalContent.propTypes = {
 	selectedList: PropTypes.array.isRequired,

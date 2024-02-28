@@ -15,9 +15,7 @@ const PageNotFound = () => {
 		tracking.trackEvent({
 			event: 'TrialListingApp:Load:PageNotFound',
 			metaTitle: pageTitle,
-			name: `${canonicalHost.replace(/^(http|https):\/\//, '')}${
-				window.location.pathname
-			}`,
+			name: `${canonicalHost.replace(/^(http|https):\/\//, '')}${window.location.pathname}`,
 			title: pageTitle,
 			type: 'PageLoad',
 		});
@@ -26,13 +24,10 @@ const PageNotFound = () => {
 	const contentPar = [
 		<>We can&apos;t find the page you&apos;re looking for.</>,
 		<>
-			Visit the <a href="https://www.cancer.gov">homepage</a>, browse by{' '}
-			<a href="https://www.cancer.gov/types">cancer type</a>, or use the search
-			below.
+			Visit the <a href="https://www.cancer.gov">homepage</a>, browse by <a href="https://www.cancer.gov/types">cancer type</a>, or use the search below.
 		</>,
 		<>
-			Have a question? <a href="https://www.cancer.gov/contact">Get in touch</a>
-			.
+			Have a question? <a href="https://www.cancer.gov/contact">Get in touch</a>.
 		</>,
 	];
 
@@ -69,20 +64,8 @@ const PageNotFound = () => {
 				</>
 				<div className="error-searchbar">
 					<form onSubmit={executeSearch}>
-						<TextInput
-							id="keywords"
-							action={updateTextInput}
-							label={'Search'}
-							labelHidden
-						/>
-						<input
-							type="submit"
-							className="submit button postfix"
-							id="btnSearch"
-							title={'Search'}
-							value={'Search'}
-							onClick={executeSearch}
-						/>
+						<TextInput id="keywords" action={updateTextInput} label={'Search'} labelHidden />
+						<input type="submit" className="submit button postfix" id="btnSearch" title={'Search'} value={'Search'} onClick={executeSearch} />
 					</form>
 				</div>
 			</div>

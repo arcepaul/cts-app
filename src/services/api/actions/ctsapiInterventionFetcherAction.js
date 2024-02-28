@@ -8,14 +8,7 @@ export const getCtsApiInterventionFetcherAction = (ids) => {
 	// Set up query for Clinical Trials API.
 	// Include only active trial statuses, ids and size.
 	const requestQuery = {
-		current_trial_status: [
-			'Active',
-			'Approved',
-			'Enrolling by Invitation',
-			'In Review',
-			'Temporarily Closed to Accrual',
-			'Temporarily Closed to Accrual and Intervention',
-		],
+		current_trial_status: ['Active', 'Approved', 'Enrolling by Invitation', 'In Review', 'Temporarily Closed to Accrual', 'Temporarily Closed to Accrual and Intervention'],
 		code: ids,
 		size: 100,
 	};

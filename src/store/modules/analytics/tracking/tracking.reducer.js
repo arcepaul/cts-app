@@ -1,11 +1,6 @@
 import { FieldTrackingObject } from './objects/field.object';
 import { FormTrackingObject } from './objects/form.object';
-import {
-	ADD_FORM_TO_TRACKING,
-	DISPATCHED_FORM_INTERACTION_EVENT,
-	TRACK_FORM_INPUT_CHANGE,
-	TRACKED_FORM_SUBMITTED,
-} from './tracking.actions';
+import { ADD_FORM_TO_TRACKING, DISPATCHED_FORM_INTERACTION_EVENT, TRACK_FORM_INPUT_CHANGE, TRACKED_FORM_SUBMITTED } from './tracking.actions';
 import './tracking.defs';
 import { SEARCH_FORM_ID } from '../../../../constants';
 
@@ -63,8 +58,7 @@ export const reducer = (state = defaultState, action) => {
 				return form.name === formName ? form : {};
 			})[0];
 
-			const hasMatchingField =
-				parentForm.fields && parentForm.fields.some((field) => field.id === id);
+			const hasMatchingField = parentForm.fields && parentForm.fields.some((field) => field.id === id);
 
 			const trackedField = new FieldTrackingObject().get();
 			trackedField.id = id;

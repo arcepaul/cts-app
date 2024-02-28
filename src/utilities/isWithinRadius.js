@@ -35,17 +35,8 @@ export const isWithinRadius = (zipCoords, siteCoords, zipRadius) => {
 
 	let differenceInLat = degreeToRadian(zipLat - siteLat);
 	let differenceInLong = degreeToRadian(zipLong - siteLong);
-	let aInnerFormula =
-		Math.cos(degreeToRadian(zipLat)) *
-		Math.cos(degreeToRadian(siteLat)) *
-		Math.sin(differenceInLong / 2) *
-		Math.sin(differenceInLong / 2);
-	let aFormula =
-		Math.sin(differenceInLat / 2) * Math.sin(differenceInLat / 2) +
-		aInnerFormula;
-	resultDistance =
-		avgRadiusOfEarth *
-		2 *
-		Math.atan2(Math.sqrt(aFormula), Math.sqrt(1 - aFormula));
+	let aInnerFormula = Math.cos(degreeToRadian(zipLat)) * Math.cos(degreeToRadian(siteLat)) * Math.sin(differenceInLong / 2) * Math.sin(differenceInLong / 2);
+	let aFormula = Math.sin(differenceInLat / 2) * Math.sin(differenceInLat / 2) + aInnerFormula;
+	resultDistance = avgRadiusOfEarth * 2 * Math.atan2(Math.sqrt(aFormula), Math.sqrt(1 - aFormula));
 	return resultDistance <= zipRadius;
 };

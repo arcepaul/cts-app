@@ -1,11 +1,9 @@
-import axios from 'axios';
 import nock from 'nock';
 
 import { getCtsApiDiseaseFetcherAction } from '../../actions';
 import { ctsapiDiseaseFetcher } from '../ctsapiDiseaseFetcher';
 import clinicalTrialsSearchClientFactory from '../clinicalTrialsSearchClientFactory';
 // Required for unit tests to not have CORS issues
-axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const client = clinicalTrialsSearchClientFactory('http://example.org');
 
@@ -40,11 +38,7 @@ describe('ctsapiDiseaseFetcher', () => {
 						ancestor_ids: ['C2926', 'C4878'],
 						parent_ids: ['C2926'],
 						type: ['subtype'],
-						synonyms: [
-							'Adenosquamous Cell Lung Carcinoma',
-							'Adenosquamous Lung Carcinoma',
-							'Lung Adenosquamous Carcinoma',
-						],
+						synonyms: ['Adenosquamous Cell Lung Carcinoma', 'Adenosquamous Lung Carcinoma', 'Lung Adenosquamous Carcinoma'],
 						count: 4,
 					},
 					{
@@ -82,13 +76,8 @@ describe('ctsapiDiseaseFetcher', () => {
 		const ids = 'C123456';
 
 		const query = getCtsApiDiseaseFetcherAction(ids);
-		const scope = nock('http://example.org')
-			.get('/diseases')
-			.query(query.payload)
-			.reply(404);
-		await expect(ctsapiDiseaseFetcher(client, query.payload)).rejects.toThrow(
-			'Unexpected status 404 for fetching disease code(s)'
-		);
+		const scope = nock('http://example.org').get('/diseases').query(query.payload).reply(404);
+		await expect(ctsapiDiseaseFetcher(client, query.payload)).rejects.toThrow('Unexpected status 404 for fetching disease code(s)');
 		scope.isDone();
 	});
 
@@ -96,13 +85,8 @@ describe('ctsapiDiseaseFetcher', () => {
 		const ids = ['C9133', 'C56789'];
 
 		const query = getCtsApiDiseaseFetcherAction(ids);
-		const scope = nock('http://example.org')
-			.get('/diseases')
-			.query(query.payload)
-			.reply(500);
-		await expect(ctsapiDiseaseFetcher(client, query.payload)).rejects.toThrow(
-			'Unexpected status 500 for fetching disease code(s)'
-		);
+		const scope = nock('http://example.org').get('/diseases').query(query.payload).reply(500);
+		await expect(ctsapiDiseaseFetcher(client, query.payload)).rejects.toThrow('Unexpected status 500 for fetching disease code(s)');
 		scope.isDone();
 	});
 
@@ -111,13 +95,8 @@ describe('ctsapiDiseaseFetcher', () => {
 
 		const query = getCtsApiDiseaseFetcherAction(ids);
 
-		const scope = nock('http://example.org')
-			.get('/diseases')
-			.query(query.payload)
-			.replyWithError('connection refused');
-		await expect(ctsapiDiseaseFetcher(client, query.payload)).rejects.toThrow(
-			'connection refused'
-		);
+		const scope = nock('http://example.org').get('/diseases').query(query.payload).replyWithError('connection refused');
+		await expect(ctsapiDiseaseFetcher(client, query.payload)).rejects.toThrow('connection refused');
 		scope.isDone();
 	});
 
@@ -125,13 +104,8 @@ describe('ctsapiDiseaseFetcher', () => {
 		const ids = 'C123456';
 
 		const query = getCtsApiDiseaseFetcherAction(ids);
-		const scope = nock('http://example.org')
-			.get('/diseases')
-			.query(query.payload)
-			.reply(201);
-		await expect(ctsapiDiseaseFetcher(client, query.payload)).rejects.toThrow(
-			'Unexpected status 201 for fetching disease code(s)'
-		);
+		const scope = nock('http://example.org').get('/diseases').query(query.payload).reply(201);
+		await expect(ctsapiDiseaseFetcher(client, query.payload)).rejects.toThrow('Unexpected status 201 for fetching disease code(s)');
 		scope.isDone();
 	});
 });

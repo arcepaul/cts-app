@@ -24,12 +24,7 @@ const App = ({ zipConversionEndpoint }) => {
 
 	useAppInitializer(zipConversionEndpoint);
 
-	const {
-		BasicSearchPagePath,
-		ResultsPagePath,
-		TrialDescriptionPagePath,
-		AdvancedSearchPagePath,
-	} = useAppPaths();
+	const { BasicSearchPagePath, ResultsPagePath, TrialDescriptionPagePath, AdvancedSearchPagePath } = useAppPaths();
 
 	return (
 		<>
@@ -40,14 +35,8 @@ const App = ({ zipConversionEndpoint }) => {
 				<PrintContextProvider>
 					<Routes>
 						<Route path={ResultsPagePath()} element={<ResultsPage />} />
-						<Route
-							path={TrialDescriptionPagePath()}
-							element={<TrialDescriptionPage />}
-						/>
-						<Route
-							path={AdvancedSearchPagePath()}
-							element={<AdvancedSearchPage />}
-						/>
+						<Route path={TrialDescriptionPagePath()} element={<TrialDescriptionPage />} />
+						<Route path={AdvancedSearchPagePath()} element={<AdvancedSearchPage />} />
 						<Route path={BasicSearchPagePath()} element={<BasicSearchPage />} />
 						<Route path="/*" element={<PageNotFound />} />
 					</Routes>

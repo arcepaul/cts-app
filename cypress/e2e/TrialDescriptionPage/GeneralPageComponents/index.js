@@ -3,9 +3,7 @@ import { And, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { fieldMap } from '../../../utils/ctsFields.js';
 
 And('{string} button as link is displayed', (btnText) => {
-	cy.get('div[class*="btnAsLink"]')
-		.should('have.text', btnText)
-		.and('be.visible');
+	cy.get('div[class*="btnAsLink"]').should('have.text', btnText).and('be.visible');
 });
 
 And('{string} button as link is not displayed', (btnText) => {
@@ -13,10 +11,7 @@ And('{string} button as link is not displayed', (btnText) => {
 });
 
 And('{string} appears below the title', (infoText) => {
-	cy.get('.trial-description-page__header')
-		.find('strong')
-		.first()
-		.should('have.text', infoText);
+	cy.get('.trial-description-page__header').find('strong').first().should('have.text', infoText);
 });
 
 And('the criteria table displays the following', (dataTable) => {
@@ -73,17 +68,9 @@ When('user clicks on Modify Search Criteria button', () => {
 
 Then('{string} input field has a value {string}', (fieldLabel, value) => {
 	if (fieldLabel.toLowerCase().includes('drug')) {
-		cy.get(`input#${fieldMap[fieldLabel]}`)
-			.parent()
-			.find('span')
-			.first()
-			.should('have.text', value);
+		cy.get(`input#${fieldMap[fieldLabel]}`).parent().find('span').first().should('have.text', value);
 	} else {
-		cy.get(`input#${fieldMap[fieldLabel]}`)
-			.parent()
-			.find('span')
-			.first()
-			.should('have.text', value);
+		cy.get(`input#${fieldMap[fieldLabel]}`).parent().find('span').first().should('have.text', value);
 	}
 });
 
@@ -95,10 +82,7 @@ Then('print window opens', () => {
 });
 
 And('trial status is {string}', (status) => {
-	cy.get('div.trial-status-indicator').should(
-		'have.text',
-		`Trial Status: ${status}`
-	);
+	cy.get('div.trial-status-indicator').should('have.text', `Trial Status: ${status}`);
 });
 
 And('back to search results link does not exist', () => {
@@ -112,12 +96,9 @@ And('{string} link does not exist', (linkText) => {
 	cy.get('a').contains(linkText).should('not.exist');
 });
 
-Then(
-	'the user types {string} in the {string} field',
-	(searchText, inputType) => {
-		cy.get(`input[aria-label="${inputType}"]`).type(searchText);
-	}
-);
+Then('the user types {string} in the {string} field', (searchText, inputType) => {
+	cy.get(`input[aria-label="${inputType}"]`).type(searchText);
+});
 
 When('the user clicks on the Search button', () => {
 	cy.get('input[id=btnSearch]').contains('Search').click();
@@ -128,7 +109,5 @@ And('button {string} is hidden', (btn) => {
 });
 
 Then('the trial type displays {string} as text', (trialTypeText) => {
-	cy.get('.trial-type-name')
-		.get('.non-formatted-tt')
-		.should('have.text', trialTypeText);
+	cy.get('.trial-type-name').get('.non-formatted-tt').should('have.text', trialTypeText);
 });

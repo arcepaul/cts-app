@@ -1,8 +1,5 @@
 import { queryStringToSearchCriteria } from '../queryStringToSearchCriteria';
-import {
-	getDiseaseFetcher,
-	TYPE_EXPECTATION,
-} from './queryStringToSearchCriteria.common';
+import { getDiseaseFetcher, TYPE_EXPECTATION } from './queryStringToSearchCriteria.common';
 import { defaultState } from './defaultStateCopy';
 
 describe('Basic - queryStringToSearchCriteria maps query to form', () => {
@@ -121,32 +118,17 @@ describe('Basic - queryStringToSearchCriteria maps query to form', () => {
 	];
 
 	// Test iterates over multiple cases defined by mappingTestCases
-	it.each(goodMappingTestCases)(
-		'%# - correctly maps %s',
-		async (
-			testName,
-			urlQuery,
-			diseaseFetcher,
-			interventionsFetcher,
-			zipcodeFetcher,
-			additionalExpectedQuery
-		) => {
-			const expected = {
-				searchCriteria: {
-					...defaultState,
-					...additionalExpectedQuery,
-					qs: urlQuery,
-				},
-				errors: [],
-			};
+	it.each(goodMappingTestCases)('%# - correctly maps %s', async (testName, urlQuery, diseaseFetcher, interventionsFetcher, zipcodeFetcher, additionalExpectedQuery) => {
+		const expected = {
+			searchCriteria: {
+				...defaultState,
+				...additionalExpectedQuery,
+				qs: urlQuery,
+			},
+			errors: [],
+		};
 
-			const actual = await queryStringToSearchCriteria(
-				urlQuery,
-				diseaseFetcher,
-				interventionsFetcher,
-				zipcodeFetcher
-			);
-			expect(actual).toEqual(expected);
-		}
-	);
+		const actual = await queryStringToSearchCriteria(urlQuery, diseaseFetcher, interventionsFetcher, zipcodeFetcher);
+		expect(actual).toEqual(expected);
+	});
 });

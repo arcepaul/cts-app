@@ -6,13 +6,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTracking } from 'react-tracking';
 import { START_OVER_LINK } from '../../constants';
 
-import {
-	Accordion,
-	AccordionItem,
-	Delighter,
-	TrialStatusIndicator,
-	SearchCriteriaTableUpdated,
-} from '../../components/atomic';
+import { Accordion, AccordionItem, Delighter, TrialStatusIndicator, SearchCriteriaTableUpdated } from '../../components/atomic';
 import { useCtsApi } from '../../hooks/ctsApiSupport';
 import { getClinicalTrialDescriptionAction } from '../../services/api/actions';
 import SitesList from './SitesList';
@@ -21,12 +15,7 @@ import './TrialDescriptionPage.scss';
 // import { updateFormSearchCriteria } from '../../store/actions';
 import { useAppSettings } from '../../store/store.js';
 import { useAppPaths } from '../../hooks/routing';
-import {
-	filterSitesByActiveRecruitment,
-	hasSCOBeenUpdated,
-	queryStringToSearchCriteria,
-	runQueryFetchers,
-} from '../../utilities';
+import { filterSitesByActiveRecruitment, hasSCOBeenUpdated, queryStringToSearchCriteria, runQueryFetchers } from '../../utilities';
 import ErrorPage from '../ErrorPage';
 import PageNotFound from '../PageNotFound/PageNotFound';
 
@@ -53,12 +42,7 @@ const TrialDescriptionPage = () => {
 
 	const [localState, ls_dispatch] = useReducer(stateReducer, initialState);
 
-	const {
-		fetchActions,
-		isTrialLoading,
-		searchCriteriaObject,
-		trialDescription,
-	} = localState;
+	const { fetchActions, isTrialLoading, searchCriteriaObject, trialDescription } = localState;
 
 	const { error, loading, payload } = useCtsApi(fetchActions);
 
@@ -136,17 +120,8 @@ const TrialDescriptionPage = () => {
 			initTrialData();
 		} else if (!searchCriteriaObject) {
 			const searchCriteria = async () => {
-				const { diseaseFetcher, interventionFetcher, zipFetcher } =
-					await runQueryFetchers(
-						clinicalTrialsSearchClientV2,
-						zipConversionEndpoint
-					);
-				return await queryStringToSearchCriteria(
-					qs,
-					diseaseFetcher,
-					interventionFetcher,
-					zipFetcher
-				);
+				const { diseaseFetcher, interventionFetcher, zipFetcher } = await runQueryFetchers(clinicalTrialsSearchClientV2, zipConversionEndpoint);
+				return await queryStringToSearchCriteria(qs, diseaseFetcher, interventionFetcher, zipFetcher);
 			};
 			searchCriteria().then((res) => {
 				setSearchCriteriaObject(res.searchCriteria);
@@ -171,9 +146,7 @@ const TrialDescriptionPage = () => {
 				type: 'PageLoad',
 				event: `ClinicalTrialsSearchApp:Load:TrialDescription`,
 				analyticsName,
-				name:
-					canonicalHost.replace(/https:\/\/|http:\/\//, '') +
-					window.location.pathname,
+				name: canonicalHost.replace(/https:\/\/|http:\/\//, '') + window.location.pathname,
 				title: `${trialDescription.brief_title}`,
 				metaTitle: `${trialDescription.brief_title}`,
 				// Any additional properties fall into the "page.additionalDetails" bucket
@@ -190,8 +163,7 @@ const TrialDescriptionPage = () => {
 	};
 
 	const isAllFetchingComplete = () => {
-		const isFetchingComplete =
-			!loading && payload.length && searchCriteriaObject;
+		const isFetchingComplete = !loading && payload.length && searchCriteriaObject;
 		return isFetchingComplete;
 	};
 
@@ -231,22 +203,14 @@ const TrialDescriptionPage = () => {
 		return (
 			<>
 				<div className="delighter cts-share">
-					<div className="share-text">
-						Share this clinical trial with your doctor:
-					</div>
+					<div className="share-text">Share this clinical trial with your doctor:</div>
 					<div className="share-btn-container">
-						<button
-							className="share-btn cts-share-print"
-							type="button"
-							onClick={handlePrintTrial}>
+						<button className="share-btn cts-share-print" type="button" onClick={handlePrintTrial}>
 							<span className="icon icon-print" aria-hidden="true"></span>
 							Print
 							<span className="show-for-sr"> this trial</span>
 						</button>
-						<button
-							className="share-btn cts-share-email"
-							type="button"
-							onClick={handleEmailTrial}>
+						<button className="share-btn cts-share-email" type="button" onClick={handleEmailTrial}>
 							<span className="icon icon-email" aria-hidden="true"></span>
 							Email <span className="show-for-sr">this trial</span>
 						</button>
@@ -272,14 +236,8 @@ const TrialDescriptionPage = () => {
 						</p>
 					</Delighter>
 
-					<Delighter
-						classes="cts-which"
-						url={whichTrialsUrl}
-						titleText={<>Which trials are right for you?</>}>
-						<p>
-							Use the checklist in our guide to gather the information you’ll
-							need.
-						</p>
+					<Delighter classes="cts-which" url={whichTrialsUrl} titleText={<>Which trials are right for you?</>}>
+						<p>Use the checklist in our guide to gather the information you’ll need.</p>
 					</Delighter>
 				</div>
 			</>
@@ -289,14 +247,7 @@ const TrialDescriptionPage = () => {
 	const renderStartOver = (searchCriteriaObject) => {
 		return (
 			<>
-				<Link
-					to={`${
-						searchCriteriaObject?.formType === 'basic'
-							? BasicSearchPagePath()
-							: AdvancedSearchPagePath()
-					}`}
-					state={{ criteria: {}, refineSearch: false }}
-					onClick={() => handleStartOver(START_OVER_LINK)}>
+				<Link to={`${searchCriteriaObject?.formType === 'basic' ? BasicSearchPagePath() : AdvancedSearchPagePath()}`} state={{ criteria: {}, refineSearch: false }} onClick={() => handleStartOver(START_OVER_LINK)}>
 					<strong>Start Over</strong>
 				</Link>
 				{!hasSCOBeenUpdated(searchCriteriaObject) && (
@@ -304,10 +255,7 @@ const TrialDescriptionPage = () => {
 						<span aria-hidden="true" className="separator">
 							|
 						</span>
-						<button
-							type="button"
-							className="btnAsLink"
-							onClick={handleRefineSearch}>
+						<button type="button" className="btnAsLink" onClick={handleRefineSearch}>
 							Modify Search Criteria
 						</button>
 					</>
@@ -317,38 +265,24 @@ const TrialDescriptionPage = () => {
 	};
 
 	const renderTrialDescriptionHeader = (searchCriteriaObject) => {
-		if (
-			searchCriteriaObject.formType === 'basic' ||
-			searchCriteriaObject.formType === 'advanced'
-		) {
+		if (searchCriteriaObject.formType === 'basic' || searchCriteriaObject.formType === 'advanced') {
 			return (
 				<div className="trial-description-page__header">
-					{searchCriteriaObject &&
-						searchCriteriaObject.formType != '' &&
-						location.state && (
-							<div className="back-to-search btnAsLink">
-								<span
-									onClick={() => navigate(-1)}
-									onKeyDown={() => navigate(-1)}
-									tabIndex="0"
-									role="button">
-									&lt; Back to search results
-								</span>
-							</div>
-						)}
+					{searchCriteriaObject && searchCriteriaObject.formType != '' && location.state && (
+						<div className="back-to-search btnAsLink">
+							<span onClick={() => navigate(-1)} onKeyDown={() => navigate(-1)} tabIndex="0" role="button">
+								&lt; Back to search results
+							</span>
+						</div>
+					)}
 					{searchCriteriaObject && !hasSCOBeenUpdated(searchCriteriaObject) ? (
 						<>
 							<strong>This clinical trial matches:</strong>
-							<SearchCriteriaTableUpdated
-								searchCriteriaObject={searchCriteriaObject}
-							/>
+							<SearchCriteriaTableUpdated searchCriteriaObject={searchCriteriaObject} />
 						</>
 					) : (
 						<>
-							<strong>
-								This clinical trial matches: &quot;all trials&quot;
-							</strong>{' '}
-							|{' '}
+							<strong>This clinical trial matches: &quot;all trials&quot;</strong> |{' '}
 						</>
 					)}
 					{renderStartOver(searchCriteriaObject)}
@@ -359,12 +293,8 @@ const TrialDescriptionPage = () => {
 
 	const renderEligibilityCriteria = () => {
 		const eligibilityArr = trialDescription.eligibility.unstructured;
-		const inclusionArr = eligibilityArr.filter(
-			(item) => item.inclusion_indicator
-		);
-		const exclusionArr = eligibilityArr.filter(
-			(item) => !item.inclusion_indicator
-		);
+		const inclusionArr = eligibilityArr.filter((item) => item.inclusion_indicator);
+		const exclusionArr = eligibilityArr.filter((item) => !item.inclusion_indicator);
 		return (
 			<div className="eligibility-criteria">
 				<h3>Inclusion Criteria</h3>
@@ -393,10 +323,7 @@ const TrialDescriptionPage = () => {
 		// push secondaries onto array
 		secIDFields.forEach((idField) => {
 			if (idField === 'other_ids') {
-				if (
-					trialDescription.other_ids &&
-					trialDescription.other_ids.length > 0
-				) {
+				if (trialDescription.other_ids && trialDescription.other_ids.length > 0) {
 					trialDescription.other_ids.forEach((item) => {
 						secArr.push(item.value);
 					});
@@ -411,11 +338,7 @@ const TrialDescriptionPage = () => {
 		//de-dupe
 		secArr = [...new Set(secArr)];
 		// filter out nct and protocol id
-		secArr = secArr.filter(
-			(item) =>
-				item !== trialDescription.nct_id &&
-				item !== trialDescription.protocol_id
-		);
+		secArr = secArr.filter((item) => item !== trialDescription.nct_id && item !== trialDescription.protocol_id);
 
 		return secArr.length > 0 ? (
 			<li>
@@ -433,45 +356,27 @@ const TrialDescriptionPage = () => {
 
 	const formatPrimaryPurpose = () => {
 		let formatted_purpose = '';
-		if (
-			trialDescription.primary_purpose &&
-			trialDescription.primary_purpose !== ''
-		) {
-			formatted_purpose = trialDescription.primary_purpose
-				.toLowerCase()
-				.replace(/_/g, ' ');
+		if (trialDescription.primary_purpose && trialDescription.primary_purpose !== '') {
+			formatted_purpose = trialDescription.primary_purpose.toLowerCase().replace(/_/g, ' ');
 
 			// Trial type for trials that return primary_purpose: "OTHER" need
 			// to say "Not provided by ClinicalTrials.gov"
 			if (formatted_purpose === 'other') {
-				formatted_purpose = (
-					<span className="non-formatted-tt">
-						Not provided by clinicaltrials.gov
-					</span>
-				);
+				formatted_purpose = <span className="non-formatted-tt">Not provided by clinicaltrials.gov</span>;
 			}
 		}
 		return formatted_purpose;
 	};
 
 	const prettifyDescription = () => {
-		let formattedStr =
-			'<p>' +
-			trialDescription.detail_description.replace(/(\r\n)/gm, '</p><p>') +
-			'</p>';
+		let formattedStr = '<p>' + trialDescription.detail_description.replace(/(\r\n)/gm, '</p><p>') + '</p>';
 		return { __html: formattedStr };
 	};
 
 	const handleExpandAllSections = () => {
-		let headings = document.querySelectorAll(
-			'.trial-description-page__content h2.cts-accordion__heading'
-		);
-		let buttons = document.querySelectorAll(
-			'.trial-description-page__content .cts-accordion__button'
-		);
-		let contents = document.querySelectorAll(
-			'.trial-description-page__content .cts-accordion__content'
-		);
+		let headings = document.querySelectorAll('.trial-description-page__content h2.cts-accordion__heading');
+		let buttons = document.querySelectorAll('.trial-description-page__content .cts-accordion__button');
+		let contents = document.querySelectorAll('.trial-description-page__content .cts-accordion__content');
 		headings.forEach((item) => {
 			item.setAttribute('aria-expanded', true);
 		});
@@ -484,15 +389,9 @@ const TrialDescriptionPage = () => {
 	};
 
 	const handleHideAllSections = () => {
-		let headings = document.querySelectorAll(
-			'.trial-description-page__content h2.cts-accordion__heading'
-		);
-		let buttons = document.querySelectorAll(
-			'.trial-description-page__content .cts-accordion__button'
-		);
-		let contents = document.querySelectorAll(
-			'.trial-description-page__content .cts-accordion__content'
-		);
+		let headings = document.querySelectorAll('.trial-description-page__content h2.cts-accordion__heading');
+		let buttons = document.querySelectorAll('.trial-description-page__content .cts-accordion__button');
+		let contents = document.querySelectorAll('.trial-description-page__content .cts-accordion__content');
 		headings.forEach((item) => {
 			item.setAttribute('aria-expanded', false);
 		});
@@ -524,9 +423,7 @@ const TrialDescriptionPage = () => {
 		});
 	};
 
-	const activeRecruitmentSites = !isTrialLoading
-		? filterSitesByActiveRecruitment(trialDescription.sites)
-		: [];
+	const activeRecruitmentSites = !isTrialLoading ? filterSitesByActiveRecruitment(trialDescription.sites) : [];
 
 	return (
 		<>
@@ -539,23 +436,11 @@ const TrialDescriptionPage = () => {
 							<title>
 								{trialDescription.brief_title} - {siteName}
 							</title>{' '}
-							<meta
-								property="og:title"
-								content={trialDescription.brief_title}
-							/>
-							<link
-								rel="canonical"
-								href={`https://www.cancer.gov/about-cancer/treatment/clinical-trials/search/v?id=${currId}`}
-							/>
-							<meta
-								property="og:url"
-								content={`https://www.cancer.gov/about-cancer/treatment/clinical-trials/search/v?id=${currId}`}
-							/>
+							<meta property="og:title" content={trialDescription.brief_title} />
+							<link rel="canonical" href={`https://www.cancer.gov/about-cancer/treatment/clinical-trials/search/v?id=${currId}`} />
+							<meta property="og:url" content={`https://www.cancer.gov/about-cancer/treatment/clinical-trials/search/v?id=${currId}`} />
 							<meta name="description" content={trialDescription.brief_title} />
-							<meta
-								property="og:description"
-								content={`${trialDescription.brief_title} - ${trialDescription.nct_id}`}
-							/>
+							<meta property="og:description" content={`${trialDescription.brief_title} - ${trialDescription.nct_id}`} />
 						</Helmet>
 					)}
 					<article className="trial-description-page">
@@ -599,23 +484,13 @@ const TrialDescriptionPage = () => {
 								) : (
 									<>
 										<div className="trial-content-header">
-											<TrialStatusIndicator
-												status={trialDescription?.current_trial_status?.toLowerCase()}
-											/>
+											<TrialStatusIndicator status={trialDescription?.current_trial_status?.toLowerCase()} />
 											<div className="accordion-control__wrapper">
-												<button
-													type="button"
-													className="accordion-control__button open"
-													onClick={handleExpandAllSections}>
-													<span className="icon expand"></span> Open all{' '}
-													<span className="show-for-sr">sections</span>
+												<button type="button" className="accordion-control__button open" onClick={handleExpandAllSections}>
+													<span className="icon expand"></span> Open all <span className="show-for-sr">sections</span>
 												</button>
-												<button
-													type="button"
-													className="accordion-control__button close"
-													onClick={handleHideAllSections}>
-													<span className="icon contract"></span> Close all{' '}
-													<span className="show-for-sr">sections</span>
+												<button type="button" className="accordion-control__button close" onClick={handleHideAllSections}>
+													<span className="icon contract"></span> Close all <span className="show-for-sr">sections</span>
 												</button>
 											</div>
 										</div>
@@ -624,89 +499,52 @@ const TrialDescriptionPage = () => {
 											<AccordionItem titleCollapsed="Description" expanded>
 												<p>{trialDescription.brief_summary}</p>
 											</AccordionItem>
-											<AccordionItem titleCollapsed="Eligibility Criteria">
-												{renderEligibilityCriteria()}
-											</AccordionItem>
+											<AccordionItem titleCollapsed="Eligibility Criteria">{renderEligibilityCriteria()}</AccordionItem>
 											<AccordionItem titleCollapsed="Locations &amp; Contacts">
-												{activeRecruitmentSites &&
-												activeRecruitmentSites.length > 0 ? (
-													<SitesList
-														searchCriteria={searchCriteriaObject}
-														sites={activeRecruitmentSites}
-													/>
-												) : noLocInfo.includes(
-														trialDescription.current_trial_status.toLowerCase()
-												  ) ? (
+												{activeRecruitmentSites && activeRecruitmentSites.length > 0 ? (
+													<SitesList searchCriteria={searchCriteriaObject} sites={activeRecruitmentSites} />
+												) : noLocInfo.includes(trialDescription.current_trial_status.toLowerCase()) ? (
 													<p>Location information is not yet available.</p>
 												) : (
 													<p>
 														See trial information on{' '}
-														<a
-															href={`https://www.clinicaltrials.gov/study/${trialDescription.nct_id}`}
-															target="_blank"
-															rel="noopener noreferrer">
+														<a href={`https://www.clinicaltrials.gov/study/${trialDescription.nct_id}`} target="_blank" rel="noopener noreferrer">
 															ClinicalTrials.gov
 														</a>{' '}
 														for a list of participating sites.
 													</p>
 												)}
 											</AccordionItem>
-											<AccordionItem titleCollapsed="Trial Objectives and Outline">
-												{trialDescription.detail_description && (
-													<div
-														className="trial-objectives-outline"
-														dangerouslySetInnerHTML={prettifyDescription()}
-													/>
-												)}
-											</AccordionItem>
+											<AccordionItem titleCollapsed="Trial Objectives and Outline">{trialDescription.detail_description && <div className="trial-objectives-outline" dangerouslySetInnerHTML={prettifyDescription()} />}</AccordionItem>
 											<AccordionItem titleCollapsed="Trial Phase &amp; Type">
 												<>
 													<p className="trial-phase">
 														<strong className="field-label">Trial Phase</strong>
-														{`${
-															trialDescription.phase &&
-															trialDescription.phase !== 'NA'
-																? 'Phase ' +
-																  trialDescription.phase.replace('_', '/')
-																: 'No phase specified'
-														}`}
+														{`${trialDescription.phase && trialDescription.phase !== 'NA' ? 'Phase ' + trialDescription.phase.replace('_', '/') : 'No phase specified'}`}
 													</p>
-													{trialDescription.primary_purpose &&
-														trialDescription.primary_purpose !== '' && (
-															<p className="trial-type">
-																<strong className="field-label">
-																	Trial Type
-																</strong>
-																<span className="trial-type-name">
-																	{formatPrimaryPurpose()}
-																</span>
-															</p>
-														)}
+													{trialDescription.primary_purpose && trialDescription.primary_purpose !== '' && (
+														<p className="trial-type">
+															<strong className="field-label">Trial Type</strong>
+															<span className="trial-type-name">{formatPrimaryPurpose()}</span>
+														</p>
+													)}
 												</>
 											</AccordionItem>
-											{(trialDescription.lead_org ||
-												trialDescription.principal_investigator) && (
+											{(trialDescription.lead_org || trialDescription.principal_investigator) && (
 												<AccordionItem titleCollapsed="Lead Organization">
 													<>
-														{trialDescription.lead_org &&
-															trialDescription.lead_org !== '' && (
-																<p className="leadOrg">
-																	<strong className="field-label">
-																		Lead Organization
-																	</strong>
-																	{trialDescription.lead_org}
-																</p>
-															)}
-														{trialDescription.principal_investigator &&
-															trialDescription.principal_investigator !==
-																'' && (
-																<p className="investigator">
-																	<strong className="field-label">
-																		Principal Investigator
-																	</strong>
-																	{trialDescription.principal_investigator}
-																</p>
-															)}
+														{trialDescription.lead_org && trialDescription.lead_org !== '' && (
+															<p className="leadOrg">
+																<strong className="field-label">Lead Organization</strong>
+																{trialDescription.lead_org}
+															</p>
+														)}
+														{trialDescription.principal_investigator && trialDescription.principal_investigator !== '' && (
+															<p className="investigator">
+																<strong className="field-label">Principal Investigator</strong>
+																{trialDescription.principal_investigator}
+															</p>
+														)}
 													</>
 												</AccordionItem>
 											)}
@@ -718,13 +556,8 @@ const TrialDescriptionPage = () => {
 													</li>
 													{renderSecondaryIDs()}
 													<li>
-														<strong className="field-label">
-															ClinicalTrials.gov ID
-														</strong>
-														<a
-															href={`http://clinicaltrials.gov/study/${trialDescription.nct_id}`}
-															target="_blank"
-															rel="noopener noreferrer">
+														<strong className="field-label">ClinicalTrials.gov ID</strong>
+														<a href={`http://clinicaltrials.gov/study/${trialDescription.nct_id}`} target="_blank" rel="noopener noreferrer">
 															{trialDescription.nct_id}
 														</a>
 													</li>
@@ -735,9 +568,7 @@ const TrialDescriptionPage = () => {
 								)}
 							</div>
 
-							<div className="trial-description-page__aside">
-								{renderDelighters()}
-							</div>
+							<div className="trial-description-page__aside">{renderDelighters()}</div>
 						</div>
 					</article>
 				</>

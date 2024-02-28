@@ -38,20 +38,12 @@ const zipRadius = 2563.069252151362;
 
 describe('isWithinRadius', () => {
 	it(`the answer should be false, since the resulting distance calculated by isWithinRadius, is greater than the zipRadius`, () => {
-		const answer = isWithinRadius(
-			zipCoordsInValid,
-			siteCoordsInValid,
-			zipRadiusForInvalid
-		);
+		const answer = isWithinRadius(zipCoordsInValid, siteCoordsInValid, zipRadiusForInvalid);
 		expect(answer).toEqual(false);
 	});
 
 	it(`the answer should be true, since the resulting distance calculated by isWithinRadius, is less than the zipRadius`, () => {
-		const answer = isWithinRadius(
-			zipCoordsValid,
-			siteCoordsValid,
-			zipRadiusForValid
-		);
+		const answer = isWithinRadius(zipCoordsValid, siteCoordsValid, zipRadiusForValid);
 		expect(answer).toEqual(true);
 	});
 

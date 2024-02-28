@@ -1,4 +1,3 @@
-import axios from 'axios';
 import querystring from 'querystring';
 import nock from 'nock';
 
@@ -6,9 +5,6 @@ import clinicalTrialsSearchClientFactory from '../clinicalTrialsSearchClientFact
 import { ACTIVE_TRIAL_STATUSES } from '../../../../constants';
 import { getOtherInterventions } from '../getOtherInterventions';
 import { getOtherInterventionsAction } from '../../../../store/actionsV2';
-
-// Required for unit tests to not have CORS issues
-axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const client = clinicalTrialsSearchClientFactory('http://example.org');
 
@@ -64,10 +60,7 @@ describe('getOtherInterventions', () => {
 		const scope = nock('http://example.org')
 			.get(`/interventions?${querystring.stringify(requestQuery)}`)
 			.reply(200, result);
-		const response = await getOtherInterventions(
-			client,
-			query.payload.requestParams
-		);
+		const response = await getOtherInterventions(client, query.payload.requestParams);
 		expect(response).toEqual(result);
 		scope.isDone();
 	});
@@ -89,9 +82,7 @@ describe('getOtherInterventions', () => {
 		const scope = nock('http://example.org')
 			.get(`/interventions?${querystring.stringify(requestQuery)}`)
 			.reply(404);
-		await expect(
-			getOtherInterventions(client, query.payload.requestParams)
-		).rejects.toThrow('Unexpected status 404 for fetching other treatments');
+		await expect(getOtherInterventions(client, query.payload.requestParams)).rejects.toThrow('Unexpected status 404 for fetching other treatments');
 		scope.isDone();
 	});
 
@@ -112,9 +103,7 @@ describe('getOtherInterventions', () => {
 		const scope = nock('http://example.org')
 			.get(`/interventions?${querystring.stringify(requestQuery)}`)
 			.reply(500);
-		await expect(
-			getOtherInterventions(client, query.payload.requestParams)
-		).rejects.toThrow('Unexpected status 500 for fetching other treatments');
+		await expect(getOtherInterventions(client, query.payload.requestParams)).rejects.toThrow('Unexpected status 500 for fetching other treatments');
 		scope.isDone();
 	});
 
@@ -135,9 +124,7 @@ describe('getOtherInterventions', () => {
 		const scope = nock('http://example.org')
 			.get(`/interventions?${querystring.stringify(requestQuery)}`)
 			.replyWithError('connection refused');
-		await expect(
-			getOtherInterventions(client, query.payload.requestParams)
-		).rejects.toThrow('connection refused');
+		await expect(getOtherInterventions(client, query.payload.requestParams)).rejects.toThrow('connection refused');
 		scope.isDone();
 	});
 });

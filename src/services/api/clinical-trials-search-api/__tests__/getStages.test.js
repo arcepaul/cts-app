@@ -1,4 +1,3 @@
-import axios from 'axios';
 import querystring from 'query-string';
 import nock from 'nock';
 
@@ -8,8 +7,6 @@ import { getStages } from '../getStages';
 import { getStagesAction } from '../../../../store/actionsV2';
 
 const mock = require('../../../../../support/mock-data/diseases/empty_stage_empty_empty_C4912.json');
-
-axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const client = clinicalTrialsSearchClientFactory('http://example.org');
 
@@ -58,9 +55,7 @@ describe('getStages', () => {
 		const scope = nock('http://example.org')
 			.get(`/diseases?${querystring.stringify(requestQuery)}`)
 			.reply(400);
-		await expect(
-			getStages(client, query.payload.requestParams)
-		).rejects.toThrow('Unexpected status 400 for fetching stages');
+		await expect(getStages(client, query.payload.requestParams)).rejects.toThrow('Unexpected status 400 for fetching stages');
 		scope.isDone();
 	});
 
@@ -77,9 +72,7 @@ describe('getStages', () => {
 		const scope = nock('http://example.org')
 			.get(`/diseases?${querystring.stringify(requestQuery)}`)
 			.reply(500);
-		await expect(
-			getStages(client, query.payload.requestParams)
-		).rejects.toThrow('Unexpected status 500 for fetching stages');
+		await expect(getStages(client, query.payload.requestParams)).rejects.toThrow('Unexpected status 500 for fetching stages');
 		scope.isDone();
 	});
 
@@ -96,9 +89,7 @@ describe('getStages', () => {
 		const scope = nock('http://example.org')
 			.get(`/diseases?${querystring.stringify(requestQuery)}`)
 			.reply(204);
-		await expect(
-			getStages(client, query.payload.requestParams)
-		).rejects.toThrow('Unexpected status 204 for fetching stages');
+		await expect(getStages(client, query.payload.requestParams)).rejects.toThrow('Unexpected status 204 for fetching stages');
 		scope.isDone();
 	});
 
@@ -115,9 +106,7 @@ describe('getStages', () => {
 		const scope = nock('http://example.org')
 			.get(`/diseases?${querystring.stringify(requestQuery)}`)
 			.replyWithError('connection refused');
-		await expect(
-			getStages(client, query.payload.requestParams)
-		).rejects.toThrow('connection refused');
+		await expect(getStages(client, query.payload.requestParams)).rejects.toThrow('connection refused');
 		scope.isDone();
 	});
 });

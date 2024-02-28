@@ -7,9 +7,7 @@ import { ACTIVE_TRIAL_STATUSES } from '../../constants';
  */
 export const searchTrialInvestigatorsAction = ({ searchText }) => {
 	if (!searchText || searchText === '') {
-		throw new Error(
-			'You must specify a trial investigator in order to fetch it.'
-		);
+		throw new Error('You must specify a trial investigator in order to fetch it.');
 	}
 	const requestQuery = {
 		agg_field: 'principal_investigator',

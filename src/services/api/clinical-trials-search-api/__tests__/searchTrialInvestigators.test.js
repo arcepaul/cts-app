@@ -1,4 +1,3 @@
-import axios from 'axios';
 import querystring from 'querystring';
 import nock from 'nock';
 
@@ -6,9 +5,6 @@ import clinicalTrialsSearchClientFactory from '../clinicalTrialsSearchClientFact
 import { ACTIVE_TRIAL_STATUSES } from '../../../../constants';
 import { searchTrialInvestigators } from '../searchTrialInvestigators';
 import { searchTrialInvestigatorsAction } from '../../../../store/actionsV2';
-
-// Required for unit tests to not have CORS issues
-axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const client = clinicalTrialsSearchClientFactory('http://example.org');
 
@@ -64,9 +60,7 @@ describe('searchTrialInvestigators', () => {
 								{
 									paths: [
 										{
-											concepts: [
-												{ code: 'C9292', label: 'Solid Neoplasm', idx: 0 },
-											],
+											concepts: [{ code: 'C9292', label: 'Solid Neoplasm', idx: 0 }],
 											direction: 1,
 										},
 									],
@@ -83,21 +77,7 @@ describe('searchTrialInvestigators', () => {
 						{
 							inclusion_indicator: 'TRIAL',
 							paths: null,
-							synonyms: [
-								'HEMOLYMPHORETICULAR TUMOR, MALIGNANT',
-								'Hematologic Cancer',
-								'Hematologic Malignancy',
-								'Hematologic Neoplasm',
-								'Hematological Neoplasm',
-								'Hematopoietic Cancer',
-								'Hematopoietic Neoplasm',
-								'Hematopoietic Neoplasms Including Lymphomas',
-								'Hematopoietic and Lymphoid Neoplasm',
-								'Hematopoietic malignancy, NOS',
-								'Malignant Hematologic Neoplasm',
-								'Malignant Hematopoietic Neoplasm',
-								'hematologic cancer',
-							],
+							synonyms: ['HEMOLYMPHORETICULAR TUMOR, MALIGNANT', 'Hematologic Cancer', 'Hematologic Malignancy', 'Hematologic Neoplasm', 'Hematological Neoplasm', 'Hematopoietic Cancer', 'Hematopoietic Neoplasm', 'Hematopoietic Neoplasms Including Lymphomas', 'Hematopoietic and Lymphoid Neoplasm', 'Hematopoietic malignancy, NOS', 'Malignant Hematologic Neoplasm', 'Malignant Hematopoietic Neoplasm', 'hematologic cancer'],
 							nci_thesaurus_concept_id: 'C27134',
 							display_name: 'Hematopoietic and Lymphoid Cell Neoplasm',
 							type: ['maintype'],
@@ -127,12 +107,7 @@ describe('searchTrialInvestigators', () => {
 						},
 						{
 							inclusion_indicator: 'TREE',
-							synonyms: [
-								'Blood Disease',
-								'Blood Disorder',
-								'Hematologic Disorder',
-								'Hematological Disorder',
-							],
+							synonyms: ['Blood Disease', 'Blood Disorder', 'Hematologic Disorder', 'Hematological Disorder'],
 							nci_thesaurus_concept_id: 'C26323',
 							display_name: 'Hematologic and Lymphocytic Disorder',
 							type: ['subtype'],
@@ -142,12 +117,7 @@ describe('searchTrialInvestigators', () => {
 						},
 						{
 							inclusion_indicator: 'TREE',
-							synonyms: [
-								'Solid Neoplasm',
-								'Solid Tumour',
-								'Solid tumor, NOS',
-								'solid tumor',
-							],
+							synonyms: ['Solid Neoplasm', 'Solid Tumour', 'Solid tumor, NOS', 'solid tumor'],
 							nci_thesaurus_concept_id: 'C9292',
 							display_name: 'Solid Tumor',
 							type: ['maintype'],
@@ -157,20 +127,7 @@ describe('searchTrialInvestigators', () => {
 						},
 						{
 							inclusion_indicator: 'TREE',
-							synonyms: [
-								'CA',
-								'Cancer',
-								'Malignancy',
-								'Malignant Growth',
-								'Malignant Neoplastic Disease',
-								'Malignant Tumor',
-								'NEOPLASM, MALIGNANT',
-								'Neoplasm, malignant',
-								'Tumor, malignant, NOS',
-								'Unclassified tumor, malignant',
-								'cancer',
-								'malignancy',
-							],
+							synonyms: ['CA', 'Cancer', 'Malignancy', 'Malignant Growth', 'Malignant Neoplastic Disease', 'Malignant Tumor', 'NEOPLASM, MALIGNANT', 'Neoplasm, malignant', 'Tumor, malignant, NOS', 'Unclassified tumor, malignant', 'cancer', 'malignancy'],
 							nci_thesaurus_concept_id: 'C9305',
 							display_name: 'Malignant Neoplasm',
 							type: ['subtype'],
@@ -220,23 +177,7 @@ describe('searchTrialInvestigators', () => {
 						},
 						{
 							inclusion_indicator: 'TREE',
-							synonyms: [
-								'Diagnosis',
-								'Disease',
-								'Disease or Disorder',
-								'Disease or Disorder, Non-Neoplastic',
-								'Diseases',
-								'Diseases and Disorders',
-								'Disorder',
-								'Disorders',
-								'condition',
-								'disease',
-								'disease term',
-								'disease type',
-								'disease_term',
-								'disease_type',
-								'disorder',
-							],
+							synonyms: ['Diagnosis', 'Disease', 'Disease or Disorder', 'Disease or Disorder, Non-Neoplastic', 'Diseases', 'Diseases and Disorders', 'Disorder', 'Disorders', 'condition', 'disease', 'disease term', 'disease type', 'disease_term', 'disease_type', 'disorder'],
 							nci_thesaurus_concept_id: 'C2991',
 							display_name: 'Other Disease',
 							type: ['maintype'],
@@ -246,18 +187,7 @@ describe('searchTrialInvestigators', () => {
 						},
 						{
 							inclusion_indicator: 'TREE',
-							synonyms: [
-								'Neoplasia',
-								'Neoplasm',
-								'Neoplasm, NOS',
-								'Neoplasms, NOS',
-								'Neoplastic Disease',
-								'Neoplastic Growth',
-								'Tumor, NOS',
-								'neoplasia',
-								'neoplasm',
-								'tumor',
-							],
+							synonyms: ['Neoplasia', 'Neoplasm', 'Neoplasm, NOS', 'Neoplasms, NOS', 'Neoplastic Disease', 'Neoplastic Growth', 'Tumor, NOS', 'neoplasia', 'neoplasm', 'tumor'],
 							nci_thesaurus_concept_id: 'C3262',
 							display_name: 'Other Neoplasm',
 							type: ['maintype'],
@@ -317,10 +247,7 @@ describe('searchTrialInvestigators', () => {
 			.get(`/trials?${querystring.stringify(requestQuery)}`)
 			.reply(200, result);
 
-		const response = await searchTrialInvestigators(
-			client,
-			query.payload.requestParams
-		);
+		const response = await searchTrialInvestigators(client, query.payload.requestParams);
 		expect(response).toEqual(result);
 		scope.isDone();
 	});
@@ -339,9 +266,7 @@ describe('searchTrialInvestigators', () => {
 		const scope = nock('http://example.org')
 			.get(`/trials?${querystring.stringify(requestQuery)}`)
 			.reply(404);
-		await expect(
-			searchTrialInvestigators(client, query.payload.requestParams)
-		).rejects.toThrow('Unexpected status 404 for fetching trial investigators');
+		await expect(searchTrialInvestigators(client, query.payload.requestParams)).rejects.toThrow('Unexpected status 404 for fetching trial investigators');
 		scope.isDone();
 	});
 
@@ -359,9 +284,7 @@ describe('searchTrialInvestigators', () => {
 		const scope = nock('http://example.org')
 			.get(`/trials?${querystring.stringify(requestQuery)}`)
 			.reply(500);
-		await expect(
-			searchTrialInvestigators(client, query.payload.requestParams)
-		).rejects.toThrow('Unexpected status 500 for fetching trial investigators');
+		await expect(searchTrialInvestigators(client, query.payload.requestParams)).rejects.toThrow('Unexpected status 500 for fetching trial investigators');
 		scope.isDone();
 	});
 
@@ -379,9 +302,7 @@ describe('searchTrialInvestigators', () => {
 		const scope = nock('http://example.org')
 			.get(`/trials?${querystring.stringify(requestQuery)}`)
 			.replyWithError('connection refused');
-		await expect(
-			searchTrialInvestigators(client, query.payload.requestParams)
-		).rejects.toThrow('connection refused');
+		await expect(searchTrialInvestigators(client, query.payload.requestParams)).rejects.toThrow('connection refused');
 		scope.isDone();
 	});
 });

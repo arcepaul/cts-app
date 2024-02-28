@@ -6,9 +6,7 @@
  */
 export const getClinicalTrialDescriptionAction = (trialId = '') => {
 	if (!trialId || trialId === '') {
-		throw new Error(
-			'You must specify a trialId in order to fetch a trial description.'
-		);
+		throw new Error('You must specify a trialId in order to fetch a trial description.');
 	}
 
 	return {

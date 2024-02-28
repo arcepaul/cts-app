@@ -11,16 +11,12 @@ export const getClinicalTrialDescription = async (client, query) => {
 			return res.data;
 		} else {
 			// This condition will be hit for anything < 300.
-			throw new Error(
-				`Unexpected status ${res.status} for fetching clinical trial description`
-			);
+			throw new Error(`Unexpected status ${res.status} for fetching clinical trial description`);
 		}
 	} catch (error) {
 		// This conditional will be hit for any status >= 300.
 		if (error.response) {
-			throw new Error(
-				`Unexpected status ${error.response.status} for fetching clinical trial description`
-			);
+			throw new Error(`Unexpected status ${error.response.status} for fetching clinical trial description`);
 		}
 		throw error;
 	}

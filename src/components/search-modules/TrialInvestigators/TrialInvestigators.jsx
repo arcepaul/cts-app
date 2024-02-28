@@ -17,9 +17,7 @@ const TrialInvestigators = ({ handleUpdate }) => {
 	const [{ helpUrl }] = useAppSettings();
 
 	const [tiName, setTiName] = useState({ value: investigator.term });
-	const tisAggregations = tis.aggregations
-		? createTermDataFromArrayObj(tis.aggregations.principal_investigator, 'key')
-		: [];
+	const tisAggregations = tis.aggregations ? createTermDataFromArrayObj(tis.aggregations.principal_investigator, 'key') : [];
 
 	useEffect(() => {
 		if (tiName.value.length > 2) {
@@ -28,10 +26,7 @@ const TrialInvestigators = ({ handleUpdate }) => {
 	}, [tiName, dispatch]);
 
 	return (
-		<Fieldset
-			id="trialInvestigators"
-			legend="Trial Investigators"
-			helpUrl={helpUrl + '#trialinvestigators'}>
+		<Fieldset id="trialInvestigators" legend="Trial Investigators" helpUrl={helpUrl + '#trialinvestigators'}>
 			<Autocomplete
 				id="inv"
 				label="Trial investigators"
@@ -52,29 +47,9 @@ const TrialInvestigators = ({ handleUpdate }) => {
 					handleUpdate('investigator', item);
 					setTiName({ value });
 				}}
-				renderMenu={(children) => (
-					<div className="cts-autocomplete__menu --trialInvestigators">
-						{tiName.value.length > 2 ? (
-							tisAggregations.length ? (
-								children
-							) : (
-								<div className="cts-autocomplete__menu-item">
-									No results found
-								</div>
-							)
-						) : (
-							<div className="cts-autocomplete__menu-item">
-								Please enter 3 or more characters
-							</div>
-						)}
-					</div>
-				)}
+				renderMenu={(children) => <div className="cts-autocomplete__menu --trialInvestigators">{tiName.value.length > 2 ? tisAggregations.length ? children : <div className="cts-autocomplete__menu-item">No results found</div> : <div className="cts-autocomplete__menu-item">Please enter 3 or more characters</div>}</div>}
 				renderItem={(item, isHighlighted) => (
-					<div
-						className={`cts-autocomplete__menu-item ${
-							isHighlighted ? 'highlighted' : ''
-						}`}
-						key={item.termKey}>
+					<div className={`cts-autocomplete__menu-item ${isHighlighted ? 'highlighted' : ''}`} key={item.termKey}>
 						{item.term}
 					</div>
 				)}

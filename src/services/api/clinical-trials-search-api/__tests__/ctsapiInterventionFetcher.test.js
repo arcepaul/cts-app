@@ -1,11 +1,8 @@
-import axios from 'axios';
 import nock from 'nock';
 
 import { getCtsApiInterventionFetcherAction } from '../../actions';
 import { ctsapiInterventionFetcher } from '../ctsapiInterventionFetcher';
 import clinicalTrialsSearchClientFactory from '../clinicalTrialsSearchClientFactory';
-// Required for unit tests to not have CORS issues
-axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const client = clinicalTrialsSearchClientFactory('http://example.org');
 
@@ -39,38 +36,15 @@ describe('ctsapiInterventionFetcher', () => {
 						codes: ['C15974'],
 						category: ['agent category'],
 						type: ['biological/vaccine'],
-						synonyms: [
-							'Biological Immunotherapy for Cancer',
-							'Immunotherapy, Cancer, Biological',
-						],
+						synonyms: ['Biological Immunotherapy for Cancer', 'Immunotherapy, Cancer, Biological'],
 						count: 2,
 					},
 					{
 						name: 'Immunotherapy',
 						codes: ['C308'],
 						category: ['agent category', 'none', 'agent'],
-						type: [
-							'biological/vaccine',
-							'drug',
-							'other',
-							'radiation',
-							'procedure/surgery',
-							'dietary supplement',
-						],
-						synonyms: [
-							'Immunotherapy',
-							'BRM',
-							'Biological Response Modifier',
-							'Biomodulators',
-							'Immune Mediators',
-							'Immune Modulators',
-							'Immune Regulators',
-							'Immunomodulating Agent',
-							'Immunomodulators',
-							'Immunomodulatory Agent',
-							'Immunopotentiators',
-							'Immunotherapy Agent',
-						],
+						type: ['biological/vaccine', 'drug', 'other', 'radiation', 'procedure/surgery', 'dietary supplement'],
+						synonyms: ['Immunotherapy', 'BRM', 'Biological Response Modifier', 'Biomodulators', 'Immune Mediators', 'Immune Modulators', 'Immune Regulators', 'Immunomodulating Agent', 'Immunomodulators', 'Immunomodulatory Agent', 'Immunopotentiators', 'Immunotherapy Agent'],
 						count: 2934,
 					},
 				],
@@ -83,37 +57,14 @@ describe('ctsapiInterventionFetcher', () => {
 				codes: ['C15974'],
 				category: ['agent category'],
 				type: ['biological/vaccine'],
-				synonyms: [
-					'Biological Immunotherapy for Cancer',
-					'Immunotherapy, Cancer, Biological',
-				],
+				synonyms: ['Biological Immunotherapy for Cancer', 'Immunotherapy, Cancer, Biological'],
 			},
 			{
 				name: 'Immunotherapy',
 				codes: ['C308'],
 				category: ['agent category', 'none', 'agent'],
-				type: [
-					'biological/vaccine',
-					'drug',
-					'other',
-					'radiation',
-					'procedure/surgery',
-					'dietary supplement',
-				],
-				synonyms: [
-					'Immunotherapy',
-					'BRM',
-					'Biological Response Modifier',
-					'Biomodulators',
-					'Immune Mediators',
-					'Immune Modulators',
-					'Immune Regulators',
-					'Immunomodulating Agent',
-					'Immunomodulators',
-					'Immunomodulatory Agent',
-					'Immunopotentiators',
-					'Immunotherapy Agent',
-				],
+				type: ['biological/vaccine', 'drug', 'other', 'radiation', 'procedure/surgery', 'dietary supplement'],
+				synonyms: ['Immunotherapy', 'BRM', 'Biological Response Modifier', 'Biomodulators', 'Immune Mediators', 'Immune Modulators', 'Immune Regulators', 'Immunomodulating Agent', 'Immunomodulators', 'Immunomodulatory Agent', 'Immunopotentiators', 'Immunotherapy Agent'],
 			},
 		]);
 		// Assert that nock got the expected request and finished.
@@ -124,15 +75,8 @@ describe('ctsapiInterventionFetcher', () => {
 		const ids = 'C123456';
 
 		const query = getCtsApiInterventionFetcherAction(ids);
-		const scope = nock('http://example.org')
-			.get('/interventions')
-			.query(query.payload)
-			.reply(404);
-		await expect(
-			ctsapiInterventionFetcher(client, query.payload)
-		).rejects.toThrow(
-			'Unexpected status 404 for fetching interventions code(s)'
-		);
+		const scope = nock('http://example.org').get('/interventions').query(query.payload).reply(404);
+		await expect(ctsapiInterventionFetcher(client, query.payload)).rejects.toThrow('Unexpected status 404 for fetching interventions code(s)');
 		scope.isDone();
 	});
 
@@ -140,15 +84,8 @@ describe('ctsapiInterventionFetcher', () => {
 		const ids = ['C9133', 'C56789'];
 
 		const query = getCtsApiInterventionFetcherAction(ids);
-		const scope = nock('http://example.org')
-			.get('/interventions')
-			.query(query.payload)
-			.reply(500);
-		await expect(
-			ctsapiInterventionFetcher(client, query.payload)
-		).rejects.toThrow(
-			'Unexpected status 500 for fetching interventions code(s)'
-		);
+		const scope = nock('http://example.org').get('/interventions').query(query.payload).reply(500);
+		await expect(ctsapiInterventionFetcher(client, query.payload)).rejects.toThrow('Unexpected status 500 for fetching interventions code(s)');
 		scope.isDone();
 	});
 
@@ -157,13 +94,8 @@ describe('ctsapiInterventionFetcher', () => {
 
 		const query = getCtsApiInterventionFetcherAction(ids);
 
-		const scope = nock('http://example.org')
-			.get('/interventions')
-			.query(query.payload)
-			.replyWithError('connection refused');
-		await expect(
-			ctsapiInterventionFetcher(client, query.payload)
-		).rejects.toThrow('connection refused');
+		const scope = nock('http://example.org').get('/interventions').query(query.payload).replyWithError('connection refused');
+		await expect(ctsapiInterventionFetcher(client, query.payload)).rejects.toThrow('connection refused');
 		scope.isDone();
 	});
 
@@ -171,15 +103,8 @@ describe('ctsapiInterventionFetcher', () => {
 		const ids = 'C123456';
 
 		const query = getCtsApiInterventionFetcherAction(ids);
-		const scope = nock('http://example.org')
-			.get('/interventions')
-			.query(query.payload)
-			.reply(201);
-		await expect(
-			ctsapiInterventionFetcher(client, query.payload)
-		).rejects.toThrow(
-			'Unexpected status 201 for fetching interventions code(s)'
-		);
+		const scope = nock('http://example.org').get('/interventions').query(query.payload).reply(201);
+		await expect(ctsapiInterventionFetcher(client, query.payload)).rejects.toThrow('Unexpected status 201 for fetching interventions code(s)');
 		scope.isDone();
 	});
 });

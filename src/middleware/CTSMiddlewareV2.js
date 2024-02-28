@@ -1,17 +1,5 @@
 import { receiveData } from '../store/actions';
-import {
-	getCountries,
-	getDiseasesForTypeAhead,
-	getFindings,
-	getHospitals,
-	getLeadOrg,
-	getMainType,
-	getOtherInterventions,
-	getStages,
-	getSubtypes,
-	searchDrug,
-	searchTrialInvestigators,
-} from '../services/api/clinical-trials-search-api';
+import { getCountries, getDiseasesForTypeAhead, getFindings, getHospitals, getLeadOrg, getMainType, getOtherInterventions, getStages, getSubtypes, searchDrug, searchTrialInvestigators } from '../services/api/clinical-trials-search-api';
 
 /**
  * This middleware serves two purposes (and could perhaps be broken into two pieces).

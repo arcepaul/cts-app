@@ -1,10 +1,5 @@
 import { collapseConcepts } from './collapseConcepts';
-import {
-	ACTIVE_TRIAL_STATUSES,
-	ACTIVE_RECRUITMENT_STATUSES,
-	SEARCH_RETURNS_FIELDS,
-	NIH_ZIPCODE,
-} from '../constants';
+import { ACTIVE_TRIAL_STATUSES, ACTIVE_RECRUITMENT_STATUSES, SEARCH_RETURNS_FIELDS, NIH_ZIPCODE } from '../constants';
 
 export const formatTrialSearchQueryV2 = (form) => {
 	let filterCriteria = {};
@@ -30,11 +25,8 @@ export const formatTrialSearchQueryV2 = (form) => {
 	//Drugs and Treatments
 	if (form.drugs.length > 0 || form.treatments.length > 0) {
 		const drugIds = form.drugs.length > 0 ? collapseConcepts(form.drugs) : [];
-		const otherIds =
-			form.treatments.length > 0 ? collapseConcepts(form.treatments) : [];
-		filterCriteria['arms.interventions.nci_thesaurus_concept_id'] = [
-			...new Set([...drugIds, ...otherIds]),
-		];
+		const otherIds = form.treatments.length > 0 ? collapseConcepts(form.treatments) : [];
+		filterCriteria['arms.interventions.nci_thesaurus_concept_id'] = [...new Set([...drugIds, ...otherIds])];
 	}
 
 	//Add Age filter
@@ -52,9 +44,7 @@ export const formatTrialSearchQueryV2 = (form) => {
 	let trialTypesChecked = form.trialTypes.filter((item) => item.checked);
 	//check if any are selected, none being the same as all
 	if (trialTypesChecked.length) {
-		filterCriteria['primary_purpose.primary_purpose_code'] = [
-			...new Set(trialTypesChecked.map((item) => item.value)),
-		];
+		filterCriteria['primary_purpose.primary_purpose_code'] = [...new Set(trialTypesChecked.map((item) => item.value))];
 	}
 
 	// trialPhases

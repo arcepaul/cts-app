@@ -10,39 +10,11 @@ import { START_OVER_LINK } from '../../../constants';
 import { updateFormField } from '../../../store/actions';
 import { useAppPaths } from '../../../hooks/routing';
 
-const SearchCriteriaTable = ({
-	placement = 'results',
-	handleReset,
-	handleRefine,
-}) => {
+const SearchCriteriaTable = ({ placement = 'results', handleReset, handleRefine }) => {
 	const dispatch = useDispatch();
 
 	//store vals
-	const {
-		age,
-		cancerType,
-		subtypes,
-		stages,
-		findings,
-		keywordPhrases,
-		leadOrg,
-		zip,
-		zipRadius,
-		country,
-		states,
-		city,
-		hospital,
-		trialId,
-		investigator,
-		healthyVolunteers,
-		trialTypes,
-		trialPhases,
-		vaOnly,
-		drugs,
-		treatments,
-		location,
-		formType,
-	} = useSelector((store) => store.form);
+	const { age, cancerType, subtypes, stages, findings, keywordPhrases, leadOrg, zip, zipRadius, country, states, city, hospital, trialId, investigator, healthyVolunteers, trialTypes, trialPhases, vaOnly, drugs, treatments, location, formType } = useSelector((store) => store.form);
 
 	const { BasicSearchPagePath, AdvancedSearchPagePath } = useAppPaths();
 
@@ -188,8 +160,7 @@ const SearchCriteriaTable = ({
 			case 'search-location-nih':
 				criteria.push({
 					category: 'At NIH',
-					selection:
-						'Only show trials at the NIH Clinical Center (Bethesda, MD)',
+					selection: 'Only show trials at the NIH Clinical Center (Bethesda, MD)',
 				});
 				break;
 			default:
@@ -292,13 +263,9 @@ const SearchCriteriaTable = ({
 
 	return criterion.length > 0 ? (
 		<>
-			{placement === 'trial' ? (
-				<strong>This clinical trial matches:</strong>
-			) : null}
+			{placement === 'trial' ? <strong>This clinical trial matches:</strong> : null}
 			<Accordion classes="table-dropdown" startCollapsed>
-				<AccordionItem
-					titleExpanded="Hide Search Criteria"
-					titleCollapsed="Show Search Criteria">
+				<AccordionItem titleExpanded="Hide Search Criteria" titleCollapsed="Show Search Criteria">
 					<div className="search-criteria-table">
 						<Table
 							borderless
@@ -312,22 +279,12 @@ const SearchCriteriaTable = ({
 				</AccordionItem>
 			</Accordion>
 			{placement === 'trial' ? (
-				<Link
-					to={`${
-						formType === 'basic' ? BasicSearchPagePath : AdvancedSearchPagePath
-					}`}
-					onClick={() => handleReset(START_OVER_LINK)}>
+				<Link to={`${formType === 'basic' ? BasicSearchPagePath : AdvancedSearchPagePath}`} onClick={() => handleReset(START_OVER_LINK)}>
 					<strong>Start Over</strong>
 				</Link>
 			) : (
 				<div className="reset-form">
-					<Link
-						to={`${
-							formType === 'basic'
-								? BasicSearchPagePath
-								: AdvancedSearchPagePath
-						}`}
-						onClick={() => handleReset(START_OVER_LINK)}>
+					<Link to={`${formType === 'basic' ? BasicSearchPagePath : AdvancedSearchPagePath}`} onClick={() => handleReset(START_OVER_LINK)}>
 						Start Over
 					</Link>
 					<span aria-hidden="true" className="separator">
@@ -344,13 +301,7 @@ const SearchCriteriaTable = ({
 			{placement === 'trial' && (
 				<>
 					<strong>This clinical trial matches: &quot;all trials&quot;</strong> |{' '}
-					<Link
-						to={`${
-							formType === 'basic'
-								? BasicSearchPagePath
-								: AdvancedSearchPagePath
-						}`}
-						onClick={() => handleReset(START_OVER_LINK)}>
+					<Link to={`${formType === 'basic' ? BasicSearchPagePath : AdvancedSearchPagePath}`} onClick={() => handleReset(START_OVER_LINK)}>
 						<strong>Start Over</strong>
 					</Link>
 				</>

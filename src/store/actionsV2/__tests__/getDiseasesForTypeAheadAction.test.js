@@ -22,8 +22,6 @@ describe('getDiseasesForTypeAheadAction', () => {
 			},
 		};
 
-		expect(getDiseasesForTypeAheadAction({ searchText })).toEqual(
-			expectedAction
-		);
+		expect(getDiseasesForTypeAheadAction({ searchText })).toEqual(expectedAction);
 	});
 });

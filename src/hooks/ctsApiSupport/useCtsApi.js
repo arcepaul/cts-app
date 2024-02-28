@@ -1,18 +1,8 @@
 import { useEffect, useReducer, useRef, useCallback } from 'react';
 
-import {
-	setSuccessfulFetch,
-	setFailedFetch,
-	setLoading,
-	setAborted,
-} from './actions';
+import { setSuccessfulFetch, setFailedFetch, setLoading, setAborted } from './actions';
 import reducer from './reducer';
-import {
-	getClinicalTrialDescription,
-	getClinicalTrials,
-	ctsapiDiseaseFetcher,
-	ctsapiInterventionFetcher,
-} from '../../services/api/clinical-trials-search-api';
+import { getClinicalTrialDescription, getClinicalTrials, ctsapiDiseaseFetcher, ctsapiInterventionFetcher } from '../../services/api/clinical-trials-search-api';
 import { convertObjectToBase64 } from '../../utilities/objects';
 import { useAppSettings } from '../../store/store';
 
@@ -46,22 +36,13 @@ const internalFetch = async (clinicalTrialsSearchClientV2, actions) => {
 					return getClinicalTrials(clinicalTrialsSearchClientV2, req.payload);
 				}
 				case 'trialDescription': {
-					return getClinicalTrialDescription(
-						clinicalTrialsSearchClientV2,
-						req.payload
-					);
+					return getClinicalTrialDescription(clinicalTrialsSearchClientV2, req.payload);
 				}
 				case 'ctsApiDiseaseFetcher': {
-					return ctsapiDiseaseFetcher(
-						clinicalTrialsSearchClientV2,
-						req.payload
-					);
+					return ctsapiDiseaseFetcher(clinicalTrialsSearchClientV2, req.payload);
 				}
 				case 'ctsApiInterventionFetcher': {
-					return ctsapiInterventionFetcher(
-						clinicalTrialsSearchClientV2,
-						req.payload
-					);
+					return ctsapiInterventionFetcher(clinicalTrialsSearchClientV2, req.payload);
 				}
 				default: {
 					throw new Error(`Unknown CTS API request`);
@@ -127,15 +108,9 @@ export const useCtsApi = (fetchActions) => {
 		// Make the request, the response object will either be the payload
 		// or it will be an error object. This allows us to have one object
 		// that we return for the useCallback to "cache".
-		const response = await internalFetch(
-			clinicalTrialsSearchClientV2,
-			fetchActions
-		);
+		const response = await internalFetch(clinicalTrialsSearchClientV2, fetchActions);
 
-		if (
-			isMounted.current &&
-			!(response.errorObject && response.errorObject.name === 'AbortError')
-		) {
+		if (isMounted.current && !(response.errorObject && response.errorObject.name === 'AbortError')) {
 			if (response.errorObject) {
 				dispatch(setFailedFetch(response.errorObject));
 			} else {
@@ -152,11 +127,7 @@ export const useCtsApi = (fetchActions) => {
 		// unless our component unmounted AND a fetch was in progress, in which case
 		// we really don't care about the response. So we can set an aborted flag in
 		// case we will.
-		if (
-			isMounted.current &&
-			response.errorObject &&
-			response.errorObject.name === 'AbortError'
-		) {
+		if (isMounted.current && response.errorObject && response.errorObject.name === 'AbortError') {
 			dispatch(setAborted());
 		}
 

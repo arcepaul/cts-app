@@ -1,4 +1,3 @@
-import axios from 'axios';
 import querystring from 'querystring';
 import nock from 'nock';
 
@@ -6,9 +5,6 @@ import clinicalTrialsSearchClientFactory from '../clinicalTrialsSearchClientFact
 import { ACTIVE_TRIAL_STATUSES } from '../../../../constants';
 import { searchDrug } from '../searchDrug';
 import { searchDrugAction } from '../../../../store/actionsV2';
-
-// Required for unit tests to not have CORS issues
-axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const client = clinicalTrialsSearchClientFactory('http://example.org');
 
@@ -47,16 +43,7 @@ describe('searchDrug', () => {
 					codes: ['C137999', 'C126102'],
 					category: ['agent category', 'agent'],
 					type: ['biological/vaccine', 'drug'],
-					synonyms: [
-						'Chimeric Antigen Receptor T-Cell Therapy',
-						'CAR T Cell',
-						'CAR T Cells',
-						'CAR T-cells',
-						'CAR-T Cell',
-						'CAR-T Cells',
-						'CAR-modified T-cells',
-						'Chimeric-antigen Receptor T-lymphocytes',
-					],
+					synonyms: ['Chimeric Antigen Receptor T-Cell Therapy', 'CAR T Cell', 'CAR T Cells', 'CAR T-cells', 'CAR-T Cell', 'CAR-T Cells', 'CAR-modified T-cells', 'Chimeric-antigen Receptor T-lymphocytes'],
 					count: 147,
 				},
 				{
@@ -64,37 +51,7 @@ describe('searchDrug', () => {
 					codes: ['C509'],
 					category: ['agent'],
 					type: ['drug'],
-					synonyms: [
-						'Apimid',
-						'Cebatrol',
-						'Chimax',
-						'Cytomid',
-						'Drogenil',
-						'Euflex',
-						'Eulexine',
-						'Flucinome',
-						'Fluken',
-						'Flulem',
-						'Fluta-Gry',
-						'Flutabene',
-						'Flutacan',
-						'Flutamex',
-						'Flutamide',
-						'Flutamin',
-						'Flutan',
-						'Flutaplex',
-						'Fugerel',
-						'Grisetin',
-						'Oncosal',
-						'Profamid',
-						'Prostacur',
-						'Prostadirex',
-						'Prostica',
-						'Prostogenat',
-						'Tafenil',
-						'Tecnoflut',
-						'Testotard',
-					],
+					synonyms: ['Apimid', 'Cebatrol', 'Chimax', 'Cytomid', 'Drogenil', 'Euflex', 'Eulexine', 'Flucinome', 'Fluken', 'Flulem', 'Fluta-Gry', 'Flutabene', 'Flutacan', 'Flutamex', 'Flutamide', 'Flutamin', 'Flutan', 'Flutaplex', 'Fugerel', 'Grisetin', 'Oncosal', 'Profamid', 'Prostacur', 'Prostadirex', 'Prostica', 'Prostogenat', 'Tafenil', 'Tecnoflut', 'Testotard'],
 					count: 5,
 				},
 				{
@@ -102,9 +59,7 @@ describe('searchDrug', () => {
 					codes: ['C142834'],
 					category: ['agent'],
 					type: ['biological/vaccine'],
-					synonyms: [
-						'Autologous CD19/CD22 Chimeric Antigen Receptor T-cells CT120',
-					],
+					synonyms: ['Autologous CD19/CD22 Chimeric Antigen Receptor T-cells CT120'],
 					count: 3,
 				},
 				{
@@ -112,9 +67,7 @@ describe('searchDrug', () => {
 					codes: ['C106247'],
 					category: ['agent'],
 					type: ['biological/vaccine'],
-					synonyms: [
-						'Autologous CD19-28z Chimeric Antigen Receptor-expressing T-lymphocytes',
-					],
+					synonyms: ['Autologous CD19-28z Chimeric Antigen Receptor-expressing T-lymphocytes'],
 					count: 2,
 				},
 				{
@@ -122,9 +75,7 @@ describe('searchDrug', () => {
 					codes: ['C142887'],
 					category: ['agent'],
 					type: ['biological/vaccine'],
-					synonyms: [
-						'Autologous Anti-CD19 Chimeric Antigen Receptor T-cells SJCAR19',
-					],
+					synonyms: ['Autologous Anti-CD19 Chimeric Antigen Receptor T-cells SJCAR19'],
 					count: 1,
 				},
 				{
@@ -132,9 +83,7 @@ describe('searchDrug', () => {
 					codes: ['C182441'],
 					category: ['agent'],
 					type: ['biological/vaccine'],
-					synonyms: [
-						'Autologous Desmoglein-3 Chimeric Autoantibody Receptor T-cells DSG3-CAART',
-					],
+					synonyms: ['Autologous Desmoglein-3 Chimeric Autoantibody Receptor T-cells DSG3-CAART'],
 					count: 1,
 				},
 				{
@@ -158,9 +107,7 @@ describe('searchDrug', () => {
 					codes: ['C165420'],
 					category: ['agent'],
 					type: ['drug'],
-					synonyms: [
-						'ER alpha Proteolysis-targeting Chimera Protein Degrader ARV-471',
-					],
+					synonyms: ['ER alpha Proteolysis-targeting Chimera Protein Degrader ARV-471'],
 					count: 1,
 				},
 			],
@@ -194,9 +141,7 @@ describe('searchDrug', () => {
 		const scope = nock('http://example.org')
 			.get(`/interventions?${querystring.stringify(requestQuery)}`)
 			.reply(204);
-		await expect(
-			searchDrug(client, query.payload.requestParams)
-		).rejects.toThrow('Unexpected status 204 for fetching drugs');
+		await expect(searchDrug(client, query.payload.requestParams)).rejects.toThrow('Unexpected status 204 for fetching drugs');
 		scope.isDone();
 	});
 
@@ -217,9 +162,7 @@ describe('searchDrug', () => {
 		const scope = nock('http://example.org')
 			.get(`/interventions?${querystring.stringify(requestQuery)}`)
 			.reply(404);
-		await expect(
-			searchDrug(client, query.payload.requestParams)
-		).rejects.toThrow('Unexpected status 404 for fetching drugs');
+		await expect(searchDrug(client, query.payload.requestParams)).rejects.toThrow('Unexpected status 404 for fetching drugs');
 		scope.isDone();
 	});
 
@@ -240,9 +183,7 @@ describe('searchDrug', () => {
 		const scope = nock('http://example.org')
 			.get(`/interventions?${querystring.stringify(requestQuery)}`)
 			.reply(500);
-		await expect(
-			searchDrug(client, query.payload.requestParams)
-		).rejects.toThrow('Unexpected status 500 for fetching drugs');
+		await expect(searchDrug(client, query.payload.requestParams)).rejects.toThrow('Unexpected status 500 for fetching drugs');
 		scope.isDone();
 	});
 
@@ -263,9 +204,7 @@ describe('searchDrug', () => {
 		const scope = nock('http://example.org')
 			.get(`/interventions?${querystring.stringify(requestQuery)}`)
 			.replyWithError('connection refused');
-		await expect(
-			searchDrug(client, query.payload.requestParams)
-		).rejects.toThrow('connection refused');
+		await expect(searchDrug(client, query.payload.requestParams)).rejects.toThrow('connection refused');
 		scope.isDone();
 	});
 });

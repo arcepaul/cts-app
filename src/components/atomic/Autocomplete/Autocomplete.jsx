@@ -7,35 +7,12 @@ import { trackFormInputChange } from '../../../store/modules/analytics/tracking/
 import { SEARCH_FORM_ID } from '../../../constants';
 import './Autocomplete.scss';
 
-const IMPERATIVE_API = [
-	'blur',
-	'checkValidity',
-	'click',
-	'focus',
-	'select',
-	'setCustomValidity',
-	'setSelectionRange',
-	'setRangeText',
-];
+const IMPERATIVE_API = ['blur', 'checkValidity', 'click', 'focus', 'select', 'setCustomValidity', 'setSelectionRange', 'setRangeText'];
 
 function getScrollOffset() {
 	return {
-		x:
-			window.pageXOffset !== undefined
-				? window.pageXOffset
-				: (
-						document.documentElement ||
-						document.body.parentNode ||
-						document.body
-				  ).scrollLeft,
-		y:
-			window.pageYOffset !== undefined
-				? window.pageYOffset
-				: (
-						document.documentElement ||
-						document.body.parentNode ||
-						document.body
-				  ).scrollTop,
+		x: window.pageXOffset !== undefined ? window.pageXOffset : (document.documentElement || document.body.parentNode || document.body).scrollLeft,
+		y: window.pageYOffset !== undefined ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop,
 	};
 }
 
@@ -257,11 +234,7 @@ class Autocomplete extends React.Component {
 		if (this.state.highlightedIndex !== null) {
 			this.setState(this.ensureHighlightedIndex);
 		}
-		if (
-			nextProps.autoHighlight &&
-			(this.props.value !== nextProps.value ||
-				this.state.highlightedIndex === null)
-		) {
+		if (nextProps.autoHighlight && (this.props.value !== nextProps.value || this.state.highlightedIndex === null)) {
 			this.setState(this.maybeAutoCompleteText);
 		}
 	}
@@ -273,10 +246,7 @@ class Autocomplete extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if (
-			(this.state.isOpen && !prevState.isOpen) ||
-			('open' in this.props && this.props.open && !prevProps.open)
-		) {
+		if ((this.state.isOpen && !prevState.isOpen) || ('open' in this.props && this.props.open && !prevProps.open)) {
 			this.setMenuPositions();
 		}
 
@@ -290,14 +260,11 @@ class Autocomplete extends React.Component {
 
 	exposeAPI(el) {
 		this.input = el;
-		IMPERATIVE_API.forEach(
-			(ev) => (this[ev] = el && el[ev] && el[ev].bind(el))
-		);
+		IMPERATIVE_API.forEach((ev) => (this[ev] = el && el[ev] && el[ev].bind(el)));
 	}
 
 	handleKeyDown(event) {
-		if (Autocomplete.keyDownHandlers[event.key])
-			Autocomplete.keyDownHandlers[event.key].call(this, event);
+		if (Autocomplete.keyDownHandlers[event.key]) Autocomplete.keyDownHandlers[event.key].call(this, event);
 		else if (!this.isOpen()) {
 			this.setState({
 				isOpen: true,
@@ -386,9 +353,7 @@ class Autocomplete extends React.Component {
 			} else {
 				// text entered + menu item has been highlighted + enter is hit -> update value to that of selected menu item, close the menu
 				event.preventDefault();
-				const item = this.getFilteredItems(this.props)[
-					this.state.highlightedIndex
-				];
+				const item = this.getFilteredItems(this.props)[this.state.highlightedIndex];
 				const value = this.props.getItemValue(item);
 				this.setState(
 					{
@@ -441,14 +406,10 @@ class Autocomplete extends React.Component {
 			if (props.isItemSelectable(items[index])) break;
 			index = (index + 1) % items.length;
 		}
-		const matchedItem =
-			items[index] && props.isItemSelectable(items[index])
-				? items[index]
-				: null;
+		const matchedItem = items[index] && props.isItemSelectable(items[index]) ? items[index] : null;
 		if (value !== '' && matchedItem) {
 			const itemValue = getItemValue(matchedItem);
-			const itemValueDoesMatch =
-				itemValue.toLowerCase().indexOf(value.toLowerCase()) === 0;
+			const itemValueDoesMatch = itemValue.toLowerCase().indexOf(value.toLowerCase()) === 0;
 			if (itemValueDoesMatch) {
 				return { highlightedIndex: index };
 			}
@@ -504,11 +465,7 @@ class Autocomplete extends React.Component {
 		return (
 			<>
 				{this.props.chipList.map((chip, idx) => (
-					<RemovableTag
-						key={idx}
-						label={chip.name}
-						onRemove={this.props.onChipRemove}
-					/>
+					<RemovableTag key={idx} label={chip.name} onRemove={this.props.onChipRemove} />
 				))}
 			</>
 		);
@@ -516,18 +473,10 @@ class Autocomplete extends React.Component {
 
 	renderMenu() {
 		const items = this.getFilteredItems(this.props).map((item, index) => {
-			const element = this.props.renderItem(
-				item,
-				this.state.highlightedIndex === index,
-				{ cursor: 'default' }
-			);
+			const element = this.props.renderItem(item, this.state.highlightedIndex === index, { cursor: 'default' });
 			return React.cloneElement(element, {
-				onMouseEnter: this.props.isItemSelectable(item)
-					? () => this.highlightItemFromMouse(index)
-					: null,
-				onClick: this.props.isItemSelectable(item)
-					? () => this.selectItemFromMouse(item)
-					: null,
+				onMouseEnter: this.props.isItemSelectable(item) ? () => this.highlightItemFromMouse(index) : null,
+				onClick: this.props.isItemSelectable(item) ? () => this.selectItemFromMouse(item) : null,
 				ref: (e) => (this[`item-${index}`] = e),
 			});
 		});
@@ -536,12 +485,7 @@ class Autocomplete extends React.Component {
 			top: this.state.menuTop,
 			minWidth: this.state.menuWidth,
 		};
-		const menu = this.props.renderMenu(
-			items,
-			this.props.value,
-			style,
-			this.props.menuClass
-		);
+		const menu = this.props.renderMenu(items, this.props.value, style, this.props.menuClass);
 		return React.cloneElement(menu, {
 			ref: (e) => (this.menu = e),
 			// Ignore blur to prevent menu from de-rendering before we can process click
@@ -647,28 +591,13 @@ class Autocomplete extends React.Component {
 		const { inputProps } = this.props;
 		const open = this.isOpen();
 
-		const ariaLabel = this.props.labelHidden
-			? { 'aria-label': this.props.label }
-			: {};
+		const ariaLabel = this.props.labelHidden ? { 'aria-label': this.props.label } : {};
 
 		return (
 			<>
-				<div
-					ref={(node) => (this.node = node)}
-					id={this.id + '-autocomplete-wrapper'}
-					className={`cts-autocomplete ${this.props.wrapperClasses}`}
-					{...this.props.wrapperProps}>
-					{this.props.labelHidden ? null : (
-						<InputLabel
-							label={this.props.label}
-							labelHint={this.props.labelHint}
-							htmlFor={this.id}
-						/>
-					)}
-					<div
-						className={`${this.props.multiselect ? 'cts-chip-list' : ''} ${
-							this.props.modified ? 'cts-chip-list--modified' : ''
-						}`}>
+				<div ref={(node) => (this.node = node)} id={this.id + '-autocomplete-wrapper'} className={`cts-autocomplete ${this.props.wrapperClasses}`} {...this.props.wrapperProps}>
+					{this.props.labelHidden ? null : <InputLabel label={this.props.label} labelHint={this.props.labelHint} htmlFor={this.id} />}
+					<div className={`${this.props.multiselect ? 'cts-chip-list' : ''} ${this.props.modified ? 'cts-chip-list--modified' : ''}`}>
 						{this.props.multiselect && this.renderChips()}
 						{this.props.renderInput({
 							...inputProps,
@@ -679,43 +608,21 @@ class Autocomplete extends React.Component {
 							'aria-expanded': open,
 							autoComplete: 'off',
 							ref: this.exposeAPI,
-							className:
-								'cts-input cts-autocomplete__input ' + this.props.inputClasses,
+							className: 'cts-input cts-autocomplete__input ' + this.props.inputClasses,
 							onFocus: this.handleInputFocus,
 							onBlur: this.handleInputBlur,
 							onChange: this.handleChange.bind(this),
 							onInput: this._internalTrackInputChange.bind(this),
-							onKeyDown: this.composeEventHandlers(
-								this.handleKeyDown,
-								inputProps.onKeyDown
-							),
-							onClick: this.composeEventHandlers(
-								this.handleInputClick,
-								inputProps.onClick
-							),
+							onKeyDown: this.composeEventHandlers(this.handleKeyDown, inputProps.onKeyDown),
+							onClick: this.composeEventHandlers(this.handleInputClick, inputProps.onClick),
 							type: 'text',
 							value: this.props.value,
 						})}
 					</div>
 					<div className="menu-anchor">{open && this.renderMenu()}</div>
 
-					{this.props.debug && (
-						<pre style={{ marginLeft: 300 }}>
-							{JSON.stringify(
-								this._debugStates.slice(
-									Math.max(0, this._debugStates.length - 5),
-									this._debugStates.length
-								),
-								null,
-								2
-							)}
-						</pre>
-					)}
-					{this.props.inputHelpText && (
-						<span className="cts-input__help-text">
-							{this.props.inputHelpText}
-						</span>
-					)}
+					{this.props.debug && <pre style={{ marginLeft: 300 }}>{JSON.stringify(this._debugStates.slice(Math.max(0, this._debugStates.length - 5), this._debugStates.length), null, 2)}</pre>}
+					{this.props.inputHelpText && <span className="cts-input__help-text">{this.props.inputHelpText}</span>}
 				</div>
 			</>
 		);

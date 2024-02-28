@@ -5,9 +5,7 @@ import { Fieldset, TextInput } from '../../atomic';
 import { useAppSettings } from '../../../store/store.js';
 
 const KeywordsPhrases = ({ handleUpdate }) => {
-	const { keywordPhrases, keywordPhrasesModified } = useSelector(
-		(store) => store.form
-	);
+	const { keywordPhrases, keywordPhrasesModified } = useSelector((store) => store.form);
 
 	const [{ helpUrl }] = useAppSettings();
 
@@ -17,20 +15,8 @@ const KeywordsPhrases = ({ handleUpdate }) => {
 	};
 
 	return (
-		<Fieldset
-			id="keyword"
-			legend="Keywords/Phrases"
-			helpUrl={helpUrl + '#keywords'}>
-			<TextInput
-				action={handleKeywordUpdate}
-				id="keywordPhrases"
-				modified={keywordPhrasesModified}
-				value={keywordPhrases}
-				label="Keywords phrases"
-				labelHidden
-				inputHelpText="Search by word or phrase (use quotation marks with phrases)."
-				placeHolder="Examples: PSA, 'Paget disease'"
-			/>
+		<Fieldset id="keyword" legend="Keywords/Phrases" helpUrl={helpUrl + '#keywords'}>
+			<TextInput action={handleKeywordUpdate} id="keywordPhrases" modified={keywordPhrasesModified} value={keywordPhrases} label="Keywords phrases" labelHidden inputHelpText="Search by word or phrase (use quotation marks with phrases)." placeHolder="Examples: PSA, 'Paget disease'" />
 		</Fieldset>
 	);
 };

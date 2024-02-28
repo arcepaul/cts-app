@@ -25,12 +25,7 @@ const CancerTypeKeyword = ({ handleUpdate }) => {
 	};
 
 	return (
-		<Fieldset
-			id="type"
-			legend="Cancer Type/Keyword"
-			helpUrl={
-				helpUrl + '#how-to-find-clinical-trials-using-the-basic-search-form'
-			}>
+		<Fieldset id="type" legend="Cancer Type/Keyword" helpUrl={helpUrl + '#how-to-find-clinical-trials-using-the-basic-search-form'}>
 			<Autocomplete
 				id="ctk"
 				label="Cancer Type/Keyword"
@@ -56,24 +51,9 @@ const CancerTypeKeyword = ({ handleUpdate }) => {
 					handleUpdate('cancerType', item);
 					handleUpdate('keywordPhrases', '');
 				}}
-				renderMenu={(children) => (
-					<div className="cts-autocomplete__menu --q">
-						{children.length ? (
-							children
-						) : (
-							<div className="cts-autocomplete__menu-item">
-								No available options found. Your search will be based on the
-								text above.
-							</div>
-						)}
-					</div>
-				)}
+				renderMenu={(children) => <div className="cts-autocomplete__menu --q">{children.length ? children : <div className="cts-autocomplete__menu-item">No available options found. Your search will be based on the text above.</div>}</div>}
 				renderItem={(item, isHighlighted) => (
-					<div
-						className={`cts-autocomplete__menu-item ${
-							isHighlighted ? 'highlighted' : ''
-						}`}
-						key={item.codes[0]}>
+					<div className={`cts-autocomplete__menu-item ${isHighlighted ? 'highlighted' : ''}`} key={item.codes[0]}>
 						{item.name}
 					</div>
 				)}
