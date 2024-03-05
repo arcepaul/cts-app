@@ -5,12 +5,9 @@ import { And, Then, When } from 'cypress-cucumber-preprocessor/steps';
 		Navigation
 	--------------
 */
-Then(
-	'the user is redirected to {string} with query parameters {string}',
-	(redirectUrl, queryParams) => {
-		cy.location('href').should('include', `${redirectUrl}?${queryParams}`);
-	}
-);
+Then('the user is redirected to {string} with query parameters {string}', (redirectUrl, queryParams) => {
+	cy.location('href').should('include', `${redirectUrl}?${queryParams}`);
+});
 
 /*
 	---------
@@ -18,9 +15,7 @@ Then(
 	---------
 */
 Then('the system displays {string} {string}', (perPage, total) => {
-	cy.get('.paging-section__page-info')
-		.should('include.text', perPage)
-		.and('include.text', total);
+	cy.get('.paging-section__page-info').should('include.text', perPage).and('include.text', total);
 });
 
 And('result list is displayed', () => {
@@ -34,14 +29,8 @@ And('pager displays the following navigation options', (dataTable) => {
 	}
 	let counter = 0;
 	//verify that pager displays correct number of page items
-	cy.get('.pager__navigation:first li:visible').should(
-		'have.length',
-		pagerItems.length
-	);
-	cy.get('.pager__navigation:last li:visible').should(
-		'have.length',
-		pagerItems.length
-	);
+	cy.get('.pager__navigation:first li:visible').should('have.length', pagerItems.length);
+	cy.get('.pager__navigation:last li:visible').should('have.length', pagerItems.length);
 
 	//verify that the order of displayed page items is correct
 	cy.get('.pager__navigation:first li:visible').each(($el) => {
@@ -51,14 +40,8 @@ And('pager displays the following navigation options', (dataTable) => {
 });
 
 And('the page {string} is highlighted', (pageNum) => {
-	cy.get('.pager__container:first .pager__navigation button.active').should(
-		'have.text',
-		pageNum
-	);
-	cy.get('.pager__container:last .pager__navigation button.active').should(
-		'have.text',
-		pageNum
-	);
+	cy.get('.pager__container:first .pager__navigation button.active').should('have.text', pageNum);
+	cy.get('.pager__container:last .pager__navigation button.active').should('have.text', pageNum);
 });
 
 When('user clicks on {string} button', (arrow) => {

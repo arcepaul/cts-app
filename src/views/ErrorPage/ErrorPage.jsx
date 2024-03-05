@@ -15,8 +15,7 @@ import { useLocation } from 'react-router-dom';
 
 const ErrorPage = ({ initErrorsList }) => {
 	const tracking = useTracking();
-	const [{ dispatch, analyticsName, canonicalHost, siteName, whichTrialsUrl }] =
-		useAppSettings();
+	const [{ dispatch, analyticsName, canonicalHost, siteName, whichTrialsUrl }] = useAppSettings();
 	const { AdvancedSearchPagePath, BasicSearchPagePath } = useAppPaths();
 
 	// Determine the original formType
@@ -44,9 +43,7 @@ const ErrorPage = ({ initErrorsList }) => {
 			analyticsName,
 			// Todo: Name, title, metaTitle confirmation
 			metaTitle: pageTitle,
-			name:
-				canonicalHost.replace(/https:\/\/|http:\/\//, '') +
-				window.location.pathname,
+			name: canonicalHost.replace(/https:\/\/|http:\/\//, '') + window.location.pathname,
 			title: pageTitle,
 			// Any additional properties fall into the "page.additionalDetails" bucket
 			// for the event.
@@ -121,13 +118,8 @@ const ErrorPage = ({ initErrorsList }) => {
 				</p>
 			</Delighter>
 
-			<Delighter
-				classes="cts-which"
-				url={whichTrialsUrl}
-				titleText={<>Which trials are right for you?</>}>
-				<p>
-					Use the checklist in our guide to gather the information you’ll need.
-				</p>
+			<Delighter classes="cts-which" url={whichTrialsUrl} titleText={<>Which trials are right for you?</>}>
+				<p>Use the checklist in our guide to gather the information you’ll need.</p>
 			</Delighter>
 		</div>
 	);
@@ -138,14 +130,8 @@ const ErrorPage = ({ initErrorsList }) => {
 				<title>Clinical Trials Search - {siteName}</title>
 				<meta property="og:title" content="Clinical Trials Search" />
 
-				<meta
-					name="description"
-					content="Find an NCI-supported clinical trial - Search"
-				/>
-				<meta
-					property="og:description"
-					content="Find an NCI-supported clinical trial - Search"
-				/>
+				<meta name="description" content="Find an NCI-supported clinical trial - Search" />
+				<meta property="og:description" content="Find an NCI-supported clinical trial - Search" />
 			</Helmet>
 			<article className="error-page">
 				<h1>Clinical Trials Search</h1>
@@ -154,41 +140,26 @@ const ErrorPage = ({ initErrorsList }) => {
 					<div className="error-page__control --top">
 						<div className="error-page__list">
 							<div className="error-list">
-								<p>
-									Sorry, you seem to have entered invalid criteria. Please check
-									the following, and try your search again:
-								</p>
+								<p>Sorry, you seem to have entered invalid criteria. Please check the following, and try your search again:</p>
 								<ul>
 									{initErrorsList.map((item) => (
 										<li key={item}>{getFieldNameDisplay(item.fieldName)}</li>
 									))}
 								</ul>
 								<p>
-									For assistance, please contact the Cancer Information Service.
-									You can <ChatOpener /> or call 1-800-4-CANCER
-									(1-800-422-6237).
+									For assistance, please contact the Cancer Information Service. You can <ChatOpener /> or call 1-800-4-CANCER (1-800-422-6237).
 								</p>
 								<p>
-									<a
-										href={`${
-											originalFormType === 'advanced'
-												? AdvancedSearchPagePath()
-												: BasicSearchPagePath()
-										}`}
-										onClick={handleStartOver}>
+									<a href={`${originalFormType === 'advanced' ? AdvancedSearchPagePath() : BasicSearchPagePath()}`} onClick={handleStartOver}>
 										Try a new search
 									</a>
 								</p>
 							</div>
-							<aside className="error-page__aside --side">
-								{renderDelighters()}
-							</aside>
+							<aside className="error-page__aside --side">{renderDelighters()}</aside>
 						</div>
 					</div>
 				</div>
-				<aside className="error-page__aside --bottom">
-					{renderDelighters()}
-				</aside>
+				<aside className="error-page__aside --bottom">{renderDelighters()}</aside>
 			</article>
 		</>
 	);

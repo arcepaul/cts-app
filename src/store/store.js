@@ -4,11 +4,7 @@ import PropTypes from 'prop-types';
 export const StateContext = createContext();
 export const StateProvider = ({ reducer, initialState, children }) => {
 	const [state, updateAppSettings] = useReducer(reducer, initialState);
-	return (
-		<StateContext.Provider value={[state, updateAppSettings]}>
-			{children}
-		</StateContext.Provider>
-	);
+	return <StateContext.Provider value={[state, updateAppSettings]}>{children}</StateContext.Provider>;
 };
 
 StateProvider.propTypes = {

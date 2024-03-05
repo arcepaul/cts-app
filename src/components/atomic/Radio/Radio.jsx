@@ -22,16 +22,7 @@ const Radio = ({ id, label, className, disabled, value, ...otherProps }) => {
 
 	return (
 		<div className={`cts-radio ${className}`}>
-			<input
-				className="cts-radio__input"
-				type="radio"
-				disabled={disabled}
-				aria-disabled={disabled}
-				id={id}
-				value={value ? value : id}
-				onInput={trackInteraction}
-				{...otherProps}
-			/>
+			<input className="cts-radio__input" type="radio" disabled={disabled} aria-disabled={disabled} id={id} value={value ? value : id} onInput={trackInteraction} {...otherProps} />
 			<label className="cts-radio__label" htmlFor={id}>
 				{label}
 			</label>

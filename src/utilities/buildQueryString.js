@@ -1,30 +1,5 @@
 export const buildQueryString = (formStore) => {
-	const {
-		formType,
-		age,
-		keywordPhrases,
-		zip,
-		zipRadius,
-		cancerType,
-		subtypes,
-		stages,
-		findings,
-		country,
-		location,
-		city,
-		states,
-		hospital,
-		healthyVolunteers,
-		vaOnly,
-		trialPhases,
-		trialTypes,
-		drugs,
-		treatments,
-		trialId,
-		investigator,
-		leadOrg,
-		resultsPage,
-	} = formStore;
+	const { formType, age, keywordPhrases, zip, zipRadius, cancerType, subtypes, stages, findings, country, location, city, states, hospital, healthyVolunteers, vaOnly, trialPhases, trialTypes, drugs, treatments, trialId, investigator, leadOrg, resultsPage } = formStore;
 
 	let searchValues = {};
 
@@ -57,19 +32,13 @@ export const buildQueryString = (formStore) => {
 		searchValues.rl = 2;
 
 		if (subtypes.length > 0) {
-			searchValues.st = [
-				...new Set(subtypes.map((item) => item.codes.join('|'))),
-			];
+			searchValues.st = [...new Set(subtypes.map((item) => item.codes.join('|')))];
 		}
 		if (stages.length > 0) {
-			searchValues.stg = [
-				...new Set(stages.map((item) => item.codes.join('|'))),
-			];
+			searchValues.stg = [...new Set(stages.map((item) => item.codes.join('|')))];
 		}
 		if (findings.length > 0) {
-			searchValues.fin = [
-				...new Set(findings.map((item) => item.codes.join('|'))),
-			];
+			searchValues.fin = [...new Set(findings.map((item) => item.codes.join('|')))];
 		}
 		if (vaOnly) {
 			searchValues.va = 1;
@@ -122,9 +91,7 @@ export const buildQueryString = (formStore) => {
 			searchValues.d = [...new Set(drugs.map((item) => item.codes.join('|')))];
 		}
 		if (treatments.length > 0) {
-			searchValues.i = [
-				...new Set(treatments.map((item) => item.codes.join('|'))),
-			];
+			searchValues.i = [...new Set(treatments.map((item) => item.codes.join('|')))];
 		}
 		if (trialId !== '') {
 			searchValues.tid = trialId;

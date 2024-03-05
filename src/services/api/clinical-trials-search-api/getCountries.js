@@ -18,9 +18,7 @@ export const getCountries = async (client, query) => {
 	} catch (error) {
 		// This conditional will be hit for any status >= 300.
 		if (error.response) {
-			throw new Error(
-				`Unexpected status ${error.response.status} for fetching countries`
-			);
+			throw new Error(`Unexpected status ${error.response.status} for fetching countries`);
 		}
 		throw error;
 	}

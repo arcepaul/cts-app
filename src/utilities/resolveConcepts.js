@@ -116,13 +116,7 @@ export const resolveConcepts = async (queryConcepts, conceptsFetcher) => {
 			// be ids that the API does not know about any more. What we
 			// do need to check is to make sure that there is only 1 unique
 
-			const matchedConcepts = selectedConcept.codes
-				.map((code) =>
-					fetchedConcepts.find((fetchedConcept) =>
-						fetchedConcept.codes.includes(code)
-					)
-				)
-				.filter((fetchedConcept) => fetchedConcept);
+			const matchedConcepts = selectedConcept.codes.map((code) => fetchedConcepts.find((fetchedConcept) => fetchedConcept.codes.includes(code))).filter((fetchedConcept) => fetchedConcept);
 
 			const uniqueMatchedConcepts = Array.from(new Set(matchedConcepts));
 
@@ -142,9 +136,7 @@ export const resolveConcepts = async (queryConcepts, conceptsFetcher) => {
 			...ac,
 			// If the original field was a single value, then we need to keep it
 			// a single value.
-			[pair[0]]: Array.isArray(pair[1])
-				? replacementConcepts
-				: replacementConcepts[0],
+			[pair[0]]: Array.isArray(pair[1]) ? replacementConcepts : replacementConcepts[0],
 		};
 		return round;
 	}, {});

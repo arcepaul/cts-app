@@ -102,9 +102,7 @@ describe('<Search Criteria Table />', () => {
 		};
 		render(<SearchCriteriaTableUpdated searchCriteriaObject={searchObject} />);
 
-		expect(
-			document.querySelector('.cts-accordion.table-dropdown')
-		).toBeVisible();
+		expect(document.querySelector('.cts-accordion.table-dropdown')).toBeVisible();
 		expect(screen.queryByText('Show Search Criteria')).toBeInTheDocument();
 		expect(screen.getByText('Category')).toBeInTheDocument();
 		expect(screen.getByText('Your Selection')).toBeInTheDocument();
@@ -149,8 +147,7 @@ describe('<Search Criteria Table />', () => {
 			},
 			{
 				key: 'Trial Type',
-				value:
-					'Treatment, Prevention, Supportive Care, Health Services Research, Diagnostic, Screening, Basic Science, Other',
+				value: 'Treatment, Prevention, Supportive Care, Health Services Research, Diagnostic, Screening, Basic Science, Other',
 			},
 			{
 				key: 'Drug/Drug Family',
@@ -174,20 +171,12 @@ describe('<Search Criteria Table />', () => {
 			},
 		];
 
-		expect(
-			document.querySelector('.cts-accordion.table-dropdown')
-		).toBeVisible();
-		expect(document.querySelectorAll('tbody tr th')).toHaveLength(
-			expectedTable.length
-		);
+		expect(document.querySelector('.cts-accordion.table-dropdown')).toBeVisible();
+		expect(document.querySelectorAll('tbody tr th')).toHaveLength(expectedTable.length);
 		// verify that the criteria table displays items in the expected order
 		for (let i = 0; i < expectedTable.length; i++) {
-			expect(document.querySelectorAll('tbody tr th')[i]).toHaveTextContent(
-				expectedTable[i].key
-			);
-			expect(document.querySelectorAll('tbody tr td')[i]).toHaveTextContent(
-				expectedTable[i].value
-			);
+			expect(document.querySelectorAll('tbody tr th')[i]).toHaveTextContent(expectedTable[i].key);
+			expect(document.querySelectorAll('tbody tr td')[i]).toHaveTextContent(expectedTable[i].value);
 		}
 	});
 
@@ -255,20 +244,12 @@ describe('<Search Criteria Table />', () => {
 			},
 		];
 
-		expect(
-			document.querySelector('.cts-accordion.table-dropdown')
-		).toBeVisible();
-		expect(document.querySelectorAll('tbody tr th')).toHaveLength(
-			expectedTable.length
-		);
+		expect(document.querySelector('.cts-accordion.table-dropdown')).toBeVisible();
+		expect(document.querySelectorAll('tbody tr th')).toHaveLength(expectedTable.length);
 		// verify that the criteria table displays items in the expected order
 		for (let i = 0; i < expectedTable.length; i++) {
-			expect(document.querySelectorAll('tbody tr th')[i]).toHaveTextContent(
-				expectedTable[i].key
-			);
-			expect(document.querySelectorAll('tbody tr td')[i]).toHaveTextContent(
-				expectedTable[i].value
-			);
+			expect(document.querySelectorAll('tbody tr th')[i]).toHaveTextContent(expectedTable[i].key);
+			expect(document.querySelectorAll('tbody tr td')[i]).toHaveTextContent(expectedTable[i].value);
 		}
 	});
 
@@ -336,20 +317,12 @@ describe('<Search Criteria Table />', () => {
 			},
 		];
 
-		expect(
-			document.querySelector('.cts-accordion.table-dropdown')
-		).toBeVisible();
-		expect(document.querySelectorAll('tbody tr th')).toHaveLength(
-			expectedTable.length
-		);
+		expect(document.querySelector('.cts-accordion.table-dropdown')).toBeVisible();
+		expect(document.querySelectorAll('tbody tr th')).toHaveLength(expectedTable.length);
 		// verify that the criteria table displays items in the expected order
 		for (let i = 0; i < expectedTable.length; i++) {
-			expect(document.querySelectorAll('tbody tr th')[i]).toHaveTextContent(
-				expectedTable[i].key
-			);
-			expect(document.querySelectorAll('tbody tr td')[i]).toHaveTextContent(
-				expectedTable[i].value
-			);
+			expect(document.querySelectorAll('tbody tr th')[i]).toHaveTextContent(expectedTable[i].key);
+			expect(document.querySelectorAll('tbody tr td')[i]).toHaveTextContent(expectedTable[i].value);
 		}
 	});
 
@@ -413,20 +386,12 @@ describe('<Search Criteria Table />', () => {
 			},
 		];
 
-		expect(
-			document.querySelector('.cts-accordion.table-dropdown')
-		).toBeVisible();
-		expect(document.querySelectorAll('tbody tr th')).toHaveLength(
-			expectedTable.length
-		);
+		expect(document.querySelector('.cts-accordion.table-dropdown')).toBeVisible();
+		expect(document.querySelectorAll('tbody tr th')).toHaveLength(expectedTable.length);
 		// verify that the criteria table displays items in the expected order
 		for (let i = 0; i < expectedTable.length; i++) {
-			expect(document.querySelectorAll('tbody tr th')[i]).toHaveTextContent(
-				expectedTable[i].key
-			);
-			expect(document.querySelectorAll('tbody tr td')[i]).toHaveTextContent(
-				expectedTable[i].value
-			);
+			expect(document.querySelectorAll('tbody tr th')[i]).toHaveTextContent(expectedTable[i].key);
+			expect(document.querySelectorAll('tbody tr td')[i]).toHaveTextContent(expectedTable[i].value);
 		}
 	});
 
@@ -498,20 +463,12 @@ describe('<Search Criteria Table />', () => {
 			},
 		];
 
-		expect(
-			document.querySelector('.cts-accordion.table-dropdown')
-		).toBeVisible();
-		expect(document.querySelectorAll('tbody tr th')).toHaveLength(
-			expectedTable.length
-		);
+		expect(document.querySelector('.cts-accordion.table-dropdown')).toBeVisible();
+		expect(document.querySelectorAll('tbody tr th')).toHaveLength(expectedTable.length);
 		// verify that the criteria table displays items in the expected order
 		for (let i = 0; i < expectedTable.length; i++) {
-			expect(document.querySelectorAll('tbody tr th')[i]).toHaveTextContent(
-				expectedTable[i].key
-			);
-			expect(document.querySelectorAll('tbody tr td')[i]).toHaveTextContent(
-				expectedTable[i].value
-			);
+			expect(document.querySelectorAll('tbody tr th')[i]).toHaveTextContent(expectedTable[i].key);
+			expect(document.querySelectorAll('tbody tr td')[i]).toHaveTextContent(expectedTable[i].value);
 		}
 	});
 
@@ -571,20 +528,12 @@ describe('<Search Criteria Table />', () => {
 			},
 		];
 
-		expect(
-			document.querySelector('.cts-accordion.table-dropdown')
-		).toBeVisible();
-		expect(document.querySelectorAll('tbody tr th')).toHaveLength(
-			expectedTable.length
-		);
+		expect(document.querySelector('.cts-accordion.table-dropdown')).toBeVisible();
+		expect(document.querySelectorAll('tbody tr th')).toHaveLength(expectedTable.length);
 		// verify that the criteria table displays items in the expected order
 		for (let i = 0; i < expectedTable.length; i++) {
-			expect(document.querySelectorAll('tbody tr th')[i]).toHaveTextContent(
-				expectedTable[i].key
-			);
-			expect(document.querySelectorAll('tbody tr td')[i]).toHaveTextContent(
-				expectedTable[i].value
-			);
+			expect(document.querySelectorAll('tbody tr th')[i]).toHaveTextContent(expectedTable[i].key);
+			expect(document.querySelectorAll('tbody tr td')[i]).toHaveTextContent(expectedTable[i].value);
 		}
 		/* eslint-disable testing-library/no-node-access */
 	});

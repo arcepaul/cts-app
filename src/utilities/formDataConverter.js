@@ -27,38 +27,9 @@ export const formDataConverter = (formType, formData) => {
 		leadOrg: 'lo',
 	};
 
-	const ADV_FIELD_ORDER = [
-		'cancerType',
-		'subtypes',
-		'stages',
-		'findings',
-		'age',
-		'keywordPhrases',
-		'location',
-		'vaOnly',
-		'zip',
-		'zipRadius',
-		'country',
-		'states',
-		'city',
-		'hospital',
-		'trialTypes',
-		'drugs',
-		'treatments',
-		'healthyVolunteers',
-		'trialPhases',
-		'trialId',
-		'investigator',
-		'leadOrg',
-	];
+	const ADV_FIELD_ORDER = ['cancerType', 'subtypes', 'stages', 'findings', 'age', 'keywordPhrases', 'location', 'vaOnly', 'zip', 'zipRadius', 'country', 'states', 'city', 'hospital', 'trialTypes', 'drugs', 'treatments', 'healthyVolunteers', 'trialPhases', 'trialId', 'investigator', 'leadOrg'];
 
-	const BASIC_FIELD_ORDER = [
-		'cancerType',
-		'age',
-		'keywordPhrases',
-		'location',
-		'zip',
-	];
+	const BASIC_FIELD_ORDER = ['cancerType', 'age', 'keywordPhrases', 'location', 'zip'];
 
 	const TRIAL_TYPE_MAP = {
 		treatment: 'tre',
@@ -71,16 +42,7 @@ export const formDataConverter = (formType, formData) => {
 		other: 'oth',
 	};
 
-	const TRIAL_TYPE_ORDER = [
-		'treatment',
-		'supportive_care',
-		'diagnostic',
-		'basic_science',
-		'prevention',
-		'health_services_research',
-		'screening',
-		'other',
-	];
+	const TRIAL_TYPE_ORDER = ['treatment', 'supportive_care', 'diagnostic', 'basic_science', 'prevention', 'health_services_research', 'screening', 'other'];
 
 	/**
 	 * Gets the string for a multicode field like
@@ -126,10 +88,7 @@ export const formDataConverter = (formType, formData) => {
 		const searchParamKeys = ADV_FIELD_ORDER.reduce((ac, fieldName) => {
 			if (formData[fieldName] && fieldName !== 'location') {
 				ac = [...ac, FIELD_TO_KEY_MAP[fieldName]];
-			} else if (
-				fieldName === 'location' &&
-				(formData['location'] !== 'search-location-all' || formData['vaOnly'])
-			) {
+			} else if (fieldName === 'location' && (formData['location'] !== 'search-location-all' || formData['vaOnly'])) {
 				ac = [...ac, FIELD_TO_KEY_MAP['location']];
 			}
 			return ac;
@@ -138,16 +97,12 @@ export const formDataConverter = (formType, formData) => {
 		/******
 		 * Prop 17: Basic Form Data
 		 ******/
-		const ct = formData['cancerType']
-			? formData['cancerType'].map((code) => code.toLowerCase()).join(',')
-			: 'all';
+		const ct = formData['cancerType'] ? formData['cancerType'].map((code) => code.toLowerCase()).join(',') : 'all';
 		const st = getMultiCodeField('subtypes', formData);
 		const stg = getMultiCodeField('stages', formData);
 		const fin = getMultiCodeField('findings', formData);
 		const age = formData['age'] ? formData['age'] : 'none';
-		const kw = formData['keywordPhrases']
-			? formData['keywordPhrases'].toLowerCase()
-			: 'none';
+		const kw = formData['keywordPhrases'] ? formData['keywordPhrases'].toLowerCase() : 'none';
 
 		const prop17 = `${ct}|${st}|${stg}|${fin}|${age}|${kw}`;
 
@@ -160,26 +115,16 @@ export const formDataConverter = (formType, formData) => {
 		const treat = getMultiCodeField('treatments', formData, 'none');
 		//all|none|none'
 		//all|none|none|hv'
-		const prop19 = formData['healthyVolunteers']
-			? `${tt}|${drug}|${treat}|hv`
-			: `${tt}|${drug}|${treat}`;
+		const prop19 = formData['healthyVolunteers'] ? `${tt}|${drug}|${treat}|hv` : `${tt}|${drug}|${treat}`;
 
 		/******
 		 * Prop 20: Other fields pt 2
 		 ******/
 
 		//'all|none|none|none',
-		const tp = formData['trialPhases']
-			? formData['trialPhases'].join(',')
-			: 'all';
-		const tid = formData['trialId']
-			? formData['trialId'].includes(',')
-				? `multiple:${formData['trialId'].toLowerCase()}`
-				: `single:${formData['trialId'].toLowerCase()}`
-			: 'none';
-		const inv = formData['investigator']
-			? formData['investigator'].toLowerCase()
-			: 'none';
+		const tp = formData['trialPhases'] ? formData['trialPhases'].join(',') : 'all';
+		const tid = formData['trialId'] ? (formData['trialId'].includes(',') ? `multiple:${formData['trialId'].toLowerCase()}` : `single:${formData['trialId'].toLowerCase()}`) : 'none';
+		const inv = formData['investigator'] ? formData['investigator'].toLowerCase() : 'none';
 		const lo = formData['leadOrg'] ? formData['leadOrg'].toLowerCase() : 'none';
 		const prop20 = `${tp}|${tid}|${inv}|${lo}`;
 
@@ -204,10 +149,7 @@ export const formDataConverter = (formType, formData) => {
 		const searchParamKeys = BASIC_FIELD_ORDER.reduce((ac, fieldName) => {
 			if (formData[fieldName] && fieldName !== 'location') {
 				ac = [...ac, FIELD_TO_KEY_MAP[fieldName]];
-			} else if (
-				fieldName === 'location' &&
-				formData['location'] === 'search-location-zip'
-			) {
+			} else if (fieldName === 'location' && formData['location'] === 'search-location-zip') {
 				ac = [...ac, FIELD_TO_KEY_MAP['location']];
 			}
 			return ac;
@@ -216,12 +158,7 @@ export const formDataConverter = (formType, formData) => {
 		/******
 		 * Prop 17: Basic Form Data
 		 ******/
-		const prop17Main = formData['cancerType']
-			? 'typecondition|' +
-			  formData['cancerType'].map((code) => code.toLowerCase()).join(',')
-			: formData['keywordPhrases']
-			? 'keyword|' + formData['keywordPhrases'].toLowerCase()
-			: 'none';
+		const prop17Main = formData['cancerType'] ? 'typecondition|' + formData['cancerType'].map((code) => code.toLowerCase()).join(',') : formData['keywordPhrases'] ? 'keyword|' + formData['keywordPhrases'].toLowerCase() : 'none';
 		const prop17Age = formData['age'] ? formData['age'] : 'none';
 
 		/******
@@ -247,12 +184,8 @@ export const formDataConverter = (formType, formData) => {
 			case 'search-location-country': {
 				// Country should never not exist, but just in case we don't want
 				// errors breaking the app.
-				const country = formData['country']
-					? formData['country'].toLowerCase()
-					: 'none';
-				const states = formData['states']
-					? formData['states'].map((st) => st.toLowerCase()).join(',')
-					: 'none';
+				const country = formData['country'] ? formData['country'].toLowerCase() : 'none';
+				const states = formData['states'] ? formData['states'].map((st) => st.toLowerCase()).join(',') : 'none';
 				const city = formData['city'] ? formData['city'].toLowerCase() : 'none';
 
 				if (formData['vaOnly']) {
@@ -278,10 +211,7 @@ export const formDataConverter = (formType, formData) => {
 		}
 	};
 
-	const searchFormParams =
-		formType === 'advanced'
-			? searchParamsAdvanced(formData)
-			: searchParamsBasic(formData);
+	const searchFormParams = formType === 'advanced' ? searchParamsAdvanced(formData) : searchParamsBasic(formData);
 
 	return {
 		...searchFormParams,

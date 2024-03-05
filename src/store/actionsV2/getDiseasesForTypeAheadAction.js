@@ -6,10 +6,7 @@ import { ACTIVE_TRIAL_STATUSES } from '../../constants';
  * @param {Number} size - the number of results expected
  * @return {{payload: {cacheKey: string, method: string, service: string, requestParams: {current_trial_status: string[], size: number, name: *, type: [string, string, string, string]}}, type: string}}
  */
-export const getDiseasesForTypeAheadAction = ({
-	searchText = '',
-	size = 10,
-}) => {
+export const getDiseasesForTypeAheadAction = ({ searchText = '', size = 10 }) => {
 	const requestQuery = {
 		name: searchText,
 		current_trial_status: ACTIVE_TRIAL_STATUSES,

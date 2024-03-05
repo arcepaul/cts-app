@@ -5,11 +5,7 @@ import Fieldset from '../../atomic/Fieldset';
 import { Autocomplete } from '../../atomic';
 import { getLeadOrgAction } from '../../../store/actionsV2';
 import { useAppSettings } from '../../../store/store.js';
-import {
-	createTermDataFromArrayObj,
-	matchItemToTerm,
-	sortItems,
-} from '../../../utilities';
+import { createTermDataFromArrayObj, matchItemToTerm, sortItems } from '../../../utilities';
 
 const LeadOrganization = ({ handleUpdate }) => {
 	const dispatch = useDispatch();
@@ -17,12 +13,7 @@ const LeadOrganization = ({ handleUpdate }) => {
 	const { leadorgs = {} } = useSelector((store) => store.cache);
 	// Forcibly limit results returned from api as there is currently
 	// no way to limit aggregate results returned.
-	const lead_org = leadorgs.aggregations
-		? createTermDataFromArrayObj(
-				leadorgs.aggregations.lead_org.slice(0, 10),
-				'key'
-		  )
-		: [];
+	const lead_org = leadorgs.aggregations ? createTermDataFromArrayObj(leadorgs.aggregations.lead_org.slice(0, 10), 'key') : [];
 
 	const [orgName, setOrgName] = useState({ value: leadOrg.term });
 	const [{ helpUrl }] = useAppSettings();
@@ -34,10 +25,7 @@ const LeadOrganization = ({ handleUpdate }) => {
 	}, [orgName, dispatch]);
 
 	return (
-		<Fieldset
-			id="lead_organization"
-			legend="Lead Organization"
-			helpUrl={helpUrl + '#leadorganization'}>
+		<Fieldset id="lead_organization" legend="Lead Organization" helpUrl={helpUrl + '#leadorganization'}>
 			<Autocomplete
 				label="Lead organization"
 				labelHidden
@@ -57,29 +45,9 @@ const LeadOrganization = ({ handleUpdate }) => {
 					handleUpdate('leadOrg', item);
 					setOrgName({ value: item.term });
 				}}
-				renderMenu={(children) => (
-					<div className="cts-autocomplete__menu --leadOrg">
-						{orgName.value.length > 2 ? (
-							lead_org.length ? (
-								children
-							) : (
-								<div className="cts-autocomplete__menu-item">
-									No results found
-								</div>
-							)
-						) : (
-							<div className="cts-autocomplete__menu-item">
-								Please enter 3 or more characters
-							</div>
-						)}
-					</div>
-				)}
+				renderMenu={(children) => <div className="cts-autocomplete__menu --leadOrg">{orgName.value.length > 2 ? lead_org.length ? children : <div className="cts-autocomplete__menu-item">No results found</div> : <div className="cts-autocomplete__menu-item">Please enter 3 or more characters</div>}</div>}
 				renderItem={(item, isHighlighted) => (
-					<div
-						className={`cts-autocomplete__menu-item ${
-							isHighlighted ? 'highlighted' : ''
-						}`}
-						key={item.termKey}>
+					<div className={`cts-autocomplete__menu-item ${isHighlighted ? 'highlighted' : ''}`} key={item.termKey}>
 						{item.term}
 					</div>
 				)}

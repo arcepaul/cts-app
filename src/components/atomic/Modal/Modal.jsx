@@ -21,19 +21,9 @@ const Modal = ({ children, isShowing, hide }) => {
 						onClick={hide}
 						onKeyDown={hide}
 						role="dialog"></div>
-					<div
-						className="cts-modal"
-						role="dialog"
-						tabIndex="-1"
-						aria-describedby="cts-modal-body">
+					<div className="cts-modal" role="dialog" tabIndex="-1" aria-describedby="cts-modal-body">
 						<div className="cts-modal__header">
-							<button
-								id="modalCloseRef"
-								ref={modalCloseRef}
-								type="button"
-								className="modal-close-btn"
-								aria-label="Close Dialog"
-								onClick={hide}>
+							<button id="modalCloseRef" ref={modalCloseRef} type="button" className="modal-close-btn" aria-label="Close Dialog" onClick={hide}>
 								<span className="close-icon" aria-hidden="true">
 									X
 								</span>

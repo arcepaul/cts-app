@@ -11,14 +11,11 @@ And('Search tip icon is displayed and text {string} appears', (tiptext) => {
 	cy.get('.cts-search-tip__body').should('contain', tiptext);
 });
 
-And(
-	'sticky block is displayed with {string} and {string} buttons',
-	(findbtn, clearbtn) => {
-		cy.get('.sticky-block').should('be.visible');
-		cy.get('.faux-btn-submit').contains(findbtn).should('be.visible');
-		cy.get('.clear-form').contains(clearbtn).should('be.visible');
-	}
-);
+And('sticky block is displayed with {string} and {string} buttons', (findbtn, clearbtn) => {
+	cy.get('.sticky-block').should('be.visible');
+	cy.get('.faux-btn-submit').contains(findbtn).should('be.visible');
+	cy.get('.clear-form').contains(clearbtn).should('be.visible');
+});
 
 When('user scrolls to the {string} section', (section) => {
 	cy.get(`input[aria-label="${section}"]`).scrollIntoView();

@@ -14,8 +14,7 @@ const radioButtons = {
 	'ZIP Code': 'search-location-zip',
 	'Country, State, City': 'search-location-country',
 	'Hospitals/Institutions': 'search-location-hospital',
-	'At NIH (only show trials at the NIH Clinical Center in Bethesda, MD)':
-		'search-location-nih',
+	'At NIH (only show trials at the NIH Clinical Center in Bethesda, MD)': 'search-location-nih',
 };
 
 const dropDown = {
@@ -55,9 +54,7 @@ And('user selects {string} radio button', (label) => {
 });
 
 And('user selects {string} from dropdown', (keyword) => {
-	cy.get('.cts-autocomplete__menu-item', { timeout: 5000 })
-		.contains(keyword)
-		.click({ force: true });
+	cy.get('.cts-autocomplete__menu-item', { timeout: 5000 }).contains(keyword).click({ force: true });
 });
 
 And('user types {string} in {string} autosuggest field', (text, fieldLabel) => {
@@ -73,10 +70,7 @@ And('{string} no trial info is displayed', (noTrialsText) => {
 });
 
 And('{string} text is displayed as results header', (resHeader) => {
-	cy.get('div[class="results-list no-results"]').should(
-		'include.text',
-		resHeader
-	);
+	cy.get('div[class="results-list no-results"]').should('include.text', resHeader);
 });
 
 And('the invalid criteria table displays the following', (dataTable) => {
@@ -86,20 +80,14 @@ And('the invalid criteria table displays the following', (dataTable) => {
 	}
 });
 
-And(
-	'help icon is displayed in {string} section with href {string}',
-	(section, href) => {
-		cy.get(`#fieldset--${section.replace(' ', '').toLowerCase()}`)
-			.find('a')
-			.should('have.attr', 'href', href);
-	}
-);
+And('help icon is displayed in {string} section with href {string}', (section, href) => {
+	cy.get(`#fieldset--${section.replace(' ', '').toLowerCase()}`)
+		.find('a')
+		.should('have.attr', 'href', href);
+});
 
 And('{string} toggle is displayed with label {string}', (fieldLabel, text) => {
-	cy.get(`input#${fieldMap[fieldLabel]}`)
-		.siblings()
-		.get('.cts-toggle__label')
-		.should('have.attr', 'aria-label', text);
+	cy.get(`input#${fieldMap[fieldLabel]}`).siblings().get('.cts-toggle__label').should('have.attr', 'aria-label', text);
 });
 
 And('{string} toggle is switched to {string}', (fieldLabel, value) => {
@@ -120,13 +108,9 @@ And('{string} radio button is checked', (lbl) => {
 });
 
 And('the following radio buttons are displayed', (dataTable) => {
-	cy.get('#fieldset--location')
-		.find('div.cts-radio label')
-		.should('have.length', dataTable.hashes().length);
+	cy.get('#fieldset--location').find('div.cts-radio label').should('have.length', dataTable.hashes().length);
 	for (const { label } of dataTable.hashes()) {
-		cy.get('#fieldset--location')
-			.find(`div.cts-radio label[for="${radioButtons[label]}"]`)
-			.should('have.text', label);
+		cy.get('#fieldset--location').find(`div.cts-radio label[for="${radioButtons[label]}"]`).should('have.text', label);
 	}
 });
 
@@ -135,18 +119,12 @@ And('user selects {string} from {string} dropdown', (selection, dropdown) => {
 });
 
 Then('{string} dropdown has a value {string}', (dropdown, value) => {
-	cy.get(`select#${dropDown[dropdown]} option:selected`).should(
-		'have.value',
-		value
-	);
+	cy.get(`select#${dropDown[dropdown]} option:selected`).should('have.value', value);
 });
 
 Then('{string} input field has a value {string}', (fieldLabel, value) => {
 	if (fieldLabel.toLowerCase().includes('hospitals')) {
-		cy.get(`input[aria-label="${fieldMap[fieldLabel]}"]`).should(
-			'have.value',
-			value
-		);
+		cy.get(`input[aria-label="${fieldMap[fieldLabel]}"]`).should('have.value', value);
 	} else {
 		cy.get(`input#${fieldMap[fieldLabel]}`).should('have.value', value);
 	}
@@ -164,15 +142,10 @@ Then('{string} input field is not displayed', (label) => {
 	cy.get(`input#${fieldMap[label]}`).should('not.exist');
 });
 
-When(
-	'user removes {string} from the {string} field',
-	(selectedType, fieldLabel) => {
-		cy.get(`input#${fieldMap[fieldLabel]}`)
-			.parent('.cts-chip-list')
-			.as('fieldInFocus');
-		cy.get('@fieldInFocus').find(`button[value="${selectedType}"]`).click();
-	}
-);
+When('user removes {string} from the {string} field', (selectedType, fieldLabel) => {
+	cy.get(`input#${fieldMap[fieldLabel]}`).parent('.cts-chip-list').as('fieldInFocus');
+	cy.get('@fieldInFocus').find(`button[value="${selectedType}"]`).click();
+});
 
 When('user clears {string} input field', (fieldLabel) => {
 	if (fieldLabel.includes('Hospitals')) {
@@ -182,29 +155,23 @@ When('user clears {string} input field', (fieldLabel) => {
 	}
 });
 
-And(
-	'the url query has the following corresponding code with duplicated keys',
-	(dataTable) => {
-		cy.location('href').then((url) => {
-			const params = new URL(url).searchParams;
-			//verify num of url params matches expected
-			expect(Array.from(params.entries()).length).to.eq(dataTable.raw().length);
-			//verify that url query params have expected values
-			expect(Array.from(params.entries())).to.deep.equal(dataTable.raw());
-		});
-	}
-);
+And('the url query has the following corresponding code with duplicated keys', (dataTable) => {
+	cy.location('href').then((url) => {
+		const params = new URL(url).searchParams;
+		//verify num of url params matches expected
+		expect(Array.from(params.entries()).length).to.eq(dataTable.raw().length);
+		//verify that url query params have expected values
+		expect(Array.from(params.entries())).to.deep.equal(dataTable.raw());
+	});
+});
 
-And(
-	'the {int} result item has a {string} info with {string}',
-	(itemIndex, infoCategory, infoText) => {
-		cy.get('.results-list-item.results-list__item')
-			.eq(itemIndex - 1)
-			.find('.results-list-item__category')
-			.eq(3)
-			.should('have.text', `${infoCategory}${infoText}`);
-	}
-);
+And('the {int} result item has a {string} info with {string}', (itemIndex, infoCategory, infoText) => {
+	cy.get('.results-list-item.results-list__item')
+		.eq(itemIndex - 1)
+		.find('.results-list-item__category')
+		.eq(3)
+		.should('have.text', `${infoCategory}${infoText}`);
+});
 
 And('the matched location {string} is {string}', (category, name) => {
 	if (category.toLowerCase() === 'country') {
@@ -223,9 +190,7 @@ When('user clicks on {int} trial link', (resItemIndex) => {
 });
 
 When('user clicks on {string} section of accordion', (section) => {
-	cy.get('div[class="cts-accordion  "] button.cts-accordion__button')
-		.contains(section)
-		.click();
+	cy.get('div[class="cts-accordion  "] button.cts-accordion__button').contains(section).click();
 });
 
 And('text {string} is displayed', (text) => {

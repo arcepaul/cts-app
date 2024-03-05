@@ -43,37 +43,14 @@ const TrialPhase = ({ handleUpdate }) => {
 	};
 
 	return (
-		<Fieldset
-			id="trialphase"
-			classes="trial-phase"
-			legend="Trial Phase"
-			helpUrl={helpUrl + '#trialphase'}>
-			<p>
-				Select the trial phases for your search. You may check more than one box
-				or select &quot;All&quot;.
-			</p>
+		<Fieldset id="trialphase" classes="trial-phase" legend="Trial Phase" helpUrl={helpUrl + '#trialphase'}>
+			<p>Select the trial phases for your search. You may check more than one box or select &quot;All&quot;.</p>
 			<div className="select-all">
-				<Checkbox
-					value=""
-					name="tp"
-					id="tp_all"
-					label="All"
-					classes="tp-all"
-					checked={phases.every((phase) => !phase.checked)}
-					onChange={handleSelectAll}
-				/>
+				<Checkbox value="" name="tp" id="tp_all" label="All" classes="tp-all" checked={phases.every((phase) => !phase.checked)} onChange={handleSelectAll} />
 			</div>
 			<div className="group-phases">
 				{phases.map((field) => (
-					<Checkbox
-						id={'tp_' + field.value}
-						key={'tp_' + field.value}
-						name="tp"
-						value={field.value}
-						label={field.label}
-						onChange={handleCheckPhase}
-						checked={field.checked}
-					/>
+					<Checkbox id={'tp_' + field.value} key={'tp_' + field.value} name="tp" value={field.value} label={field.label} onChange={handleCheckPhase} checked={field.checked} />
 				))}
 			</div>
 		</Fieldset>

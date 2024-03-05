@@ -7,9 +7,7 @@ cy.on('uncaught:exception', () => {
 	return false;
 });
 And('{string} button as link is displayed', (btnText) => {
-	cy.get('div[class*="btnAsLink"]')
-		.should('have.text', btnText)
-		.and('be.visible');
+	cy.get('div[class*="btnAsLink"]').should('have.text', btnText).and('be.visible');
 });
 
 And('the text {string} appears on the page', (text) => {

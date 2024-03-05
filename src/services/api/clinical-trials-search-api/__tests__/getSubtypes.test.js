@@ -1,4 +1,3 @@
-import axios from 'axios';
 import querystring from 'query-string';
 import nock from 'nock';
 
@@ -8,9 +7,6 @@ import { getSubtypes } from '../getSubtypes';
 import { getSubtypesAction } from '../../../../store/actionsV2';
 
 const mock = require('../../../../../support/mock-data/diseases/empty_subtype_empty_empty_C4912.json');
-
-// Required for unit tests to not have CORS issues
-axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const client = clinicalTrialsSearchClientFactory('http://example.org');
 
@@ -59,9 +55,7 @@ describe('getSubtypes', () => {
 		const scope = nock('http://example.org')
 			.get(`/diseases?${querystring.stringify(requestQuery)}`)
 			.reply(400);
-		await expect(
-			getSubtypes(client, query.payload.requestParams)
-		).rejects.toThrow('Unexpected status 400 for fetching subtypes');
+		await expect(getSubtypes(client, query.payload.requestParams)).rejects.toThrow('Unexpected status 400 for fetching subtypes');
 		scope.isDone();
 	});
 
@@ -78,9 +72,7 @@ describe('getSubtypes', () => {
 		const scope = nock('http://example.org')
 			.get(`/diseases?${querystring.stringify(requestQuery)}`)
 			.reply(500);
-		await expect(
-			getSubtypes(client, query.payload.requestParams)
-		).rejects.toThrow('Unexpected status 500 for fetching subtypes');
+		await expect(getSubtypes(client, query.payload.requestParams)).rejects.toThrow('Unexpected status 500 for fetching subtypes');
 		scope.isDone();
 	});
 
@@ -97,9 +89,7 @@ describe('getSubtypes', () => {
 		const scope = nock('http://example.org')
 			.get(`/diseases?${querystring.stringify(requestQuery)}`)
 			.reply(204);
-		await expect(
-			getSubtypes(client, query.payload.requestParams)
-		).rejects.toThrow('Unexpected status 204 for fetching subtypes');
+		await expect(getSubtypes(client, query.payload.requestParams)).rejects.toThrow('Unexpected status 204 for fetching subtypes');
 		scope.isDone();
 	});
 
@@ -116,9 +106,7 @@ describe('getSubtypes', () => {
 		const scope = nock('http://example.org')
 			.get(`/diseases?${querystring.stringify(requestQuery)}`)
 			.replyWithError('connection refused');
-		await expect(
-			getSubtypes(client, query.payload.requestParams)
-		).rejects.toThrow('connection refused');
+		await expect(getSubtypes(client, query.payload.requestParams)).rejects.toThrow('connection refused');
 		scope.isDone();
 	});
 });

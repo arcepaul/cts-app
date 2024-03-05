@@ -27,18 +27,7 @@ class TextInput extends React.Component {
 		required: PropTypes.bool,
 		modified: PropTypes.bool,
 		trackFormInputChange: PropTypes.func,
-		type: PropTypes.oneOf([
-			'text',
-			'email',
-			'password',
-			'search',
-			'url',
-			'date',
-			'month',
-			'tel',
-			'week',
-			'number',
-		]),
+		type: PropTypes.oneOf(['text', 'email', 'password', 'search', 'url', 'date', 'month', 'tel', 'week', 'number']),
 		value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	};
 
@@ -104,51 +93,16 @@ class TextInput extends React.Component {
 			);
 		}
 		if (this.props.inputHelpText) {
-			helpText = (
-				<span className="cts-input__help-text">{this.props.inputHelpText}</span>
-			);
+			helpText = <span className="cts-input__help-text">{this.props.inputHelpText}</span>;
 		}
 
-		ariaLabel = this.props.labelHidden
-			? { 'aria-label': this.props.label }
-			: { 'aria-labelledby': this.props.id + '-label' };
+		ariaLabel = this.props.labelHidden ? { 'aria-label': this.props.label } : { 'aria-labelledby': this.props.id + '-label' };
 
 		return (
-			<div
-				className={`cts-input-group ${
-					this.state.hasError ? 'cts-input-group--error ' : ''
-				}${this.props.classes}`}>
-				{this.props.labelHidden ? null : (
-					<InputLabel
-						label={this.props.label}
-						labelHint={this.props.labelHint}
-						htmlFor={this.id}
-						hasError={this.state.hasError}
-						required={this.props.required}
-					/>
-				)}
+			<div className={`cts-input-group ${this.state.hasError ? 'cts-input-group--error ' : ''}${this.props.classes}`}>
+				{this.props.labelHidden ? null : <InputLabel label={this.props.label} labelHint={this.props.labelHint} htmlFor={this.id} hasError={this.state.hasError} required={this.props.required} />}
 				{error}
-				<input
-					id={this.id}
-					name={this.props.name || this.id}
-					type={this.props.type}
-					value={this.state.value}
-					className={`cts-input ${
-						this.state.hasError ? 'cts-input--error ' : ''
-					}${this.props.classes} ${
-						this.props.modified ? 'cts-input--modified' : ''
-					}`}
-					required={this.props.required}
-					maxLength={this.props.maxLength}
-					placeholder={this.props.placeHolder}
-					aria-required={this.props.required}
-					disabled={this.props.disabled}
-					onBlur={this._handleBlur.bind(this)}
-					onChange={this._handleChange.bind(this)}
-					onInput={this._internalTrackInputChange.bind(this)}
-					spellCheck={this.props.enableSpellCheck ? true : false}
-					{...ariaLabel}
-				/>
+				<input id={this.id} name={this.props.name || this.id} type={this.props.type} value={this.state.value} className={`cts-input ${this.state.hasError ? 'cts-input--error ' : ''}${this.props.classes} ${this.props.modified ? 'cts-input--modified' : ''}`} required={this.props.required} maxLength={this.props.maxLength} placeholder={this.props.placeHolder} aria-required={this.props.required} disabled={this.props.disabled} onBlur={this._handleBlur.bind(this)} onChange={this._handleChange.bind(this)} onInput={this._internalTrackInputChange.bind(this)} spellCheck={this.props.enableSpellCheck ? true : false} {...ariaLabel} />
 				{helpText}
 			</div>
 		);

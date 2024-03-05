@@ -2,14 +2,9 @@
 import { Then, When, And } from 'cypress-cucumber-preprocessor/steps';
 import { fieldMap } from '../../../utils/ctsFields.js';
 
-Then(
-	'help icon is displayed in {string} section with href {string}',
-	(fieldLabel, helpHref) => {
-		cy.get(`#fieldset--${fieldMap[fieldLabel]}`)
-			.find('a.text-icon-help')
-			.should('have.attr', 'href', helpHref);
-	}
-);
+Then('help icon is displayed in {string} section with href {string}', (fieldLabel, helpHref) => {
+	cy.get(`#fieldset--${fieldMap[fieldLabel]}`).find('a.text-icon-help').should('have.attr', 'href', helpHref);
+});
 
 Then('alert {string} is displayed', (alertText) => {
 	cy.get('.cts-input__error-message').should('have.text', alertText);

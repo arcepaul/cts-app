@@ -24,15 +24,7 @@ const Toggle = ({ id, classes, label, onClick, checked, ...otherProps }) => {
 	};
 	return (
 		<div className={`cts-toggle ${classes}`}>
-			<input
-				type="checkbox"
-				className="cts-toggle__input"
-				id={id}
-				onInput={trackInteraction}
-				checked={checked}
-				{...otherProps}
-				onClick={handleChange}
-			/>
+			<input type="checkbox" className="cts-toggle__input" id={id} onInput={trackInteraction} checked={checked} {...otherProps} onClick={handleChange} />
 			<label className="cts-toggle__label" htmlFor={id} aria-label={label}>
 				<span aria-hidden="true" className="neg">
 					No

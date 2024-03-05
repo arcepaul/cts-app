@@ -6,31 +6,7 @@ import './SearchCriteriaTableUpdated.scss';
 import { Accordion, AccordionItem, Table } from '..';
 
 const SearchCriteriaTableUpdated = ({ searchCriteriaObject }) => {
-	const {
-		age,
-		cancerType,
-		subtypes,
-		stages,
-		findings,
-		keywordPhrases,
-		leadOrg,
-		zip,
-		zipRadius,
-		country,
-		states,
-		city,
-		hospital,
-		trialId,
-		investigator,
-		healthyVolunteers,
-		trialTypes,
-		trialPhases,
-		vaOnly,
-		drugs,
-		treatments,
-		location,
-		formType,
-	} = searchCriteriaObject;
+	const { age, cancerType, subtypes, stages, findings, keywordPhrases, leadOrg, zip, zipRadius, country, states, city, hospital, trialId, investigator, healthyVolunteers, trialTypes, trialPhases, vaOnly, drugs, treatments, location, formType } = searchCriteriaObject;
 
 	SearchCriteriaTableUpdated.propTypes = {
 		searchCriteriaObject: PropTypes.object,
@@ -163,8 +139,7 @@ const SearchCriteriaTableUpdated = ({ searchCriteriaObject }) => {
 			case 'search-location-nih':
 				criteria.push({
 					category: 'At NIH',
-					selection:
-						'Only show trials at the NIH Clinical Center (Bethesda, MD)',
+					selection: 'Only show trials at the NIH Clinical Center (Bethesda, MD)',
 				});
 				break;
 			default:
@@ -266,9 +241,7 @@ const SearchCriteriaTableUpdated = ({ searchCriteriaObject }) => {
 
 	return criterion.length > 0 ? (
 		<Accordion classes="table-dropdown" startCollapsed>
-			<AccordionItem
-				titleExpanded="Hide Search Criteria"
-				titleCollapsed="Show Search Criteria">
+			<AccordionItem titleExpanded="Hide Search Criteria" titleCollapsed="Show Search Criteria">
 				<div className="search-criteria-table">
 					<Table
 						borderless

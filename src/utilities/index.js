@@ -7,16 +7,8 @@ export { isWithinRadius } from './isWithinRadius';
 export { formatTrialSearchQuery } from './formatTrialSearchQuery';
 export { matchItemToTerm } from './matchItemToTerm';
 export { deepSearchObject } from './deepSearchObject';
-export {
-	loadStateFromSessionStorage,
-	saveStatetoSessionStorage,
-} from './sessionUtils';
-export {
-	matchStateToTerm,
-	matchStateToTermWithHeaders,
-	sortStates,
-	getStates,
-} from './stateUtils';
+export { loadStateFromSessionStorage, saveStatetoSessionStorage } from './sessionUtils';
+export { matchStateToTerm, matchStateToTermWithHeaders, sortStates, getStates } from './stateUtils';
 export { keyHandler } from './keyHandler';
 export { uniqueIdForComponent } from './uniqueIdForComponent';
 export { sortItems, sortItemsByName } from './sortItems';

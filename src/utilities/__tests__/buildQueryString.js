@@ -657,18 +657,15 @@ const mappingTestCases = [
 
 describe('buildQueryString maps form state to url query', () => {
 	// Test iterates over multiple cases defined by mappingTestCases
-	it.each(mappingTestCases)(
-		'%# - correctly maps %s',
-		(testName, formStateChanges, expected) => {
-			const testForm = {
-				...defaultState,
-				...formStateChanges,
-			};
+	it.each(mappingTestCases)('%# - correctly maps %s', (testName, formStateChanges, expected) => {
+		const testForm = {
+			...defaultState,
+			...formStateChanges,
+		};
 
-			const actual = buildQueryString(testForm);
-			expect(actual).toEqual(expected);
-		}
-	);
+		const actual = buildQueryString(testForm);
+		expect(actual).toEqual(expected);
+	});
 });
 
 /**

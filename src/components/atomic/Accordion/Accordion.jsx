@@ -41,9 +41,7 @@ class Accordion extends React.Component {
 			let child = children[i];
 			if (child.props.expanded) {
 				if (foundExpandedItem) {
-					console.warn(
-						'Only one AccordionItem can be expanded at a time. You have marked more than one for expansion by default.'
-					); // eslint-disable-line no-console
+					console.warn('Only one AccordionItem can be expanded at a time. You have marked more than one for expansion by default.'); // eslint-disable-line no-console
 				}
 				this.setState({ activeIndex: i });
 				foundExpandedItem = true;
@@ -80,14 +78,7 @@ class Accordion extends React.Component {
 				expanded: i === this.state.activeIndex,
 			});
 		});
-		return (
-			<div
-				className={`cts-accordion ${
-					this.props.bordered ? 'cts-accordion--bordered' : ''
-				} ${this.props.classes}`}>
-				{children}
-			</div>
-		);
+		return <div className={`cts-accordion ${this.props.bordered ? 'cts-accordion--bordered' : ''} ${this.props.classes}`}>{children}</div>;
 	}
 }
 

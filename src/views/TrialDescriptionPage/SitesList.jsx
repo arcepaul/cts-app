@@ -17,14 +17,11 @@ const SitesList = ({ searchCriteria, sites }) => {
 	const [filteredNearbySites, setFilteredNearbySites] = useState([]);
 	const [showNearbySites, setShowNearbySites] = useState(false);
 
-	const { location, zipCoords, zipRadius, country, states, city, vaOnly } =
-		searchCriteria;
+	const { location, zipCoords, zipRadius, country, states, city, vaOnly } = searchCriteria;
 
 	const buildCountriesList = (sitesArr) => {
 		if (sitesArr.length > 0) {
-			let countriesList = [
-				...new Set(sitesArr.map((item) => item.org_country)),
-			];
+			let countriesList = [...new Set(sitesArr.map((item) => item.org_country))];
 			countriesList.sort((a, b) => (a > b ? 1 : -1));
 			setCountries(countriesList);
 		}
@@ -33,14 +30,10 @@ const SitesList = ({ searchCriteria, sites }) => {
 	const buildUSStatesList = (sitesArr) => {
 		if (sitesArr.length > 0) {
 			// Get all the US sites
-			const stateside = sitesArr.filter(
-				(item) => item.org_country === 'United States'
-			);
+			const stateside = sitesArr.filter((item) => item.org_country === 'United States');
 
 			// Get a UNIQUE list of all the US state abbreviations in use.
-			const statesAbbrs = [
-				...new Set(stateside.map((item) => item.org_state_or_province)),
-			];
+			const statesAbbrs = [...new Set(stateside.map((item) => item.org_state_or_province))];
 
 			// Get the abbr/name combo for the states.
 			// NOTE: getStateNameFromAbbr is called later in order to draw the states
@@ -53,9 +46,7 @@ const SitesList = ({ searchCriteria, sites }) => {
 
 			// Get the sorted list of state abbreviations. NOTE: you
 			// need the names in order to sort.
-			const sortedStatesList = stateNameAbbrObjs
-				.sort((a, b) => (a.name > b.name ? 1 : -1))
-				.map((s) => s.abbr);
+			const sortedStatesList = stateNameAbbrObjs.sort((a, b) => (a.name > b.name ? 1 : -1)).map((s) => s.abbr);
 
 			// Update the statesList state.
 			setStatesList(sortedStatesList);
@@ -101,15 +92,9 @@ const SitesList = ({ searchCriteria, sites }) => {
 
 	useEffect(() => {
 		if (nearbySites.length > 0) {
-			let nearbyCountries = [
-				...new Set(nearbySites.map((item) => item.org_country)),
-			];
+			let nearbyCountries = [...new Set(nearbySites.map((item) => item.org_country))];
 			nearbyCountries.sort((a, b) => (a > b ? 1 : -1));
-			constructFilterableArray(
-				nearbySites,
-				setFilteredNearbySites,
-				nearbyCountries
-			);
+			constructFilterableArray(nearbySites, setFilteredNearbySites, nearbyCountries);
 			setShowNearbySites(true);
 		}
 	}, [nearbySites]);
@@ -119,25 +104,16 @@ const SitesList = ({ searchCriteria, sites }) => {
 	};
 
 	//output location
-	const constructFilterableArray = (
-		parentArray,
-		stateMethod,
-		representedCountries = [],
-		isAllSites = false
-	) => {
+	const constructFilterableArray = (parentArray, stateMethod, representedCountries = [], isAllSites = false) => {
 		let masterArray = [];
 		representedCountries.forEach((countryName) => {
 			let c = { country: countryName };
 			if (countryName === 'United States') {
-				let usaSites = parentArray.filter(
-					(item) => item.org_country === 'United States'
-				);
+				let usaSites = parentArray.filter((item) => item.org_country === 'United States');
 				c.states = [];
 
 				statesList.forEach((stateName) => {
-					let sitesByState = usaSites.filter(
-						(item) => item.org_state_or_province === stateName
-					);
+					let sitesByState = usaSites.filter((item) => item.org_state_or_province === stateName);
 					let stateSitesList = buildCitiesArray(sitesByState);
 					let s = {
 						state: stateName,
@@ -151,19 +127,13 @@ const SitesList = ({ searchCriteria, sites }) => {
 				masterArray.unshift(c);
 			} else if (countryName === 'Canada') {
 				//divvy up Canada into provinces
-				let canadaSites = parentArray.filter(
-					(item) => item.org_country === 'Canada'
-				);
-				let pl = [
-					...new Set(canadaSites.map((item) => item.org_state_or_province)),
-				];
+				let canadaSites = parentArray.filter((item) => item.org_country === 'Canada');
+				let pl = [...new Set(canadaSites.map((item) => item.org_state_or_province))];
 				pl.sort((a, b) => (a > b ? 1 : -1));
 				c.provinces = [];
 
 				pl.forEach((provinceName) => {
-					let sitesByProvince = canadaSites.filter(
-						(item) => item.org_state_or_province === provinceName
-					);
+					let sitesByProvince = canadaSites.filter((item) => item.org_state_or_province === provinceName);
 					let provinceSitesList = buildCitiesArray(sitesByProvince);
 					let s = {
 						province: provinceName,
@@ -173,9 +143,7 @@ const SitesList = ({ searchCriteria, sites }) => {
 				});
 				masterArray.push(c);
 			} else {
-				c.cities = buildCitiesArray(
-					parentArray.filter((item) => item.org_country === countryName)
-				);
+				c.cities = buildCitiesArray(parentArray.filter((item) => item.org_country === countryName));
 				masterArray.push(c);
 			}
 			stateMethod(masterArray);
@@ -189,20 +157,12 @@ const SitesList = ({ searchCriteria, sites }) => {
 	const filterNearbyCSCLocations = (siteObj) => {
 		// If search params have a city, but it does
 		// not match.
-		if (
-			city !== '' &&
-			(!siteObj.org_city ||
-				siteObj.org_city.toLowerCase() !== city.toLowerCase())
-		) {
+		if (city !== '' && (!siteObj.org_city || siteObj.org_city.toLowerCase() !== city.toLowerCase())) {
 			return false;
 		}
 
 		// Now check country
-		if (
-			country !== '' &&
-			(!siteObj.org_country ||
-				siteObj.org_country.toLowerCase() !== country.toLowerCase())
-		) {
+		if (country !== '' && (!siteObj.org_country || siteObj.org_country.toLowerCase() !== country.toLowerCase())) {
 			return false;
 		}
 
@@ -229,34 +189,21 @@ const SitesList = ({ searchCriteria, sites }) => {
 	const buildNearbySites = (siteArr) => {
 		// We only build nearby sites IF there
 		// was a location search we can filter on.
-		if (
-			location === 'search-location-hospital' ||
-			(location === 'search-location-all' && !vaOnly)
-		) {
+		if (location === 'search-location-hospital' || (location === 'search-location-all' && !vaOnly)) {
 			return;
 		}
 
 		// Pre-filter sites when vaOnly is set.
-		const preFilteredSites = vaOnly
-			? siteArr.filter((site) => site.org_va)
-			: siteArr;
+		const preFilteredSites = vaOnly ? siteArr.filter((site) => site.org_va) : siteArr;
 
 		if (location === 'search-location-zip') {
 			// Assume that zip is valid if location is set to zip.
 			// Otherwise you should be looking at an error message instead.
-			setNearbySites(
-				preFilteredSites.filter((site) =>
-					isWithinRadius(zipCoords, site.org_coordinates, zipRadius)
-				)
-			);
+			setNearbySites(preFilteredSites.filter((site) => isWithinRadius(zipCoords, site.org_coordinates, zipRadius)));
 		} else if (location === 'search-location-country') {
-			setNearbySites(
-				preFilteredSites.filter((site) => filterNearbyCSCLocations(site))
-			);
+			setNearbySites(preFilteredSites.filter((site) => filterNearbyCSCLocations(site)));
 		} else if (location === 'search-location-nih') {
-			setNearbySites(
-				preFilteredSites.filter((site) => site.org_postal_code === NIH_ZIPCODE)
-			);
+			setNearbySites(preFilteredSites.filter((site) => site.org_postal_code === NIH_ZIPCODE));
 		} else {
 			// All search + vaOnly
 			setNearbySites(preFilteredSites);
@@ -267,15 +214,10 @@ const SitesList = ({ searchCriteria, sites }) => {
 		return (
 			<>
 				<div>Contact: {locationObj.contact_name}</div>
-				{locationObj.contact_phone && (
-					<div>Phone: {locationObj.contact_phone}</div>
-				)}
+				{locationObj.contact_phone && <div>Phone: {locationObj.contact_phone}</div>}
 				{locationObj.contact_email && (
 					<div>
-						Email:{' '}
-						<a href={`mailto:${locationObj.contact_email}`}>
-							{locationObj.contact_email}
-						</a>
+						Email: <a href={`mailto:${locationObj.contact_email}`}>{locationObj.contact_email}</a>
 					</div>
 				)}
 			</>
@@ -286,18 +228,9 @@ const SitesList = ({ searchCriteria, sites }) => {
 		return (
 			<div key={'loc-' + locationObj.org_name} className="location">
 				<strong className="location-name">{locationObj.org_name}</strong>
-				<div>
-					Status:{' '}
-					{getStudySiteRecruitmentStatusForDisplay(
-						locationObj.recruitment_status
-					)}
-				</div>
+				<div>Status: {getStudySiteRecruitmentStatusForDisplay(locationObj.recruitment_status)}</div>
 				{/* Contact only displays if there is a name */}
-				{locationObj.contact_name ? (
-					renderContactInfoBlock(locationObj)
-				) : (
-					<>Name Not Available</>
-				)}
+				{locationObj.contact_name ? renderContactInfoBlock(locationObj) : <>Name Not Available</>}
 			</div>
 		);
 	};
@@ -305,9 +238,7 @@ const SitesList = ({ searchCriteria, sites }) => {
 	const handleFilterByCountry = (e) => {
 		let filtered = [];
 		if (e.target.value === 'other') {
-			filtered = locArray.filter(
-				(item) => item.country !== 'United States' && item.country !== 'Canada'
-			);
+			filtered = locArray.filter((item) => item.country !== 'United States' && item.country !== 'Canada');
 		} else {
 			filtered = locArray.filter((item) => item.country === e.target.value);
 		}
@@ -332,9 +263,7 @@ const SitesList = ({ searchCriteria, sites }) => {
 	};
 
 	const renderFilterDropdowns = () => {
-		const otherCountries = countries.filter(
-			(country) => country !== 'United States' && country !== 'Canada'
-		);
+		const otherCountries = countries.filter((country) => country !== 'United States' && country !== 'Canada');
 
 		const mapStateOptions = () =>
 			statesList.map((stateAbbr, idx) => (
@@ -348,28 +277,14 @@ const SitesList = ({ searchCriteria, sites }) => {
 				{!showNearbySites && (
 					<>
 						{countries.length > 1 && (
-							<Dropdown
-								label="Country:"
-								disableTracking={true}
-								action={handleFilterByCountry}
-								value={selectedCountry}>
-								{countries.includes('United States') && (
-									<option value="United States">U.S.A.</option>
-								)}
-								{countries.includes('Canada') && (
-									<option value="Canada">Canada</option>
-								)}
-								{otherCountries.length > 0 && (
-									<option value="other">Other</option>
-								)}
+							<Dropdown label="Country:" disableTracking={true} action={handleFilterByCountry} value={selectedCountry}>
+								{countries.includes('United States') && <option value="United States">U.S.A.</option>}
+								{countries.includes('Canada') && <option value="Canada">Canada</option>}
+								{otherCountries.length > 0 && <option value="other">Other</option>}
 							</Dropdown>
 						)}
 						{statesList.length > 1 && selectedCountry === 'United States' && (
-							<Dropdown
-								label="State:"
-								disableTracking={true}
-								action={handleFilterByState}
-								value={selectedState}>
+							<Dropdown label="State:" disableTracking={true} action={handleFilterByState} value={selectedState}>
 								<option value="all">All</option>
 								{mapStateOptions()}
 							</Dropdown>
@@ -420,11 +335,7 @@ const SitesList = ({ searchCriteria, sites }) => {
 				<h3>{sitesArr.country}</h3>
 				{sitesArr.country === 'United States'
 					? sitesArr.states.map((siteState, idx) => {
-							return (
-								<React.Fragment key={'state-' + idx}>
-									{renderStateSites(siteState)}
-								</React.Fragment>
-							);
+							return <React.Fragment key={'state-' + idx}>{renderStateSites(siteState)}</React.Fragment>;
 					  })
 					: sitesArr.provinces.map((site, idx) => (
 							<div className="location-province" key={'province-' + idx}>
@@ -450,9 +361,7 @@ const SitesList = ({ searchCriteria, sites }) => {
 	const generateListDisplay = (displayList) => {
 		return displayList.map((c, idx) => {
 			return c.country === 'United States' || c.country === 'Canada' ? (
-				<React.Fragment key={'country' + idx}>
-					{renderNASites(c)}
-				</React.Fragment>
+				<React.Fragment key={'country' + idx}>{renderNASites(c)}</React.Fragment>
 			) : c.state ? (
 				renderStateSites(c)
 			) : (
@@ -466,9 +375,7 @@ const SitesList = ({ searchCriteria, sites }) => {
 
 	const renderSites = () => {
 		return (
-			<div
-				className="sites-all"
-				style={{ display: showNearbySites ? 'none' : 'block' }}>
+			<div className="sites-all" style={{ display: showNearbySites ? 'none' : 'block' }}>
 				{generateListDisplay(filteredLocArray)}
 			</div>
 		);
@@ -476,9 +383,7 @@ const SitesList = ({ searchCriteria, sites }) => {
 
 	const renderNearbySites = () => {
 		return (
-			<div
-				className="sites-nearby"
-				style={{ display: showNearbySites ? 'block' : 'none' }}>
+			<div className="sites-nearby" style={{ display: showNearbySites ? 'block' : 'none' }}>
 				<p>Locations matching your search criteria</p>
 				{generateListDisplay(filteredNearbySites)}
 			</div>

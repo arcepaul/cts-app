@@ -13,9 +13,7 @@ export const PrintContextProvider = ({ children }) => {
 		},
 	};
 
-	return (
-		<PrintContext.Provider value={value}>{children}</PrintContext.Provider>
-	);
+	return <PrintContext.Provider value={value}>{children}</PrintContext.Provider>;
 };
 
 PrintContextProvider.propTypes = {

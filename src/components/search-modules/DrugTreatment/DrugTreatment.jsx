@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Fieldset, Autocomplete } from '../../atomic';
-import {
-	getOtherInterventionsAction,
-	searchDrugAction,
-} from '../../../store/actionsV2';
+import { getOtherInterventionsAction, searchDrugAction } from '../../../store/actionsV2';
 import './DrugTreatment.scss';
 import { useAppSettings } from '../../../store/store.js';
 
@@ -19,9 +16,7 @@ const DrugTreatment = ({ handleUpdate }) => {
 	const { drugs, treatments } = useSelector((store) => store.form);
 
 	// cached options lists for drugs and treatments
-	const { drugOptions, treatmentOptions = {} } = useSelector(
-		(store) => store.cache
-	);
+	const { drugOptions, treatmentOptions = {} } = useSelector((store) => store.cache);
 
 	const treatmentOptionsList = treatmentOptions.data || [];
 
@@ -48,28 +43,17 @@ const DrugTreatment = ({ handleUpdate }) => {
 		if (!items.length || !selections.length) {
 			return items;
 		}
-		const filteredItems = items.filter(
-			(item) => !selections.find((selection) => selection.name === item.name)
-		);
+		const filteredItems = items.filter((item) => !selections.find((selection) => selection.name === item.name));
 		return filteredItems;
 	};
 
 	const applyOptionsFilterAndFormatting = (searchVal, item, isHighlighted) => {
-		const searchStr = new RegExp(
-			'(^' + searchVal.value + '|\\s+' + searchVal.value + ')',
-			'i'
-		);
-		const filteredSynonyms = Array.isArray(item.synonyms)
-			? item.synonyms.filter((synonym) => synonym.match(searchStr))
-			: [];
+		const searchStr = new RegExp('(^' + searchVal.value + '|\\s+' + searchVal.value + ')', 'i');
+		const filteredSynonyms = Array.isArray(item.synonyms) ? item.synonyms.filter((synonym) => synonym.match(searchStr)) : [];
 		const filteredSynonymsCount = filteredSynonyms.length;
 
 		return (
-			<div
-				className={`cts-autocomplete__menu-item ${
-					isHighlighted ? 'highlighted' : ''
-				}`}
-				key={item.codes[0]}>
+			<div className={`cts-autocomplete__menu-item ${isHighlighted ? 'highlighted' : ''}`} key={item.codes[0]}>
 				<div className="preferredName">
 					{item.name}
 					{item.category.indexOf('category') !== -1 ? ' (DRUG FAMILY)' : ''}
@@ -83,9 +67,7 @@ const DrugTreatment = ({ handleUpdate }) => {
 									<li
 										key={i}
 										dangerouslySetInnerHTML={{
-											__html: synonym.match(searchStr)
-												? synonym.replace(searchStr, `<strong>$&</strong>`)
-												: synonym,
+											__html: synonym.match(searchStr) ? synonym.replace(searchStr, `<strong>$&</strong>`) : synonym,
 										}}></li>
 								);
 							})}
@@ -97,10 +79,7 @@ const DrugTreatment = ({ handleUpdate }) => {
 	};
 
 	return (
-		<Fieldset
-			id="drug-trtmt"
-			legend="Drug/Treatment"
-			helpUrl={helpUrl + '#drugtreatment'}>
+		<Fieldset id="drug-trtmt" legend="Drug/Treatment" helpUrl={helpUrl + '#drugtreatment'}>
 			<p>Search for a specific drug or intervention.</p>
 
 			<Autocomplete
@@ -116,10 +95,7 @@ const DrugTreatment = ({ handleUpdate }) => {
 				shouldItemRender={() => true}
 				onChange={(event, value) => setDrugVal({ value })}
 				onSelect={(value) => {
-					handleUpdate('drugs', [
-						...drugs,
-						drugOptionsData.find(({ name }) => name === value),
-					]);
+					handleUpdate('drugs', [...drugs, drugOptionsData.find(({ name }) => name === value)]);
 					setDrugVal({ value: '' });
 				}}
 				multiselect={true}
@@ -129,27 +105,9 @@ const DrugTreatment = ({ handleUpdate }) => {
 					handleUpdate('drugs', [...newChips]);
 				}}
 				renderMenu={(children) => {
-					return (
-						<div className="cts-autocomplete__menu --drugs">
-							{drugVal.value.length > 2 ? (
-								filterSelectedItems(drugOptionsData, drugs).length ? (
-									children
-								) : (
-									<div className="cts-autocomplete__menu-item">
-										No results found
-									</div>
-								)
-							) : (
-								<div className="cts-autocomplete__menu-item">
-									{placeholderText}
-								</div>
-							)}
-						</div>
-					);
+					return <div className="cts-autocomplete__menu --drugs">{drugVal.value.length > 2 ? filterSelectedItems(drugOptionsData, drugs).length ? children : <div className="cts-autocomplete__menu-item">No results found</div> : <div className="cts-autocomplete__menu-item">{placeholderText}</div>}</div>;
 				}}
-				renderItem={(item, isHighlighted) =>
-					applyOptionsFilterAndFormatting(drugVal, item, isHighlighted)
-				}
+				renderItem={(item, isHighlighted) => applyOptionsFilterAndFormatting(drugVal, item, isHighlighted)}
 			/>
 
 			<Autocomplete
@@ -163,10 +121,7 @@ const DrugTreatment = ({ handleUpdate }) => {
 				shouldItemRender={() => true}
 				onChange={(event, value) => setTreatmentVal({ value })}
 				onSelect={(value) => {
-					handleUpdate('treatments', [
-						...treatments,
-						treatmentOptionsList.find(({ name }) => name === value),
-					]);
+					handleUpdate('treatments', [...treatments, treatmentOptionsList.find(({ name }) => name === value)]);
 					setTreatmentVal({ value: '' });
 				}}
 				multiselect={true}
@@ -176,27 +131,9 @@ const DrugTreatment = ({ handleUpdate }) => {
 					handleUpdate('treatments', [...newChips]);
 				}}
 				renderMenu={(children) => {
-					return (
-						<div className="cts-autocomplete__menu --drugs">
-							{treatmentVal.value.length > 2 ? (
-								filterSelectedItems(treatmentOptionsList, treatments).length ? (
-									children
-								) : (
-									<div className="cts-autocomplete__menu-item">
-										No results found
-									</div>
-								)
-							) : (
-								<div className="cts-autocomplete__menu-item">
-									{placeholderText}
-								</div>
-							)}
-						</div>
-					);
+					return <div className="cts-autocomplete__menu --drugs">{treatmentVal.value.length > 2 ? filterSelectedItems(treatmentOptionsList, treatments).length ? children : <div className="cts-autocomplete__menu-item">No results found</div> : <div className="cts-autocomplete__menu-item">{placeholderText}</div>}</div>;
 				}}
-				renderItem={(item, isHighlighted) =>
-					applyOptionsFilterAndFormatting(treatmentVal, item, isHighlighted)
-				}
+				renderItem={(item, isHighlighted) => applyOptionsFilterAndFormatting(treatmentVal, item, isHighlighted)}
 			/>
 		</Fieldset>
 	);

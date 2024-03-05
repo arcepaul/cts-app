@@ -30,25 +30,11 @@ const Age = ({ handleUpdate }) => {
 		}
 	};
 
-	const helperText =
-		formType === 'basic'
-			? 'Your age helps determine which trials are right for you.'
-			: 'Enter the age of the participant.';
+	const helperText = formType === 'basic' ? 'Your age helps determine which trials are right for you.' : 'Enter the age of the participant.';
 
 	return (
 		<Fieldset id="age" legend="Age" helpUrl={helpUrl + '#age'}>
-			<TextInput
-				action={(e) => validateAgeEntry(e.target.value)}
-				id="age"
-				value={inputtedAge}
-				label="age"
-				labelHidden
-				errorMessage={errorMessage}
-				inputHelpText={helperText}
-				maxLength={3}
-				onChange={validateAgeEntry}
-				modified={ageModified}
-			/>
+			<TextInput action={(e) => validateAgeEntry(e.target.value)} id="age" value={inputtedAge} label="age" labelHidden errorMessage={errorMessage} inputHelpText={helperText} maxLength={3} onChange={validateAgeEntry} modified={ageModified} />
 		</Fieldset>
 	);
 };

@@ -83,8 +83,7 @@ const convertAnalyticsDatatableObject = (obj) => {
 	return Object.entries(objPass1).reduce((ac, [key, val] = {}) => {
 		return {
 			...ac,
-			[key]:
-				typeof val === 'object' ? convertAnalyticsDatatableObject(val) : val,
+			[key]: typeof val === 'object' ? convertAnalyticsDatatableObject(val) : val,
 		};
 	}, {});
 };
@@ -95,9 +94,7 @@ const convertAnalyticsDatatableObject = (obj) => {
  * @param {string} event The name of the event
  */
 const getEventFromEDDL = (win, type, event) => {
-	return win.NCIDataLayer.filter(
-		(evt) => evt.type === type && evt.event === event
-	);
+	return win.NCIDataLayer.filter((evt) => evt.type === type && evt.event === event);
 };
 
 When('the NCIDataLayer is cleared', () => {
@@ -113,42 +110,39 @@ When('the NCIDataLayer is cleared', () => {
 // basically build up an object from the data table for comparison to the
 // matched event. Note we do not just look at the page here since in the
 // future we could have additional data points.
-Then(
-	'there should be an analytics event with the following details',
-	(datatable) => {
-		cy.window().then((win) => {
-			console.log('finding analytics event for analytics step');
-			// First convert the datatable into nested object.
-			const rawDataObj = convertAnalyticsDatatableObject(datatable.rowsHash());
-			// Gotta strip the header row. (key/value)
-			const dataObj = Object.entries(rawDataObj).reduce((ac, [key, val]) => {
-				if (key === 'key') {
-					return ac;
-				}
-				return {
-					...ac,
-					[key]: val,
-				};
-			}, {});
-
-			if (!dataObj.event) {
-				throw new Error('Datatable is missing the event name');
+Then('there should be an analytics event with the following details', (datatable) => {
+	cy.window().then((win) => {
+		console.log('finding analytics event for analytics step');
+		// First convert the datatable into nested object.
+		const rawDataObj = convertAnalyticsDatatableObject(datatable.rowsHash());
+		// Gotta strip the header row. (key/value)
+		const dataObj = Object.entries(rawDataObj).reduce((ac, [key, val]) => {
+			if (key === 'key') {
+				return ac;
 			}
+			return {
+				...ac,
+				[key]: val,
+			};
+		}, {});
 
-			if (!dataObj.type) {
-				throw new Error('Datatable is missing the event type');
-			}
+		if (!dataObj.event) {
+			throw new Error('Datatable is missing the event name');
+		}
 
-			// Find the matching events, this should be only one.
-			const matchedEvents = getEventFromEDDL(win, dataObj.type, dataObj.event);
-			expect(matchedEvents).to.have.length(1);
+		if (!dataObj.type) {
+			throw new Error('Datatable is missing the event type');
+		}
 
-			const eventData = matchedEvents[0];
-			//this still need regex support, but new function checks for exact num of values in the event
-			expect(deepEqual(eventData, dataObj)).to.be.true;
-		});
-	}
-);
+		// Find the matching events, this should be only one.
+		const matchedEvents = getEventFromEDDL(win, dataObj.type, dataObj.event);
+		expect(matchedEvents).to.have.length(1);
+
+		const eventData = matchedEvents[0];
+		//this still need regex support, but new function checks for exact num of values in the event
+		expect(deepEqual(eventData, dataObj)).to.be.true;
+	});
+});
 
 //this still need regex support, but new function checks for exact num of values in the event
 function deepEqual(eventObj, expectedObj) {
@@ -163,10 +157,7 @@ function deepEqual(eventObj, expectedObj) {
 		const val1 = eventObj[key];
 		const val2 = expectedObj[key];
 		const areObjects = isObject(val1) && isObject(val2);
-		if (
-			(areObjects && !deepEqual(val1, val2)) ||
-			(!areObjects && val1 !== val2)
-		) {
+		if ((areObjects && !deepEqual(val1, val2)) || (!areObjects && val1 !== val2)) {
 			return false;
 		}
 	}
@@ -184,45 +175,40 @@ function isObject(object) {
 //cy.window().then(win=>{
 //   cy.NCIDataLayer = Object.assign(win.NCIDataLayer)
 // })
-Then(
-	'there should be preserved analytics event with the following details',
-	(datatable) => {
-		cy.window().then(() => {
-			console.log('finding analytics event for analytics step');
-			// First convert the datatable into nested object.
-			const rawDataObj = convertAnalyticsDatatableObject(datatable.rowsHash());
-			// Gotta strip the header row. (key/value)
-			const dataObj = Object.entries(rawDataObj).reduce((ac, [key, val]) => {
-				if (key === 'key') {
-					return ac;
-				}
-				return {
-					...ac,
-					[key]: val,
-				};
-			}, {});
-
-			if (!dataObj.event) {
-				throw new Error('Datatable is missing the event name');
+Then('there should be preserved analytics event with the following details', (datatable) => {
+	cy.window().then(() => {
+		console.log('finding analytics event for analytics step');
+		// First convert the datatable into nested object.
+		const rawDataObj = convertAnalyticsDatatableObject(datatable.rowsHash());
+		// Gotta strip the header row. (key/value)
+		const dataObj = Object.entries(rawDataObj).reduce((ac, [key, val]) => {
+			if (key === 'key') {
+				return ac;
 			}
+			return {
+				...ac,
+				[key]: val,
+			};
+		}, {});
 
-			if (!dataObj.type) {
-				throw new Error('Datatable is missing the event type');
-			}
+		if (!dataObj.event) {
+			throw new Error('Datatable is missing the event name');
+		}
 
-			// Find the matching events, this should be only one.
-			const matchedEvents = getPastEventFromEDDL(dataObj.type, dataObj.event);
-			expect(matchedEvents).to.have.length(1);
+		if (!dataObj.type) {
+			throw new Error('Datatable is missing the event type');
+		}
 
-			const eventData = matchedEvents[0];
+		// Find the matching events, this should be only one.
+		const matchedEvents = getPastEventFromEDDL(dataObj.type, dataObj.event);
+		expect(matchedEvents).to.have.length(1);
 
-			expect(deepEqual(eventData, dataObj)).to.be.true;
-		});
-	}
-);
+		const eventData = matchedEvents[0];
+
+		expect(deepEqual(eventData, dataObj)).to.be.true;
+	});
+});
 ///this is to use global cy instead of win
 const getPastEventFromEDDL = (type, event) => {
-	return cy.NCIDataLayer.filter(
-		(evt) => evt.type === type && evt.event === event
-	);
+	return cy.NCIDataLayer.filter((evt) => evt.type === type && evt.event === event);
 };

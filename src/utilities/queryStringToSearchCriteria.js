@@ -81,12 +81,7 @@ const defaultState = {
  * @param {function} interventionsFetcher - the function to fetch a list of interventions
  * @param {function} zipcodeFetcher - the function to fetch a zip code
  */
-export const queryStringToSearchCriteria = async (
-	urlQuery,
-	diseaseFetcher,
-	interventionsFetcher,
-	zipcodeFetcher
-) => {
+export const queryStringToSearchCriteria = async (urlQuery, diseaseFetcher, interventionsFetcher, zipcodeFetcher) => {
 	// Store the incoming queryString
 	// Setup the two items we will be modifying throughout the parsing.
 	let rtnErrorsList = [];
@@ -207,9 +202,7 @@ export const queryStringToSearchCriteria = async (
 	if (query['lo']) {
 		// URL parsing will split params into an array on commas.
 		// string param needs to rejoin.
-		const leadOrg = Array.isArray(query['lo'])
-			? query['lo'].join(',')
-			: query['lo'];
+		const leadOrg = Array.isArray(query['lo']) ? query['lo'].join(',') : query['lo'];
 		rtnSearchCriteria = {
 			...rtnSearchCriteria,
 			leadOrg: { term: leadOrg, termKey: leadOrg },
@@ -231,9 +224,7 @@ export const queryStringToSearchCriteria = async (
 	if (query['tid']) {
 		// URL parsing will split params into an array on commas.
 		// string param needs to rejoin.
-		const ids = Array.isArray(query['tid'])
-			? query['tid'].join(',')
-			: query['tid'];
+		const ids = Array.isArray(query['tid']) ? query['tid'].join(',') : query['tid'];
 		rtnSearchCriteria = {
 			...rtnSearchCriteria,
 			trialId: ids,
@@ -262,12 +253,7 @@ export const queryStringToSearchCriteria = async (
 				healthyVolunteers: true,
 			};
 		} else {
-			rtnErrorsList.push(
-				makeError(
-					'healthyVolunteers',
-					'Please enter a valid healthy volunteer indicator.'
-				)
-			);
+			rtnErrorsList.push(makeError('healthyVolunteers', 'Please enter a valid healthy volunteer indicator.'));
 		}
 	}
 
@@ -284,10 +270,7 @@ export const queryStringToSearchCriteria = async (
 	}
 
 	// Trial Types and Phases
-	const [typeCriteria, typeErrorsList] = processChecklistField(
-		query['tt'],
-		'trialTypes'
-	);
+	const [typeCriteria, typeErrorsList] = processChecklistField(query['tt'], 'trialTypes');
 
 	// Add form state
 	rtnSearchCriteria = {
@@ -298,10 +281,7 @@ export const queryStringToSearchCriteria = async (
 	// Add Errors
 	rtnErrorsList = [...rtnErrorsList, ...typeErrorsList];
 
-	const [phasesFormState, phasesErrorsList] = processChecklistField(
-		query['tp'],
-		'trialPhases'
-	);
+	const [phasesFormState, phasesErrorsList] = processChecklistField(query['tp'], 'trialPhases');
 	// Add form state
 	rtnSearchCriteria = {
 		...rtnSearchCriteria,
@@ -322,10 +302,7 @@ export const queryStringToSearchCriteria = async (
 	// need to actually call the API for any other
 	// locations...)
 
-	const [queryLocationsPass1, locationErrorsPass1] = processLocationsPass1(
-		query,
-		rtnSearchCriteria.formType
-	);
+	const [queryLocationsPass1, locationErrorsPass1] = processLocationsPass1(query, rtnSearchCriteria.formType);
 
 	// Add in errors for pass 1.
 	rtnErrorsList = [...rtnErrorsList, ...locationErrorsPass1];
@@ -353,24 +330,17 @@ export const queryStringToSearchCriteria = async (
 	rtnErrorsList = [...rtnErrorsList, ...diseaseErrorsPass1];
 
 	// Get interventions for pass 1.
-	const [queryInterventionsPass1, interventionErrorsPass1] =
-		processInterventionsPass1(query);
+	const [queryInterventionsPass1, interventionErrorsPass1] = processInterventionsPass1(query);
 
 	// Add in disease errors for pass 1.
 	rtnErrorsList = [...rtnErrorsList, ...interventionErrorsPass1];
 
 	// Now that we know what requests to make
-	const [diseaseResults, interventionResults, locationResults] =
-		await Promise.all([
-			resolveConcepts(queryDiseasesPass1, diseaseFetcher),
-			resolveConcepts(queryInterventionsPass1, interventionsFetcher),
-			resolveLocations(queryLocationsPass1, zipcodeFetcher),
-		]);
+	const [diseaseResults, interventionResults, locationResults] = await Promise.all([resolveConcepts(queryDiseasesPass1, diseaseFetcher), resolveConcepts(queryInterventionsPass1, interventionsFetcher), resolveLocations(queryLocationsPass1, zipcodeFetcher)]);
 
 	// Process locations for pass 2. So processLocationsPass2 does not really
 	// do much processing unless it was a zip code search.
-	const [queryLocationsPass2, locationErrorsPass2] =
-		processLocationsPass2(locationResults);
+	const [queryLocationsPass2, locationErrorsPass2] = processLocationsPass2(locationResults);
 	// Add in correct locations from pass 2.
 	rtnSearchCriteria = {
 		...rtnSearchCriteria,
@@ -381,10 +351,7 @@ export const queryStringToSearchCriteria = async (
 	rtnErrorsList = [...rtnErrorsList, ...locationErrorsPass2];
 
 	// Get diseases for pass 2.
-	const [queryDiseasesPass2, diseaseErrorsPass2] = processDiseasesPass2(
-		diseaseResults,
-		rtnSearchCriteria.formType
-	);
+	const [queryDiseasesPass2, diseaseErrorsPass2] = processDiseasesPass2(diseaseResults, rtnSearchCriteria.formType);
 
 	// Add in correct concepts from pass 2.
 	rtnSearchCriteria = {
@@ -396,8 +363,7 @@ export const queryStringToSearchCriteria = async (
 	rtnErrorsList = [...rtnErrorsList, ...diseaseErrorsPass2];
 
 	// Get Interventions for pass 2.
-	const [queryInterventionsPass2, interventionErrorsPass2] =
-		processInterventionsPass2(interventionResults);
+	const [queryInterventionsPass2, interventionErrorsPass2] = processInterventionsPass2(interventionResults);
 
 	// Add in correct concepts from pass 2.
 	rtnSearchCriteria = {
@@ -454,9 +420,7 @@ const processLocationsPass1 = (query, formType) => {
 		// This is a basic search that is not using a zipcode search. Doing this here
 		// means that the switch below will never have any incorrect basic/location
 		// combinations.
-		rtnErrorsList.push(
-			makeError('location', 'Please enter a valid location type.')
-		);
+		rtnErrorsList.push(makeError('location', 'Please enter a valid location type.'));
 	} else {
 		// Switch on the location to setup a location object.
 		switch (locInt) {
@@ -481,9 +445,7 @@ const processLocationsPass1 = (query, formType) => {
 				break;
 			}
 			default: {
-				rtnErrorsList.push(
-					makeError('location', 'Please enter a valid location type.')
-				);
+				rtnErrorsList.push(makeError('location', 'Please enter a valid location type.'));
 			}
 		}
 	}
@@ -503,9 +465,7 @@ const processLocationsInstitutions = (query) => {
 		// Hospital is missing
 		rtnErrorsList.push(makeError('hospital', 'Please enter a valid hospital.'));
 	} else {
-		const hospital = Array.isArray(query['hos'])
-			? query['hos'].join(',')
-			: query['hos'];
+		const hospital = Array.isArray(query['hos']) ? query['hos'].join(',') : query['hos'];
 		queryLocations = {
 			hospital: { term: hospital, termKey: hospital },
 			location: 'search-location-hospital',
@@ -529,9 +489,7 @@ const processLocationsCountry = (query) => {
 		// Extract country
 		queryLocations = {
 			...queryLocations,
-			country: Array.isArray(query['lcnty'])
-				? query['lcnty'].join(',')
-				: query['lcnty'],
+			country: Array.isArray(query['lcnty']) ? query['lcnty'].join(',') : query['lcnty'],
 			location: 'search-location-country',
 		};
 
@@ -539,23 +497,17 @@ const processLocationsCountry = (query) => {
 		if (query['lcty']) {
 			queryLocations = {
 				...queryLocations,
-				city: Array.isArray(query['lcty'])
-					? query['lcty'].join(',')
-					: query['lcty'],
+				city: Array.isArray(query['lcty']) ? query['lcty'].join(',') : query['lcty'],
 			};
 		}
 
 		// Extract state. This needs to A) be the US, and B) be in the valid states list.
 		if (query['lst']) {
 			if (queryLocations.country !== 'United States') {
-				rtnErrorsList.push(
-					makeError('states', 'State with non-US Country Invalid.')
-				);
+				rtnErrorsList.push(makeError('states', 'State with non-US Country Invalid.'));
 			} else {
 				// For legacy support there are cases where states were separated by a comma.
-				const states = (
-					Array.isArray(query['lst']) ? query['lst'] : [query['lst']]
-				)
+				const states = (Array.isArray(query['lst']) ? query['lst'] : [query['lst']])
 					.reduce((ac, stategrp) => {
 						const stategrparr = stategrp
 							.split(',')
@@ -598,11 +550,7 @@ const processLocationsZip = (query) => {
 	let queryLocations = {};
 	let rtnErrorsList = [];
 
-	if (
-		!query['z'] ||
-		Array.isArray(query['z']) ||
-		!query['z'].match(VALID_ZIPCODE_REGEX)
-	) {
+	if (!query['z'] || Array.isArray(query['z']) || !query['z'].match(VALID_ZIPCODE_REGEX)) {
 		rtnErrorsList.push(makeError('zip', 'Invalid Parameter'));
 	} else {
 		queryLocations = {
@@ -682,12 +630,7 @@ const processDiseasesPass1 = (query) => {
 	if (query['t']) {
 		// Cancer type only allows 1 concept
 		if (Array.isArray(query['t']) && query['t'].length > 1) {
-			rtnErrorsList.push(
-				makeError(
-					'cancerType',
-					'Please include only one main cancer type in your search.'
-				)
-			);
+			rtnErrorsList.push(makeError('cancerType', 'Please include only one main cancer type in your search.'));
 		} else {
 			diseaseFieldHandler(query['t'], 'cancerType');
 		}
@@ -724,16 +667,11 @@ const processDiseasesPass2 = (diseaseResults, formType) => {
 			rtnErrorsList.push(makeError(fieldName, 'Unknown disease ID'));
 		} else {
 			// Now we need to see if we are an allowed type
-			const allowedTypes =
-				formType === 'advanced'
-					? ALLOWED_ADVANCED_DISEASES[fieldName]
-					: ALLOWED_BASIC_DISEASES[fieldName];
+			const allowedTypes = formType === 'advanced' ? ALLOWED_ADVANCED_DISEASES[fieldName] : ALLOWED_BASIC_DISEASES[fieldName];
 
 			// Find any concepts that do not have an allowed type.
 			const badType = selectedConcepts.find((concept) => {
-				const intersection = allowedTypes.filter((type) =>
-					concept.type.includes(type)
-				);
+				const intersection = allowedTypes.filter((type) => concept.type.includes(type));
 				return intersection.length === 0;
 			});
 
@@ -742,8 +680,7 @@ const processDiseasesPass2 = (diseaseResults, formType) => {
 			} else {
 				rtnSearchCriteria = {
 					...rtnSearchCriteria,
-					[fieldName]:
-						fieldName === 'cancerType' ? selectedConcepts[0] : selectedConcepts,
+					[fieldName]: fieldName === 'cancerType' ? selectedConcepts[0] : selectedConcepts,
 				};
 			}
 		}
@@ -802,9 +739,7 @@ const processInterventionsPass2 = (interventionResults) => {
 	let rtnSearchCriteria = {};
 	let rtnErrorsList = [];
 	// Now do the second pass for the interventions
-	for (const [fieldName, selectedConcepts] of Object.entries(
-		interventionResults
-	)) {
+	for (const [fieldName, selectedConcepts] of Object.entries(interventionResults)) {
 		// If this field has *any* selected concept that is UNKNOWN, then the
 		// ids are bad and the entire field fails.
 		if (selectedConcepts.find((concept) => concept.name === 'UNKNOWN')) {
@@ -815,16 +750,12 @@ const processInterventionsPass2 = (interventionResults) => {
 
 			// Find any concepts that do not have an allowed category.
 			const badType = selectedConcepts.find((concept) => {
-				const intersection = allowedCats.filter((type) =>
-					concept.category.includes(type)
-				);
+				const intersection = allowedCats.filter((type) => concept.category.includes(type));
 				return intersection.length === 0;
 			});
 
 			if (badType) {
-				rtnErrorsList.push(
-					makeError(fieldName, 'Incorrect intervention category')
-				);
+				rtnErrorsList.push(makeError(fieldName, 'Incorrect intervention category'));
 			} else {
 				rtnSearchCriteria = {
 					...rtnSearchCriteria,
@@ -877,17 +808,11 @@ const processChecklistField = (queryParam, fieldName) => {
 	let rtnErrorsList = [];
 
 	if (queryParam) {
-		const selectedOptions = (
-			Array.isArray(queryParam) ? queryParam : [queryParam]
-		).map((selectedOption) => selectedOption.toLowerCase());
+		const selectedOptions = (Array.isArray(queryParam) ? queryParam : [queryParam]).map((selectedOption) => selectedOption.toLowerCase());
 
 		// Now we need to find bad selected ID.
-		const possibleValues = defaultState[fieldName].map((option) =>
-			option.value.toLowerCase()
-		);
-		const badSelections = selectedOptions.filter(
-			(selectedOption) => !possibleValues.includes(selectedOption)
-		);
+		const possibleValues = defaultState[fieldName].map((option) => option.value.toLowerCase());
+		const badSelections = selectedOptions.filter((selectedOption) => !possibleValues.includes(selectedOption));
 
 		if (badSelections.length > 0) {
 			rtnErrorsList.push(makeError(fieldName, 'Invalid selection'));

@@ -8,9 +8,7 @@ import * as querystring from 'query-string';
  */
 export const searchDrug = async (client, query) => {
 	try {
-		const res = await client.get(
-			`/interventions?${querystring.stringify(query)}`
-		);
+		const res = await client.get(`/interventions?${querystring.stringify(query)}`);
 		if (res.status === 200) {
 			return res.data;
 		} else {
@@ -20,9 +18,7 @@ export const searchDrug = async (client, query) => {
 	} catch (error) {
 		// This conditional will be hit for any status >= 300.
 		if (error.response) {
-			throw new Error(
-				`Unexpected status ${error.response.status} for fetching drugs`
-			);
+			throw new Error(`Unexpected status ${error.response.status} for fetching drugs`);
 		}
 		throw error;
 	}

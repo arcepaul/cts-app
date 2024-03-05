@@ -4,22 +4,13 @@ import { fieldMap } from '../../../utils/ctsFields.js';
 
 And('the following checkboxes are displayed', (dataTable) => {
 	for (const { label, value } of dataTable.hashes()) {
-		cy.get(`div.cts-checkbox.check-all label[for='${value}']`)
-			.should('have.text', label)
-			.and('have.attr', 'for', value);
+		cy.get(`div.cts-checkbox.check-all label[for='${value}']`).should('have.text', label).and('have.attr', 'for', value);
 	}
 });
 
-And(
-	'button {string} is displayed at {string} position',
-	(printButtonText, printButtonPosition) => {
-		cy.get(
-			`button.results-page__print-button[data-pos='${printButtonPosition}']`
-		)
-			.should('have.text', printButtonText)
-			.and('have.attr', 'data-pos', printButtonPosition);
-	}
-);
+And('button {string} is displayed at {string} position', (printButtonText, printButtonPosition) => {
+	cy.get(`button.results-page__print-button[data-pos='${printButtonPosition}']`).should('have.text', printButtonText).and('have.attr', 'data-pos', printButtonPosition);
+});
 
 And('results pager is displayed at {string} position', (pagerPosition) => {
 	cy.get('div.results-page__pager').should('have.css', pagerPosition);
@@ -31,9 +22,7 @@ And('result list is displayed', () => {
 
 And('each result item has a checkbox', () => {
 	cy.document().then((doc) => {
-		const checkboxLocator = doc.querySelectorAll(
-			'.results-page__list .results-list-item__checkbox'
-		);
+		const checkboxLocator = doc.querySelectorAll('.results-page__list .results-list-item__checkbox');
 		for (let i = 0; i < checkboxLocator.length - 1; i++) {
 			cy.get(checkboxLocator[i]).should('be.visible');
 		}
@@ -52,9 +41,7 @@ And('each result item has title as a link', () => {
 
 And('each result item has the following information', (dataTable) => {
 	for (const { Category } of dataTable.hashes()) {
-		cy.get('div.results-list-item__category span')
-			.contains(Category)
-			.should('be.visible');
+		cy.get('div.results-list-item__category span').contains(Category).should('be.visible');
 	}
 });
 
@@ -63,9 +50,7 @@ And('search criteria accordion is displayed', () => {
 });
 
 And('button {string} is displayed', (searchCriteriaButton) => {
-	cy.get('button.cts-accordion__button')
-		.should('be.visible')
-		.and('contain.text', searchCriteriaButton);
+	cy.get('button.cts-accordion__button').should('be.visible').and('contain.text', searchCriteriaButton);
 });
 
 And('the criteria table displays the following', (dataTable) => {
@@ -142,10 +127,7 @@ Then('all of the trials are not selected', () => {
 });
 
 And('there are {int} delighters present', (count) => {
-	cy.get('.cts-delighter-container div[class^="delighter"]:visible').should(
-		'have.length',
-		count
-	);
+	cy.get('.cts-delighter-container div[class^="delighter"]:visible').should('have.length', count);
 });
 
 And('the following delighters are displayed', (dataTable) => {
@@ -162,10 +144,7 @@ And('{string} no trial info is displayed', (noTrialsText) => {
 });
 
 And('{string} text is displayed as results header', (resHeader) => {
-	cy.get('div[class="results-list no-results"]').should(
-		'include.text',
-		resHeader
-	);
+	cy.get('div[class="results-list no-results"]').should('include.text', resHeader);
 });
 
 And('text {string} is displayed', (text) => {
@@ -177,15 +156,10 @@ And('{string} has a link {string}', (link, href) => {
 	cy.get('form button').should('have.text', link);
 });
 
-When(
-	'user removes {string} from the {string} field',
-	(selectedType, fieldLabel) => {
-		cy.get(`input#${fieldMap[fieldLabel]}`)
-			.parent('.cts-chip-list')
-			.as('fieldInFocus');
-		cy.get('@fieldInFocus').find(`button[value="${selectedType}"]`).click();
-	}
-);
+When('user removes {string} from the {string} field', (selectedType, fieldLabel) => {
+	cy.get(`input#${fieldMap[fieldLabel]}`).parent('.cts-chip-list').as('fieldInFocus');
+	cy.get('@fieldInFocus').find(`button[value="${selectedType}"]`).click();
+});
 
 And('the invalid criteria table displays the following', (dataTable) => {
 	cy.get('ul > li').should('have.length', dataTable.rows().length);

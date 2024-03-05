@@ -8,9 +8,7 @@ import querystring from 'query-string';
 
 export const ctsapiInterventionFetcher = async (client, query) => {
 	try {
-		const res = await client.get(
-			`/interventions?${querystring.stringify(query)}`
-		);
+		const res = await client.get(`/interventions?${querystring.stringify(query)}`);
 		if (res.status === 200) {
 			return res.data.data.map((intervention) => ({
 				name: intervention.name,
@@ -21,16 +19,12 @@ export const ctsapiInterventionFetcher = async (client, query) => {
 			}));
 		} else {
 			// This condition will be hit for anything < 300.
-			throw new Error(
-				`Unexpected status ${res.status} for fetching interventions code(s)`
-			);
+			throw new Error(`Unexpected status ${res.status} for fetching interventions code(s)`);
 		}
 	} catch (error) {
 		// This conditional will be hit for any status >= 300.
 		if (error.response) {
-			throw new Error(
-				`Unexpected status ${error.response.status} for fetching interventions code(s)`
-			);
+			throw new Error(`Unexpected status ${error.response.status} for fetching interventions code(s)`);
 		}
 		throw error;
 	}

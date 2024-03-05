@@ -28,21 +28,12 @@ const createCTSMiddleware =
 					if (request.payload) {
 						// get descendant data and map to cache based on maintype code
 
-						const { requests: nestedRequests, cacheKey: nestedKey } =
-							request.payload;
+						const { requests: nestedRequests, cacheKey: nestedKey } = request.payload;
 
 						const nestedResponses = await getAllRequests(nestedRequests);
 
 						return {
-							[nestedKey]:
-								nestedResponses.length > 1
-									? [
-											Object.assign(
-												{},
-												...nestedResponses.map((res) => ({ ...res }))
-											),
-									  ]
-									: nestedResponses[0],
+							[nestedKey]: nestedResponses.length > 1 ? [Object.assign({}, ...nestedResponses.map((res) => ({ ...res })))] : nestedResponses[0],
 						};
 					} else {
 						const { method, requestParams, fetchHandlers } = request;
@@ -102,10 +93,7 @@ const createCTSMiddleware =
 		if (service !== null && requests) {
 			try {
 				const results = await getAllRequests(requests);
-				const valueToCache =
-					requests.length > 1
-						? [Object.assign({}, ...results.map((result) => ({ ...result })))]
-						: results;
+				const valueToCache = requests.length > 1 ? [Object.assign({}, ...results.map((result) => ({ ...result })))] : results;
 				dispatch(receiveData(cacheKey, ...valueToCache));
 			} catch (err) {
 				console.log(err);

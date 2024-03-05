@@ -18,14 +18,9 @@ const checkBoxes = {
 	Other: 'tt_other',
 };
 
-And(
-	'help icon is displayed in {string} section with href {string}',
-	(fieldLabel, helpHref) => {
-		cy.get(`#fieldset--${fieldMap[fieldLabel]}`)
-			.find('a.text-icon-help')
-			.should('have.attr', 'href', helpHref);
-	}
-);
+And('help icon is displayed in {string} section with href {string}', (fieldLabel, helpHref) => {
+	cy.get(`#fieldset--${fieldMap[fieldLabel]}`).find('a.text-icon-help').should('have.attr', 'href', helpHref);
+});
 
 And('{string} toggle is switched to {string}', (fieldLabel, value) => {
 	const checked = value.toLowerCase() === 'yes' ? true : false;
@@ -40,29 +35,16 @@ When('user toggles {string}', (fieldLabel) => {
 	cy.get(`label[for="${fieldMap[fieldLabel]}"]`).click({ force: true });
 });
 
-And(
-	'info text {string} is displayed in the {string} section body',
-	(text, fieldLabel) => {
-		cy.get(`#fieldset--${fieldMap[fieldLabel]}`)
-			.get('.cts-fieldset__body>p')
-			.eq(0);
-	}
-);
+And('info text {string} is displayed in the {string} section body', (text, fieldLabel) => {
+	cy.get(`#fieldset--${fieldMap[fieldLabel]}`).get('.cts-fieldset__body>p').eq(0);
+});
 
-And(
-	'info text {string} is displayed in the {string} section body',
-	(text, fieldLabel) => {
-		cy.get(`#fieldset--${fieldMap[fieldLabel]}`)
-			.get('.cts-fieldset__body>p')
-			.eq(0);
-	}
-);
+And('info text {string} is displayed in the {string} section body', (text, fieldLabel) => {
+	cy.get(`#fieldset--${fieldMap[fieldLabel]}`).get('.cts-fieldset__body>p').eq(0);
+});
 
 And('{string} toggle is displayed with label {string}', (fieldLabel, text) => {
-	cy.get(`input#${fieldMap[fieldLabel]}`)
-		.siblings()
-		.get('.cts-toggle__label')
-		.should('have.attr', 'aria-label', text);
+	cy.get(`input#${fieldMap[fieldLabel]}`).siblings().get('.cts-toggle__label').should('have.attr', 'aria-label', text);
 });
 
 And('trial info displays {string}', (infoText) => {
@@ -96,15 +78,12 @@ And('user selects {string} checkbox', (chckBox) => {
 	cy.get(`input#${checkBoxes[chckBox]}`).check({ force: true });
 });
 
-And(
-	'the url query has the following corresponding code with duplicated keys',
-	(dataTable) => {
-		cy.location('href').then((url) => {
-			const params = new URL(url).searchParams;
-			//verify num of url params matches expected
-			expect(Array.from(params.entries()).length).to.eq(dataTable.raw().length);
-			//verify that url query params have expected values
-			expect(Array.from(params.entries())).to.deep.equal(dataTable.raw());
-		});
-	}
-);
+And('the url query has the following corresponding code with duplicated keys', (dataTable) => {
+	cy.location('href').then((url) => {
+		const params = new URL(url).searchParams;
+		//verify num of url params matches expected
+		expect(Array.from(params.entries()).length).to.eq(dataTable.raw().length);
+		//verify that url query params have expected values
+		expect(Array.from(params.entries())).to.deep.equal(dataTable.raw());
+	});
+});

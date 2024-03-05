@@ -1,9 +1,4 @@
-import {
-	UPDATE_FORM_FIELD,
-	UPDATE_FORM,
-	UPDATE_FORM_SEARCH_CRITERIA,
-	CLEAR_FORM,
-} from '../identifiers';
+import { UPDATE_FORM_FIELD, UPDATE_FORM, UPDATE_FORM_SEARCH_CRITERIA, CLEAR_FORM } from '../identifiers';
 
 export const defaultState = {
 	age: '', // (a) Age

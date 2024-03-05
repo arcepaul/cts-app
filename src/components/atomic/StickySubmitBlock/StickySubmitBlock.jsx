@@ -61,16 +61,10 @@ const StickySubmitBlock = ({ sentinelRef, onSubmit, formType }) => {
 	return (
 		<div id="stickyAnchor" ref={stickyEl} className="sticky-block__anchor">
 			<div className="sticky-block">
-				<button
-					type="submit"
-					className="btn-submit faux-btn-submit"
-					onClick={handleClick}>
+				<button type="submit" className="btn-submit faux-btn-submit" onClick={handleClick}>
 					Find Trials
 				</button>
-				<button
-					type="button"
-					className="btn-submit clear-form"
-					onClick={handleClearForm}>
+				<button type="button" className="btn-submit clear-form" onClick={handleClearForm}>
 					Clear Form
 				</button>
 			</div>

@@ -1,9 +1,6 @@
 import { queryStringToSearchCriteria } from '../queryStringToSearchCriteria';
 import { defaultState } from './defaultStateCopy';
-import {
-	getInterventionFetcher,
-	INTERVENTION_EXPECTATION,
-} from './queryStringToSearchCriteria.common';
+import { getInterventionFetcher, INTERVENTION_EXPECTATION } from './queryStringToSearchCriteria.common';
 
 describe('Adv - Interventions - queryStringToSearchCriteria maps query to form', () => {
 	const goodMappingTestCases = [
@@ -70,10 +67,7 @@ describe('Adv - Interventions - queryStringToSearchCriteria maps query to form',
 			getInterventionFetcher(['C5555', 'C5556', 'C5557'], ['Drug A', 'Drug B']),
 			async () => null,
 			{
-				drugs: [
-					INTERVENTION_EXPECTATION['Drug A'],
-					INTERVENTION_EXPECTATION['Drug B'],
-				],
+				drugs: [INTERVENTION_EXPECTATION['Drug A'], INTERVENTION_EXPECTATION['Drug B']],
 				formType: 'advanced',
 			},
 		],
@@ -126,48 +120,27 @@ describe('Adv - Interventions - queryStringToSearchCriteria maps query to form',
 			'multiple drugs',
 			'?i=C6666&i=C6667|C6668&rl=2',
 			async () => [],
-			getInterventionFetcher(
-				['C6666', 'C6667', 'C6668'],
-				['Treatment A', 'Treatment B']
-			),
+			getInterventionFetcher(['C6666', 'C6667', 'C6668'], ['Treatment A', 'Treatment B']),
 			async () => null,
 			{
-				treatments: [
-					INTERVENTION_EXPECTATION['Treatment A'],
-					INTERVENTION_EXPECTATION['Treatment B'],
-				],
+				treatments: [INTERVENTION_EXPECTATION['Treatment A'], INTERVENTION_EXPECTATION['Treatment B']],
 				formType: 'advanced',
 			},
 		],
 	];
 
 	// Test iterates over multiple cases defined by mappingTestCases
-	it.each(goodMappingTestCases)(
-		'%# - correctly maps %s',
-		async (
-			testName,
-			urlQuery,
-			diseaseFetcher,
-			interventionsFetcher,
-			zipcodeFetcher,
-			additionalExpectedQuery
-		) => {
-			const expected = {
-				searchCriteria: {
-					...defaultState,
-					...additionalExpectedQuery,
-					qs: urlQuery,
-				},
-				errors: [],
-			};
+	it.each(goodMappingTestCases)('%# - correctly maps %s', async (testName, urlQuery, diseaseFetcher, interventionsFetcher, zipcodeFetcher, additionalExpectedQuery) => {
+		const expected = {
+			searchCriteria: {
+				...defaultState,
+				...additionalExpectedQuery,
+				qs: urlQuery,
+			},
+			errors: [],
+		};
 
-			const actual = await queryStringToSearchCriteria(
-				urlQuery,
-				diseaseFetcher,
-				interventionsFetcher,
-				zipcodeFetcher
-			);
-			expect(actual).toEqual(expected);
-		}
-	);
+		const actual = await queryStringToSearchCriteria(urlQuery, diseaseFetcher, interventionsFetcher, zipcodeFetcher);
+		expect(actual).toEqual(expected);
+	});
 });

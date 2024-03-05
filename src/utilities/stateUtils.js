@@ -4,11 +4,7 @@ export function matchStateToTerm(state, value) {
 }
 
 export function matchStateToTermWithHeaders(state, value) {
-	return (
-		state.header ||
-		state.name.toLowerCase().indexOf(value.toLowerCase()) !== -1 ||
-		state.abbr.toLowerCase().indexOf(value.toLowerCase()) !== -1
-	);
+	return state.header || state.name.toLowerCase().indexOf(value.toLowerCase()) !== -1 || state.abbr.toLowerCase().indexOf(value.toLowerCase()) !== -1;
 }
 
 /**

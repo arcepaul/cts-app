@@ -7,31 +7,16 @@ import './Fieldset.scss';
 //  @returns {node} The rendered DOM node
 //  @param {object} props  The props
 
-const Fieldset = ({
-	children,
-	classes,
-	helpUrl,
-	id,
-	legend,
-	name,
-	onChange,
-}) => {
+const Fieldset = ({ children, classes, helpUrl, id, legend, name, onChange }) => {
 	if (name) {
-		children = React.Children.map(children, (child) =>
-			React.cloneElement(child, { name, onChange: onChange })
-		);
+		children = React.Children.map(children, (child) => React.cloneElement(child, { name, onChange: onChange }));
 	}
 
 	return (
 		<fieldset id={`fieldset--${id}`} className={`cts-fieldset ${classes}`}>
 			<legend className="cts-fieldset__legend">
 				<span>{legend}</span>
-				<a
-					href={helpUrl}
-					className="text-icon-help"
-					target="_blank"
-					rel="noopener noreferrer"
-					aria-label="Help">
+				<a href={helpUrl} className="text-icon-help" target="_blank" rel="noopener noreferrer" aria-label="Help">
 					?
 				</a>
 			</legend>

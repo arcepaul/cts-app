@@ -90,10 +90,7 @@ const sites = [
 describe('filterSitesByActiveRecruitment()', () => {
 	it('should return list of sites with only active recruitment statuses', () => {
 		const activeRecruitmentSites = filterSitesByActiveRecruitment(sites);
-		const expectedOrgs = [
-			'Providence Alaska Medical Center',
-			'Anchorage Oncology Centre',
-		];
+		const expectedOrgs = ['Providence Alaska Medical Center', 'Anchorage Oncology Centre'];
 
 		expect(activeRecruitmentSites).toHaveLength(2);
 		activeRecruitmentSites.map((activeSite) => {

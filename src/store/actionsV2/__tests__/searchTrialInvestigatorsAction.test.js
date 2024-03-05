@@ -21,9 +21,7 @@ describe('searchTrialInvestigatorsAction', () => {
 			},
 		};
 
-		expect(searchTrialInvestigatorsAction({ searchText })).toEqual(
-			expectedAction
-		);
+		expect(searchTrialInvestigatorsAction({ searchText })).toEqual(expectedAction);
 	});
 
 	it('handles exception when called without an searchText parameter', () => {

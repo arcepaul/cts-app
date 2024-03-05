@@ -1,11 +1,5 @@
 // import querystring from 'query-string';
-import {
-	UPDATE_FORM_FIELD,
-	UPDATE_FORM,
-	UPDATE_FORM_SEARCH_CRITERIA,
-	CLEAR_FORM,
-	RECEIVE_DATA,
-} from './identifiers';
+import { UPDATE_FORM_FIELD, UPDATE_FORM, UPDATE_FORM_SEARCH_CRITERIA, CLEAR_FORM, RECEIVE_DATA } from './identifiers';
 
 import { ACTIVE_TRIAL_STATUSES } from '../constants';
 
@@ -54,11 +48,7 @@ export function clearForm() {
 	};
 }
 
-export function getDiseasesForSimpleTypeAhead({
-	name,
-	size = 10,
-	isDebug = false,
-}) {
+export function getDiseasesForSimpleTypeAhead({ name, size = 10, isDebug = false }) {
 	return {
 		type: '@@api/CTS',
 		payload: {
@@ -83,10 +73,7 @@ export function getDiseasesForSimpleTypeAhead({
 
 							// TODO: DEBUG
 							if (isDebug) {
-								diseases.forEach(
-									(disease) =>
-										(disease.name += ' (' + disease.codes.join('|') + ')')
-								);
+								diseases.forEach((disease) => (disease.name += ' (' + disease.codes.join('|') + ')'));
 							}
 
 							return diseases;

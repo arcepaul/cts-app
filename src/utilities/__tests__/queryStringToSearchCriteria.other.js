@@ -12,12 +12,7 @@ describe('Basic - queryStringToSearchCriteria maps query to form', () => {
 			errors: [],
 		};
 
-		const actual = await queryStringToSearchCriteria(
-			'',
-			diseaseFetcher,
-			interventionsFetcher,
-			zipcodeFetcher
-		);
+		const actual = await queryStringToSearchCriteria('', diseaseFetcher, interventionsFetcher, zipcodeFetcher);
 		expect(actual).toEqual(expected);
 	});
 
@@ -35,12 +30,7 @@ describe('Basic - queryStringToSearchCriteria maps query to form', () => {
 			errors: [],
 		};
 
-		const actual = await queryStringToSearchCriteria(
-			'r=1',
-			diseaseFetcher,
-			interventionsFetcher,
-			zipcodeFetcher
-		);
+		const actual = await queryStringToSearchCriteria('r=1', diseaseFetcher, interventionsFetcher, zipcodeFetcher);
 		expect(actual).toEqual(expected);
 	});
 
@@ -59,12 +49,7 @@ describe('Basic - queryStringToSearchCriteria maps query to form', () => {
 			],
 		};
 
-		const actual = await queryStringToSearchCriteria(
-			'r=1',
-			diseaseFetcher,
-			interventionsFetcher,
-			zipcodeFetcher
-		);
+		const actual = await queryStringToSearchCriteria('r=1', diseaseFetcher, interventionsFetcher, zipcodeFetcher);
 		expect(actual).toEqual(expected);
 	});
 
@@ -83,12 +68,7 @@ describe('Basic - queryStringToSearchCriteria maps query to form', () => {
 			],
 		};
 
-		const actual = await queryStringToSearchCriteria(
-			'',
-			diseaseFetcher,
-			interventionsFetcher,
-			zipcodeFetcher
-		);
+		const actual = await queryStringToSearchCriteria('', diseaseFetcher, interventionsFetcher, zipcodeFetcher);
 		expect(actual).toEqual(expected);
 	});
 });

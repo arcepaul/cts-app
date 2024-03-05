@@ -2,15 +2,9 @@
 import { Then, When, And } from 'cypress-cucumber-preprocessor/steps';
 import { fieldMap } from '../../../utils/ctsFields.js';
 
-And(
-	'help icon is displayed in {string} section with href {string}',
-	(fieldLabel, helpHref) => {
-		cy.get('#fieldset--trialid')
-			.find('a.text-icon-help')
-			.should('be.visible', fieldLabel)
-			.and('have.attr', 'href', helpHref);
-	}
-);
+And('help icon is displayed in {string} section with href {string}', (fieldLabel, helpHref) => {
+	cy.get('#fieldset--trialid').find('a.text-icon-help').should('be.visible', fieldLabel).and('have.attr', 'href', helpHref);
+});
 
 And('trial info displays {string}', (infoText) => {
 	cy.get('.all-trials').should('have.text', infoText);

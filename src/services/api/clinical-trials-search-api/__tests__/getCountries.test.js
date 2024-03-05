@@ -1,4 +1,3 @@
-import axios from 'axios';
 import querystring from 'query-string';
 import nock from 'nock';
 
@@ -6,9 +5,6 @@ import clinicalTrialsSearchClientFactory from '../clinicalTrialsSearchClientFact
 import { ACTIVE_TRIAL_STATUSES } from '../../../../constants';
 import { getCountries } from '../getCountries';
 import { getCountriesAction } from '../../../../store/actionsV2';
-
-// Required for unit tests to not have CORS issues
-axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const client = clinicalTrialsSearchClientFactory('http://example.org');
 
@@ -232,9 +228,7 @@ describe('getCountries', () => {
 		const scope = nock('http://example.org')
 			.get(`/trials?${querystring.stringify(requestQuery)}`)
 			.reply(404);
-		await expect(
-			getCountries(client, query.payload.requestParams)
-		).rejects.toThrow('Unexpected status 404 for fetching countries');
+		await expect(getCountries(client, query.payload.requestParams)).rejects.toThrow('Unexpected status 404 for fetching countries');
 		scope.isDone();
 	});
 
@@ -250,9 +244,7 @@ describe('getCountries', () => {
 		const scope = nock('http://example.org')
 			.get(`/trials?${querystring.stringify(requestQuery)}`)
 			.reply(500);
-		await expect(
-			getCountries(client, query.payload.requestParams)
-		).rejects.toThrow('Unexpected status 500 for fetching countries');
+		await expect(getCountries(client, query.payload.requestParams)).rejects.toThrow('Unexpected status 500 for fetching countries');
 		scope.isDone();
 	});
 
@@ -268,9 +260,7 @@ describe('getCountries', () => {
 		const scope = nock('http://example.org')
 			.get(`/trials?${querystring.stringify(requestQuery)}`)
 			.replyWithError('connection refused');
-		await expect(
-			getCountries(client, query.payload.requestParams)
-		).rejects.toThrow('connection refused');
+		await expect(getCountries(client, query.payload.requestParams)).rejects.toThrow('connection refused');
 		scope.isDone();
 	});
 });

@@ -1,10 +1,6 @@
 import { defaultState } from './defaultStateCopy';
 import { formatTrialSearchQuery } from '../formatTrialSearchQuery';
-import {
-	ACTIVE_TRIAL_STATUSES,
-	ACTIVE_RECRUITMENT_STATUSES,
-	SEARCH_RETURNS_FIELDS,
-} from '../../constants';
+import { ACTIVE_TRIAL_STATUSES, ACTIVE_RECRUITMENT_STATUSES, SEARCH_RETURNS_FIELDS } from '../../constants';
 
 /**
  * This file contains tests for the formatTrialSearchQuery
@@ -353,9 +349,7 @@ const mappingTestCases = [
 	[
 		'one stage/one code',
 		{
-			stages: [
-				{ name: 'Stage IIIB Inflammatory Breast Cancer', codes: ['C9246'] },
-			],
+			stages: [{ name: 'Stage IIIB Inflammatory Breast Cancer', codes: ['C9246'] }],
 		},
 		{
 			stage: ['C9246'],
@@ -444,11 +438,7 @@ const mappingTestCases = [
 			],
 		},
 		{
-			'arms.interventions.nci_thesaurus_concept_id': [
-				'C1674',
-				'C308',
-				'C15262',
-			],
+			'arms.interventions.nci_thesaurus_concept_id': ['C1674', 'C308', 'C15262'],
 		},
 	],
 	[
@@ -486,11 +476,7 @@ const mappingTestCases = [
 			],
 		},
 		{
-			'arms.interventions.nci_thesaurus_concept_id': [
-				'C17173',
-				'C308',
-				'C15262',
-			],
+			'arms.interventions.nci_thesaurus_concept_id': ['C17173', 'C308', 'C15262'],
 		},
 	],
 	[
@@ -500,34 +486,27 @@ const mappingTestCases = [
 			treatments: [{ name: 'Surgery', codes: ['C17173'] }],
 		},
 		{
-			'arms.interventions.nci_thesaurus_concept_id': [
-				'C308',
-				'C15262',
-				'C17173',
-			],
+			'arms.interventions.nci_thesaurus_concept_id': ['C308', 'C15262', 'C17173'],
 		},
 	],
 ];
 
 describe('formatTrialSearchQuery maps form to query', () => {
 	// Test iterates over multiple cases defined by mappingTestCases
-	it.each(mappingTestCases)(
-		'%# - correctly maps %s',
-		(testName, formStateChanges, additionalExpectedQuery) => {
-			const testForm = {
-				...defaultState,
-				...formStateChanges,
-			};
+	it.each(mappingTestCases)('%# - correctly maps %s', (testName, formStateChanges, additionalExpectedQuery) => {
+		const testForm = {
+			...defaultState,
+			...formStateChanges,
+		};
 
-			const expected = {
-				...additionalExpectedQuery,
-				...BASE_EXPECTED_QUERY,
-			};
+		const expected = {
+			...additionalExpectedQuery,
+			...BASE_EXPECTED_QUERY,
+		};
 
-			const actual = formatTrialSearchQuery(testForm);
-			expect(actual).toEqual(expected);
-		}
-	);
+		const actual = formatTrialSearchQuery(testForm);
+		expect(actual).toEqual(expected);
+	});
 });
 
 /**

@@ -13,18 +13,12 @@ describe('getClinicalTrialDescriptionAction action', () => {
 	it('handles exception with null, undefined, or no parameter specified when invoked', () => {
 		expect(() => {
 			getClinicalTrialDescriptionAction(null);
-		}).toThrow(
-			'You must specify a trialId in order to fetch a trial description.'
-		);
+		}).toThrow('You must specify a trialId in order to fetch a trial description.');
 		expect(() => {
 			getClinicalTrialDescriptionAction(undefined);
-		}).toThrow(
-			'You must specify a trialId in order to fetch a trial description.'
-		);
+		}).toThrow('You must specify a trialId in order to fetch a trial description.');
 		expect(() => {
 			getClinicalTrialDescriptionAction();
-		}).toThrow(
-			'You must specify a trialId in order to fetch a trial description.'
-		);
+		}).toThrow('You must specify a trialId in order to fetch a trial description.');
 	});
 });

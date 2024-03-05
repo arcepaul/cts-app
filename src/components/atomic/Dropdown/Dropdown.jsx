@@ -57,9 +57,7 @@ class Dropdown extends React.Component {
 		this.state = {
 			value: this.props.value || '',
 			hasError: this.props.errorMessage ? true : false,
-			errorMessageBody: this.props.errorMessage
-				? this.props.errorMessage
-				: null,
+			errorMessageBody: this.props.errorMessage ? this.props.errorMessage : null,
 		};
 	}
 
@@ -107,11 +105,7 @@ class Dropdown extends React.Component {
 	render() {
 		return (
 			<div className={this.props.classes}>
-				<InputLabel
-					htmlFor={this.id}
-					required={this.props.required}
-					label={this.props.label}
-				/>
+				<InputLabel htmlFor={this.id} required={this.props.required} label={this.props.label} />
 
 				{this.props.hasError && (
 					<span className="cts-error-message" role="alert">
@@ -119,13 +113,7 @@ class Dropdown extends React.Component {
 					</span>
 				)}
 				{/* eslint-disable-next-line jsx-a11y/no-onchange */}
-				<select
-					className="cts-select"
-					name={this.props.name || this.props.id}
-					id={this.id}
-					value={this.state.value}
-					required={this.props.required}
-					onChange={this._handleChange.bind(this)}>
+				<select className="cts-select" name={this.props.name || this.props.id} id={this.id} value={this.state.value} required={this.props.required} onChange={this._handleChange.bind(this)}>
 					{this.state.value === '' && (
 						<option disabled value="">
 							Select ...

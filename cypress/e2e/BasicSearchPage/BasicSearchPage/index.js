@@ -28,14 +28,9 @@ And('Search tip icon is displayed and text {string} appears', (tiptext) => {
 	cy.get('.cts-search-tip__body').should('contain', tiptext);
 });
 
-Then(
-	'help icon is displayed in {string} section with href {string}',
-	(fieldLabel, helpHref) => {
-		cy.get(`#fieldset--${labelFieldMap[fieldLabel]}`)
-			.find('a.text-icon-help')
-			.should('have.attr', 'href', helpHref);
-	}
-);
+Then('help icon is displayed in {string} section with href {string}', (fieldLabel, helpHref) => {
+	cy.get(`#fieldset--${labelFieldMap[fieldLabel]}`).find('a.text-icon-help').should('have.attr', 'href', helpHref);
+});
 
 And('autocomplete dropdown is displayed', () => {
 	cy.get('.cts-autocomplete .menu-anchor :visible').should('exist');
@@ -49,16 +44,9 @@ And('results info has text {string}', (resultsInfo) => {
 	cy.get('.cts-results-header .all-trials').should('have.text', resultsInfo);
 });
 
-Then(
-	'{string} input field has a placeholder {string}',
-	(fieldLabel, placeholderText) => {
-		cy.get(`input#${inputFieldMap[fieldLabel]}`).should(
-			'have.attr',
-			'placeholder',
-			placeholderText
-		);
-	}
-);
+Then('{string} input field has a placeholder {string}', (fieldLabel, placeholderText) => {
+	cy.get(`input#${inputFieldMap[fieldLabel]}`).should('have.attr', 'placeholder', placeholderText);
+});
 
 When('user clicks on {string} field', (fieldLabel) => {
 	cy.get(`input#${inputFieldMap[fieldLabel]}`).click();
@@ -76,19 +64,12 @@ And('trial info displays {string}', (infoText) => {
 	cy.get('.all-trials').should('have.text', infoText);
 });
 
-Then(
-	'alert {string} is displayed in {string} section',
-	(alertText, fieldLabel) => {
-		cy.get(
-			`#fieldset--${labelFieldMap[fieldLabel]} .cts-input__error-message`
-		).should('have.text', alertText);
-	}
-);
+Then('alert {string} is displayed in {string} section', (alertText, fieldLabel) => {
+	cy.get(`#fieldset--${labelFieldMap[fieldLabel]} .cts-input__error-message`).should('have.text', alertText);
+});
 
 Then('alert is not displayed in {string} section', (fieldLabel) => {
-	cy.get('article')
-		.find(`#fieldset--${labelFieldMap[fieldLabel]} .cts-input__error-message`)
-		.should('not.exist');
+	cy.get('article').find(`#fieldset--${labelFieldMap[fieldLabel]} .cts-input__error-message`).should('not.exist');
 });
 
 Then('the search is not executed and path is {string}', (path) => {

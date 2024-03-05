@@ -15,30 +15,21 @@ export const getTrackingData = (store) => store.tracking;
  * @param {Function} getTrackingData
  * @returns {boolean} hasDispatchedFormInteractionEvent
  */
-export const getHasDispatchedFormInteractionEvent = createSelector(
-	getTrackingData,
-	(trackingData) => trackingData.hasDispatchedFormInteractionEvent
-);
+export const getHasDispatchedFormInteractionEvent = createSelector(getTrackingData, (trackingData) => trackingData.hasDispatchedFormInteractionEvent);
 
 /**
  * getHasUserInteractedWithForm - Returns set store flag that determines if any tracked form has been interacted with
  * @param {Function} getTrackingData
  * @returns {boolean} hasUserInteractedWithForm
  */
-export const getHasUserInteractedWithForm = createSelector(
-	getTrackingData,
-	(trackingData) => trackingData.hasUserInteractedWithForm
-);
+export const getHasUserInteractedWithForm = createSelector(getTrackingData, (trackingData) => trackingData.hasUserInteractedWithForm);
 
 /**
  * getFormTrackingData - Simple selector to return forms array from tracking object
  * @param {tracking} getTrackingData
  * @returns {Array} forms
  */
-export const getFormTrackingData = createSelector(
-	getTrackingData,
-	(trackingData) => trackingData.forms
-);
+export const getFormTrackingData = createSelector(getTrackingData, (trackingData) => trackingData.forms);
 
 /**
  * getFormInFocus - Returns the current/last tracked form that had focus
@@ -46,16 +37,10 @@ export const getFormTrackingData = createSelector(
  * @param {Function} getFormTrackingData
  * @returns {Object} formInFocus
  */
-export const getFormInFocus = createSelector(
-	getHasUserInteractedWithForm,
-	getFormTrackingData,
-	(hasUserInteractedWithForm, formTrackingData) => {
-		const formInFocus = hasUserInteractedWithForm
-			? formTrackingData.filter((form) => form.isFocused)
-			: [];
-		return formInFocus;
-	}
-);
+export const getFormInFocus = createSelector(getHasUserInteractedWithForm, getFormTrackingData, (hasUserInteractedWithForm, formTrackingData) => {
+	const formInFocus = hasUserInteractedWithForm ? formTrackingData.filter((form) => form.isFocused) : [];
+	return formInFocus;
+});
 
 /**
  * getFieldInFocus - Returns the current/last tracked form field that had focus
@@ -63,10 +48,6 @@ export const getFormInFocus = createSelector(
  * @returns {Object} fieldInFocus
  */
 export const getFieldInFocus = createSelector(getFormInFocus, (formInFocus) => {
-	const fieldInFocus =
-		formInFocus.length > 0
-			? formInFocus[0].fields.length > 0 &&
-			  formInFocus[0].fields.filter((field) => field.isFocused)[0]
-			: {};
+	const fieldInFocus = formInFocus.length > 0 ? formInFocus[0].fields.length > 0 && formInFocus[0].fields.filter((field) => field.isFocused)[0] : {};
 	return fieldInFocus;
 });
